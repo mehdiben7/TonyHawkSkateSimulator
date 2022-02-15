@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar layoutX="-8.0" layoutY="2.0" prefHeight="25.0" prefWidth="1005.0">
         <menus>
@@ -40,67 +45,58 @@
                <children>
                   <Pane prefHeight="725.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="79.0" layoutY="9.0" text="Chart" />
+                        <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+                                 <effect>
+                                    <Blend />
+                                 </effect>
+                                 <tickLabelFont>
+                                    <Font size="10.0" />
+                                 </tickLabelFont>
+                              </NumberAxis>
+                          </yAxis>
+                        </BarChart>
                      </children>
                   </Pane>
                   <Pane prefHeight="725.0" prefWidth="600.0">
                      <children>
-                        <Label layoutX="286.0" layoutY="14.0" text="The Skaters" />
+                        <Label layoutX="223.0" layoutY="14.0" text="Tony Hawk's skate simulator " />
                      </children>
                   </Pane>
                   <VBox prefHeight="725.0" prefWidth="200.0">
                      <children>
-                        <Pane minWidth="-Infinity" prefHeight="500.0" prefWidth="250.0">
+                        <Pane minWidth="-Infinity" prefHeight="519.0" prefWidth="200.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="User input settings" />
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                       <children>
-                                          <Label text="Skater's mass" />
-                                          <TextField prefWidth="50.0" />
-                                          <Label text="kg" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                       <children>
-                                          <Label text="Initial height" />
-                                          <TextField prefWidth="50.0" />
-                                          <Label text="m" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="119.0" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
-                                       <children>
-                                          <Label text="Gravitational acc." />
-                                          <TextField prefWidth="50.0" />
-                                          <Label text="m/s^2" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
+                              <Label layoutX="21.0" layoutY="43.0" text="Skater's mass" />
+                              <TextField layoutX="100.0" layoutY="39.0" prefWidth="50.0" />
+                              <Label layoutX="154.0" layoutY="43.0" prefHeight="15.0" prefWidth="14.0" text="kg" />
+                              <TextField layoutX="100.0" layoutY="94.0" prefWidth="50.0" />
+                              <Label layoutX="23.0" layoutY="98.0" text="Initial height" />
+                              <Label layoutX="156.0" layoutY="99.0" text="m" />
+                              <Label layoutX="21.0" layoutY="148.0" text="Gravity" />
+                              <TextField layoutX="100.0" layoutY="144.0" prefWidth="50.0" />
+                              <Label layoutX="156.0" layoutY="148.0" text="m/s^2" />
+                              <Slider layoutX="29.0" layoutY="222.0" />
+                              <Label layoutX="47.0" layoutY="205.0" text="Angle of the incline " />
+                              <Label layoutX="60.0" layoutY="274.0" text="Parabola width" />
+                              <Slider layoutX="29.0" layoutY="291.0" />
+                              <Label layoutX="64.0" layoutY="242.0" text="Current angle" />
+                              <Label layoutX="58.0" layoutY="364.0" text="Current friction" />
+                              <CheckBox layoutX="42.0" layoutY="432.0" mnemonicParsing="false" text="Show force vector" />
+                              <Label layoutX="79.0" layoutY="333.0" text="Friction" />
+                              <Slider layoutX="30.0" layoutY="350.0" />
+                              <Label layoutX="63.0" layoutY="305.0" text="Current width" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="225.0" prefWidth="0.0">
+                        <Pane prefHeight="276.0" prefWidth="200.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label text="Path settings" />
-                                 </children>
-                              </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <RadioButton mnemonicParsing="false" text="RadioButton" />
-                                 </children>
-                              </VBox>
+                              <Button layoutX="26.0" layoutY="66.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" text="Path1" />
+                              <Button layoutX="26.0" layoutY="100.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" text="Path2" />
+                              <Button layoutX="26.0" layoutY="133.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefWidth="50.0" text="Path3" />
                            </children>
                         </Pane>
                      </children>
