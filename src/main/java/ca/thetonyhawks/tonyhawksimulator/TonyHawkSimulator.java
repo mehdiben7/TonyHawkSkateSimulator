@@ -18,6 +18,7 @@ public class TonyHawkSimulator extends Application {
         Parent content = loader.load();
 
         Scene scene = new Scene(content, 1000, 800);
+//        Scene scene = new Scene(content, 400, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.setResizable(false);
