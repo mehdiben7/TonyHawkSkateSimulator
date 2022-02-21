@@ -14,7 +14,7 @@ public class TonyHawkSimulator extends Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/ImportDatabase.fxml"));
+        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/UserInterface.fxml"));
         Parent content = loader.load();
 
         Scene mainScene = new Scene(content, 1000, 600);
