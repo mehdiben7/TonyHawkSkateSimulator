@@ -15,6 +15,7 @@ public class TonyHawkSimulatorController {
     @FXML
     private MenuItem about, database;
 
+
     @FXML
     private void showImportDatabaseWindow(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader();
