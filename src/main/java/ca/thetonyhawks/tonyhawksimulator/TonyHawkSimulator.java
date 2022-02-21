@@ -14,13 +14,13 @@ public class TonyHawkSimulator extends Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/About.fxml"));
+        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/ImportDatabase.fxml"));
         Parent content = loader.load();
 
-        Scene scene = new Scene(content, 300, 500);
-        stage.setTitle("About this project");
-        stage.setScene(scene);
-        stage.setResizable(false);
+        Scene mainScene = new Scene(content, 1000, 600);
+        stage.setTitle("Tony Hawk Skate Simulator");
+        stage.setScene(mainScene);
+
         stage.show();
     }
 
