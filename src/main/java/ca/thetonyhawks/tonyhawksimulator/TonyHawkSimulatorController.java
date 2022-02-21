@@ -18,7 +18,7 @@ public class TonyHawkSimulatorController {
     @FXML
     private void showImportDatabaseWindow(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/ImportDatabse.fxml"));
+        loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/ImportDatabase.fxml"));
         Parent databaseContent = null;
 
         try {
@@ -32,6 +32,8 @@ public class TonyHawkSimulatorController {
         Scene databaseScene = new Scene(databaseContent, 400, 600);
         importDatabaseStage.setTitle("Import planets' acceleration values");
         importDatabaseStage.setScene(databaseScene);
+        importDatabaseStage.setResizable(false);
+        // TODO Make sure the database import UI is responsive
         importDatabaseStage.show();
     }
 
