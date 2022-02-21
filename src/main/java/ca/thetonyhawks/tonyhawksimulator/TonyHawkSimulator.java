@@ -18,11 +18,12 @@ public class TonyHawkSimulator extends Application {
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/UserInterface.fxml"));
         Pane content = loader.load();
 
-        Scene mainScene = new Scene(content, 1000, 800);
+        Scene mainScene = new Scene(content, 1000, 900);
         stage.setTitle("Tony Hawk Skate Simulator");
         stage.setScene(mainScene);
-//        stage.setResizable(false);
-// bkabaknaknak
+        stage.setMinWidth(1000);
+        stage.setMinHeight(900);
+
         stage.show();
     }
 

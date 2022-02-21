@@ -26,25 +26,6 @@
    <center>
       <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane minWidth="150.0">
-               <children>
-                  <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
-                           <effect>
-                              <Blend />
-                           </effect>
-                           <tickLabelFont>
-                              <Font size="10.0" />
-                           </tickLabelFont>
-                        </NumberAxis>
-                    </yAxis>
-                  </BarChart>
-               </children>
-            </Pane>
             <Pane prefHeight="725.0" prefWidth="600.0">
                <children>
                   <Label layoutX="131.0" layoutY="17.0" text="Tony Hawk's Skate Simulator ">
@@ -55,67 +36,6 @@
                   <Polyline fill="#ffbc00" layoutX="286.0" layoutY="382.0" points="314.0, 72.0, 314.0, 343.0, -286.0, 343.0, -286.0, -190.0" strokeType="INSIDE" strokeWidth="5.0" />
                </children>
             </Pane>
-            <VBox alignment="TOP_CENTER" minWidth="200.0" spacing="35.0">
-               <children>
-                  <VBox alignment="CENTER" spacing="25.0">
-                     <children>
-                        <VBox alignment="CENTER" spacing="20.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                 <children>
-                                    <Label text="Skater's mass" />
-                                    <TextField prefWidth="50.0" />
-                                    <Label prefHeight="15.0" prefWidth="14.0" text="kg" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                 <children>
-                                    <Label text="Initial height" />
-                                    <TextField prefWidth="50.0" />
-                                    <Label text="m" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <VBox alignment="CENTER" spacing="5.0">
-                           <children>
-                              <Label text="Angle of the incline " />
-                              <Slider />
-                              <Label text="Current angle" />
-                              <Label text="Parabola width" />
-                              <Slider />
-                              <Label text="Current width" />
-                              <Label text="Friction" />
-                              <Slider />
-                              <Label text="Current friction" />
-                              <CheckBox mnemonicParsing="false" text="Show force vector" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" spacing="20.0">
-                     <children>
-                        <ComboBox prefWidth="150.0" promptText="Paths" />
-                        <ComboBox prefWidth="150.0" promptText="Planet" />
-                     </children>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </VBox>
          </children>
       </HBox>
    </center>
@@ -132,6 +52,11 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Window">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Appearance" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="About" />
@@ -141,27 +66,107 @@
       </MenuBar>
    </top>
    <bottom>
-      <Pane prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" spacing="50.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" spacing="50.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                     <children>
-                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
-                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
-                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
-                     <children>
-                        <Label text="Speed: " />
-                        <Button mnemonicParsing="false" text="Normal " />
-                        <Button mnemonicParsing="false" text="Slow motion" />
-                     </children>
-                  </HBox>
+                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
+                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
+                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
+               <children>
+                  <Label text="Speed: " />
+                  <Button mnemonicParsing="false" text="Normal " />
+                  <Button mnemonicParsing="false" text="Slow motion" />
                </children>
             </HBox>
          </children>
-      </Pane>
+      </HBox>
    </bottom>
+   <left>
+      <Pane minWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <tickLabelFont>
+                        <Font size="10.0" />
+                     </tickLabelFont>
+                  </NumberAxis>
+              </yAxis>
+            </BarChart>
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <VBox alignment="TOP_CENTER" minWidth="200.0" spacing="35.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" spacing="25.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <Label text="Skater's mass" />
+                              <TextField prefWidth="50.0" />
+                              <Label prefHeight="15.0" prefWidth="14.0" text="kg" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <Label text="Initial height" />
+                              <TextField prefWidth="50.0" />
+                              <Label text="m" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="Angle of the incline " />
+                        <Slider />
+                        <Label text="Current angle" />
+                        <Label text="Parabola width" />
+                        <Slider />
+                        <Label text="Current width" />
+                        <Label text="Friction" />
+                        <Slider />
+                        <Label text="Current friction" />
+                        <CheckBox mnemonicParsing="false" text="Show force vector" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <ComboBox prefWidth="150.0" promptText="Paths" />
+                  <ComboBox prefWidth="150.0" promptText="Planet" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>
