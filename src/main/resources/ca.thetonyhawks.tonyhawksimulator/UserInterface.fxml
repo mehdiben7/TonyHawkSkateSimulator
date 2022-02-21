@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -19,123 +21,147 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
-   <children>
-      <BorderPane>
-         <center>
-            <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
+   <center>
+      <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane minWidth="150.0">
                <children>
-                  <Pane prefHeight="725.0" prefWidth="200.0">
+                  <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+                           <effect>
+                              <Blend />
+                           </effect>
+                           <tickLabelFont>
+                              <Font size="10.0" />
+                           </tickLabelFont>
+                        </NumberAxis>
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </Pane>
+            <Pane prefHeight="725.0" prefWidth="600.0">
+               <children>
+                  <Label layoutX="131.0" layoutY="17.0" text="Tony Hawk's Skate Simulator ">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Polyline fill="#ffbc00" layoutX="286.0" layoutY="382.0" points="314.0, 72.0, 314.0, 343.0, -286.0, 343.0, -286.0, -190.0" strokeType="INSIDE" strokeWidth="5.0" />
+               </children>
+            </Pane>
+            <VBox alignment="TOP_CENTER" minWidth="200.0" spacing="35.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="25.0">
                      <children>
-                        <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
-                                 <effect>
-                                    <Blend />
-                                 </effect>
-                                 <tickLabelFont>
-                                    <Font size="10.0" />
-                                 </tickLabelFont>
-                              </NumberAxis>
-                          </yAxis>
-                        </BarChart>
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="725.0" prefWidth="600.0">
-                     <children>
-                        <Label layoutX="131.0" layoutY="17.0" text="Tony Hawk's Skate Simulator ">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Label>
-                        <Polyline fill="#ffbc00" layoutX="286.0" layoutY="382.0" points="314.0, 72.0, 314.0, 343.0, -286.0, 343.0, -286.0, -190.0" strokeType="INSIDE" strokeWidth="5.0" />
-                     </children>
-                  </Pane>
-                  <VBox prefHeight="725.0" prefWidth="200.0">
-                     <children>
-                        <Pane minWidth="-Infinity" prefHeight="519.0" prefWidth="200.0">
+                        <VBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <Label layoutX="21.0" layoutY="43.0" text="Skater's mass" />
-                              <TextField layoutX="100.0" layoutY="39.0" prefWidth="50.0" />
-                              <Label layoutX="154.0" layoutY="43.0" prefHeight="15.0" prefWidth="14.0" text="kg" />
-                              <TextField layoutX="100.0" layoutY="94.0" prefWidth="50.0" />
-                              <Label layoutX="23.0" layoutY="98.0" text="Initial height" />
-                              <Label layoutX="156.0" layoutY="99.0" text="m" />
-                              <Label layoutX="21.0" layoutY="148.0" text="Gravity" />
-                              <TextField layoutX="100.0" layoutY="144.0" prefWidth="50.0" />
-                              <Label layoutX="156.0" layoutY="148.0" text="m/s^2" />
-                              <Slider layoutX="29.0" layoutY="222.0" />
-                              <Label layoutX="47.0" layoutY="205.0" text="Angle of the incline " />
-                              <Label layoutX="60.0" layoutY="274.0" text="Parabola width" />
-                              <Slider layoutX="29.0" layoutY="291.0" />
-                              <Label layoutX="64.0" layoutY="242.0" text="Current angle" />
-                              <Label layoutX="58.0" layoutY="364.0" text="Current friction" />
-                              <CheckBox layoutX="42.0" layoutY="432.0" mnemonicParsing="false" text="Show force vector" />
-                              <Label layoutX="79.0" layoutY="333.0" text="Friction" />
-                              <Slider layoutX="30.0" layoutY="350.0" />
-                              <Label layoutX="63.0" layoutY="305.0" text="Current width" />
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label text="Skater's mass" />
+                                    <TextField prefWidth="50.0" />
+                                    <Label prefHeight="15.0" prefWidth="14.0" text="kg" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label text="Initial height" />
+                                    <TextField prefWidth="50.0" />
+                                    <Label text="m" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
                            </children>
-                        </Pane>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button minHeight="25.0" minWidth="75.0" mnemonicParsing="false" text="Path1" />
-                              <Button minHeight="25.0" minWidth="75.0" mnemonicParsing="false" text="Path2" />
-                              <Button minHeight="0.0" minWidth="75.0" mnemonicParsing="false" prefWidth="50.0" text="Path3" />
+                              <Label text="Angle of the incline " />
+                              <Slider />
+                              <Label text="Current angle" />
+                              <Label text="Parabola width" />
+                              <Slider />
+                              <Label text="Current width" />
+                              <Label text="Friction" />
+                              <Slider />
+                              <Label text="Current friction" />
+                              <CheckBox mnemonicParsing="false" text="Show force vector" />
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </VBox>
                      </children>
                   </VBox>
-               </children>
-            </HBox>
-         </center>
-         <top>
-            <MenuBar BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem fx:id="database" mnemonicParsing="false" onAction="#showImportDatabaseWindow" text="Import planets database..." />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
-         <bottom>
-            <Pane prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" spacing="50.0">
+                  <VBox alignment="CENTER" spacing="20.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
-                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
-                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
-                           <children>
-                              <Label text="Speed: " />
-                              <Button mnemonicParsing="false" text="Normal " />
-                              <Button mnemonicParsing="false" text="Slow motion" />
-                           </children>
-                        </HBox>
+                        <ComboBox prefWidth="150.0" promptText="Paths" />
+                        <ComboBox prefWidth="150.0" promptText="Planet" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="database" mnemonicParsing="false" onAction="#showImportDatabaseWindow" text="Import planets database..." />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <Pane prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" spacing="50.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
+                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
+                        <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
+                     <children>
+                        <Label text="Speed: " />
+                        <Button mnemonicParsing="false" text="Normal " />
+                        <Button mnemonicParsing="false" text="Slow motion" />
                      </children>
                   </HBox>
                </children>
-            </Pane>
-         </bottom>
-      </BorderPane>
-   </children>
-</VBox>
+            </HBox>
+         </children>
+      </Pane>
+   </bottom>
+</BorderPane>
