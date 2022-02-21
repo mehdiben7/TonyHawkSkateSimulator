@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
@@ -23,7 +24,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#importPlanetsDatabase" text="Import planets database..." />
+              <MenuItem mnemonicParsing="false" text="Import planets database..." />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -38,7 +39,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <VBox layoutX="474.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" />
+      <VBox layoutX="213.0" layoutY="94.0" prefHeight="632.0" prefWidth="600.0" />
       <VBox layoutX="-1.0" layoutY="26.0" prefHeight="775.0" prefWidth="1000.0">
          <children>
             <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0">
@@ -68,6 +69,7 @@
                            <font>
                               <Font size="26.0" />
                            </font></Label>
+                        <Polyline fill="#ffbc00" layoutX="286.0" layoutY="382.0" points="314.0, 72.0, 314.0, 343.0, -286.0, 343.0, -286.0, -190.0" strokeType="INSIDE" strokeWidth="5.0" />
                      </children>
                   </Pane>
                   <VBox prefHeight="725.0" prefWidth="200.0">
@@ -95,25 +97,37 @@
                               <Label layoutX="63.0" layoutY="305.0" text="Current width" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="276.0" prefWidth="200.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Button layoutX="26.0" layoutY="66.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" text="Path1" />
-                              <Button layoutX="26.0" layoutY="100.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" text="Path2" />
-                              <Button layoutX="26.0" layoutY="133.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefWidth="50.0" text="Path3" />
+                              <Button minHeight="25.0" minWidth="75.0" mnemonicParsing="false" text="Path1" />
+                              <Button minHeight="25.0" minWidth="75.0" mnemonicParsing="false" text="Path2" />
+                              <Button minHeight="0.0" minWidth="75.0" mnemonicParsing="false" prefWidth="50.0" text="Path3" />
                            </children>
-                        </Pane>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
             </HBox>
             <Pane prefHeight="50.0" prefWidth="1000.0">
                <children>
-                  <Button layoutX="258.0" layoutY="13.0" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
-                  <Button layoutX="378.0" layoutY="13.0" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
-                  <Button layoutX="318.0" layoutY="13.0" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
-                  <Button layoutX="668.0" layoutY="13.0" mnemonicParsing="false" text="Normal " />
-                  <Button layoutX="727.0" layoutY="13.0" mnemonicParsing="false" text="Slow motion" />
-                  <Label layoutX="615.0" layoutY="17.0" text="Speed: " />
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" spacing="50.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Start" />
+                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Reset" />
+                              <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" text="Pause" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
+                           <children>
+                              <Label text="Speed: " />
+                              <Button mnemonicParsing="false" text="Normal " />
+                              <Button mnemonicParsing="false" text="Slow motion" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </Pane>
          </children>
