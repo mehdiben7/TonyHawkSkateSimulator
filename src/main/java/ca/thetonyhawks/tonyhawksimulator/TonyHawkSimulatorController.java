@@ -28,6 +28,7 @@ public class TonyHawkSimulatorController {
             try {
                 aboutContent = loader.load();
             } catch (IOException ex) {
+                // TODO Actually catch IOException
                 ex.printStackTrace();
             }
 

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -15,11 +16,12 @@ public class TonyHawkSimulator extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/UserInterface.fxml"));
-        Parent content = loader.load();
+        HBox content = loader.load();
 
-        Scene mainScene = new Scene(content, 1000, 600);
+        Scene mainScene = new Scene(content, 1000, 800);
         stage.setTitle("Tony Hawk Skate Simulator");
         stage.setScene(mainScene);
+        stage.setResizable(false);
 
         stage.show();
     }

@@ -3,6 +3,6 @@ module ca.remechda.remechda {
     requires javafx.fxml;
     requires java.sql;
 
-    opens ca.thetonyhawks.tonyhawksimulator to javafx.controls;
+    opens ca.thetonyhawks.tonyhawksimulator to javafx.controls, javafx.fxml;
     exports ca.thetonyhawks.tonyhawksimulator;
 }
