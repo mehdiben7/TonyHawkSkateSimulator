@@ -22,7 +22,7 @@ public class TonyHawkSimulator extends Application {
         stage.setTitle("Tony Hawk Skate Simulator");
         stage.setScene(mainScene);
         stage.setResizable(false);
-
+// bkabaknaknak
         stage.show();
     }
 
