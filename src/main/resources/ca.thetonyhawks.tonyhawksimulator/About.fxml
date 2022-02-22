@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="591.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Tony Hawk Simulator">
+      <Label text="Tony Hawk Skate Simulator">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <TextArea editable="false" prefHeight="300.0" text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborumnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentiumoptio, eaque rerum! Provident similique accusantium nemo autem. Veritatisobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquamnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdamrecusandae alias error harum maxime adipisci amet laborum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborumnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentiumoptio, eaque rerum! Provident similique accusantium nemo autem. Veritatisobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquamnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdamrecusandae alias error harum maxime adipisci amet laborum." wrapText="true">
+      <TextArea editable="false" maxHeight="-Infinity" prefHeight="300.0" prefWidth="500.0" text="Welcome to Tony Hawk Skate Simulator!&#10;&#10;This project was made collaboratively by:&#10;&#10;Changfan Deng &#10;David Qi&#10;Mehdi Benouhoud&#10;Réda Alidrissi-Omari&#10;&#10;The project consists of a skater that will be released at a certain height moving down an incline with variables such as the mass of the projectile, gravity, slope of the incline, and friction that will change the various energies (kinetic and potential energy) of the object as it follows a certain path. Hence, we will use concepts mostly related to the mechanic’s course. &#10;&#10;Our project will help the user understand visually the energy of an object at certain mass, gravity, slope of the incline and friction of the path. As mentioned, the parameters will either bring a slight or large change to the energy of the object according to the alteration by the user. Hence, the parameters control the animation of the object moving down an incline.A typical input will be an integer or float number of the mass, gravity, and velocity.The output will be an object moving down an incline and its animation is monitored according to the user input.  &#10;&#10;&#10;" wrapText="true">
          <font>
             <Font size="12.0" />
          </font>
       </TextArea>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="https://www.collegesinstitutes.ca/wp-content/uploads/2015/11/VanierWordmarkRGB.jpg" />
          </image>
