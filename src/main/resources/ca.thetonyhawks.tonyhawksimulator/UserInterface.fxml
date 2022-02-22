@@ -21,7 +21,6 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
    <center>
       <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
@@ -59,7 +58,7 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="About" />
+              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#showAboutWindow" text="About" />
             </items>
           </Menu>
         </menus>
@@ -78,8 +77,8 @@
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
                <children>
                   <Label text="Speed: " />
-                  <Button mnemonicParsing="false" text="Normal " />
-                  <Button mnemonicParsing="false" text="Slow motion" />
+                  <Button fx:id="normalSpeedButton" disable="true" mnemonicParsing="false" onAction="#setNormalSpeedAnimation" text="Normal " />
+                  <Button fx:id="slowMotionButton" mnemonicParsing="false" onAction="#setSlowMotionAnimation" text="Slow motion" />
                </children>
             </HBox>
          </children>

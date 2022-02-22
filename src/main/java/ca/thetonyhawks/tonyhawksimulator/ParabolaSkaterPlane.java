@@ -1,7 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 public class ParabolaSkaterPlane extends SkaterPlane {
-    private double aCoefficient = 0.0;
+    private double aCoefficient = SkaterPlane.DEFAULT_FRICTION_COEFFICIENT;
 
     public ParabolaSkaterPlane(double kineticFrictionCoefficient, double aCoefficient) {
         super(kineticFrictionCoefficient);

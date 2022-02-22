@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
@@ -15,6 +16,26 @@ public class TonyHawkSimulatorController {
     @FXML
     private MenuItem about, database;
 
+    @FXML
+    private Button normalSpeedButton, slowMotionButton;
+
+
+    // TODO Check if the two methods of changing animation speed can be united as one
+    @FXML
+    private void setNormalSpeedAnimation(ActionEvent actionEvent) {
+        // TODO Implement setting normal speed animation
+        System.out.println("Animation set to normal speed");
+        normalSpeedButton.setDisable(true);
+        slowMotionButton.setDisable(false);
+    }
+
+    @FXML
+    private void setSlowMotionAnimation(ActionEvent actionEvent) {
+        // TODO Implement setting set slow motion speed animation
+        System.out.println("Animation set to slow motion");
+        slowMotionButton.setDisable(true);
+        normalSpeedButton.setDisable(false);
+    }
 
     @FXML
     private void showImportDatabaseWindow(ActionEvent actionEvent) {
@@ -38,9 +59,8 @@ public class TonyHawkSimulatorController {
         importDatabaseStage.show();
     }
 
-
     @FXML
-    private void about(ActionEvent actionEvent) {
+    private void showAboutWindow(ActionEvent actionEvent) {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/About.fxml"));
@@ -54,6 +74,8 @@ public class TonyHawkSimulatorController {
 
         Stage aboutStage = new Stage();
         Scene scene = new Scene(aboutContent, 920, 400);
+        // TODO Change minimum size of About window
+
         aboutStage.setTitle("About this project");
         aboutStage.setScene(scene);
         aboutStage.show();

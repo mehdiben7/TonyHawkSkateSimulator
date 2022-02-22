@@ -1,7 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 public class AngledSkaterPlane extends SkaterPlane{
-    private double angle = 0.0;
+    private double angle = SkaterPlane.DEFAULT_FRICTION_COEFFICIENT;
 
     public AngledSkaterPlane(double dynamicFrictionCoefficient, double angle) {
         super(dynamicFrictionCoefficient);

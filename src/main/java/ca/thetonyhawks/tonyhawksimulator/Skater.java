@@ -3,7 +3,10 @@ package ca.thetonyhawks.tonyhawksimulator;
 import javafx.beans.property.DoubleProperty;
 
 public class Skater {
-    private double mass;
+
+    public static final double DEFAULT_SKATER_MASS = 70.0;
+
+    private double mass; // TODO Check if the skater's mass could or should be a DoubleProperty
     private DoubleProperty heightProperty;
     private DoubleProperty velocityProperty;
     private DoubleProperty accelerationProperty;
@@ -52,11 +55,11 @@ public class Skater {
         this.accelerationProperty.set(accelerationProperty);
     }
 
-    public void setxProperty(double xProperty) {
+    public void setXProperty(double xProperty) {
         this.xProperty.set(xProperty);
     }
 
-    public void setyProperty(double yProperty) {
+    public void setYProperty(double yProperty) {
         this.yProperty.set(yProperty);
     }
 }
