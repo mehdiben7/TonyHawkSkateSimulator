@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-
+//TODO radiobuttons for animation speed
 // TODO JavaDocs for the whole project
 public class TonyHawkSimulator extends Application {
     @Override
