@@ -22,13 +22,25 @@ public class TonyHawkSimulatorController {
     private MenuItem about, database;
 
     @FXML
-    private Button normalSpeedButton, slowMotionButton,start;
+    private Button normalSpeedButton, slowMotionButton,start,pause,reset;
 
     @FXML
     private void startEventHandler(ActionEvent actionEvent)
     {
         System.out.println("start");
         start.setDisable(true);
+
+    }
+    @FXML
+    private void pauseEventHandler(ActionEvent actionEvent)
+    {
+        System.out.println("pause");
+    }
+    @FXML
+    private void resetEventHandler(ActionEvent actionEvent)
+    {
+        System.out.println("reset");
+        start.setDisable(false);
     }
     // TODO Check if the two methods of changing animation speed can be united as one
     @FXML
