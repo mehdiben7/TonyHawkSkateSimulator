@@ -11,28 +11,29 @@ public class Skater {
     private DoubleProperty yProperty;
 
 
+
     public DoubleProperty heightProperty(){
-        return null;
+        return this.heightProperty;
     }
 
     public DoubleProperty velocityProperty(){
-        return null;
+        return this.velocityProperty;
     }
 
     public DoubleProperty accelerationProperty(){
-        return null;
+        return this.accelerationProperty;
     }
 
     public DoubleProperty xProperty(){
-        return null;
+        return this.xProperty;
     }
 
     public DoubleProperty yProperty(){
-        return null;
+        return this.yProperty;
     }
 
     public double getMass() {
-        return mass;
+        return this.mass;
     }
 
     public void setMass(double mass) {

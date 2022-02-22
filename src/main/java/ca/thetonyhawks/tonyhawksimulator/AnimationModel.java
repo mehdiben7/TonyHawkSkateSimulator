@@ -8,15 +8,15 @@ public class AnimationModel {
     private  double skaterInitialHeight;
 
     public Planet getPlanet() {
-        return planet;
+        return this.planet;
     }
 
     public SkaterPlane getPlane() {
-        return plane;
+        return this.plane;
     }
 
     public Skater getSkater() {
-        return skater;
+        return this.skater;
     }
 
     public void setPlanet(Planet planet) {
@@ -36,11 +36,18 @@ public class AnimationModel {
     }
 
     public void toggleSlowMotion(){
-
+        this.isInSlowMotion = !this.isInSlowMotion;
     }
 
     public void setSkaterInitialHeight(double skaterInitialHeight){
-
+        this.skaterInitialHeight = skaterInitialHeight;
     }
 
+    public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, double skaterInitialHeight) {
+        this.planet = planet;
+        this.plane = plane;
+        this.skater = skater;
+        this.isInSlowMotion = isInSlowMotion;
+        this.skaterInitialHeight = skaterInitialHeight;
+    }
 }

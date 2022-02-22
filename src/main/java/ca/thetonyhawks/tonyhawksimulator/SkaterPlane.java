@@ -1,13 +1,14 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 public class SkaterPlane {
-    private double kineticFricitonCoefficient = 0.0;
 
-    public SkaterPlane(){
+    private double kineticFrictionCoefficient;
 
+    public SkaterPlane(double kineticFrictionCoefficient) {
+        this.kineticFrictionCoefficient = kineticFrictionCoefficient;
     }
 
-    public double getKineticFricitonCoefficient() {
-        return kineticFricitonCoefficient;
+    public double getKineticFrictionCoefficient() {
+        return kineticFrictionCoefficient;
     }
 }

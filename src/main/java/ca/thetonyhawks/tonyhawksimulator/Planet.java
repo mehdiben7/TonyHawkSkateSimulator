@@ -3,19 +3,19 @@ package ca.thetonyhawks.tonyhawksimulator;
 import java.util.ArrayList;
 
 public class Planet {
-    private String Name;
+    private String name;
     private double gravitationalAcceleration;
-    ArrayList<Planet> planets;
+    public static ArrayList<Planet> planets;
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
     public double getGravitationalAcceleration() {
-        return gravitationalAcceleration;
+        return this.gravitationalAcceleration;
     }
 
-    public void importPlanetsFromJSON(String jsonString){
+    public static void importPlanetsFromJSON(String jsonString){
 
     }
 }
