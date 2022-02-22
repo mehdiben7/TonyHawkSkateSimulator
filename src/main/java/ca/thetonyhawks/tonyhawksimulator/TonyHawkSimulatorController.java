@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,18 +9,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import java.io.*;
 
-import java.io.IOException;
 
 public class TonyHawkSimulatorController {
+
+    private PathTransition pt;
 
     @FXML
     private MenuItem about, database;
 
     @FXML
-    private Button normalSpeedButton, slowMotionButton;
+    private Button normalSpeedButton, slowMotionButton,start;
 
-
+    @FXML
+    private void startEventHandler(ActionEvent actionEvent)
+    {
+        System.out.println("start");
+        start.setDisable(true);
+    }
     // TODO Check if the two methods of changing animation speed can be united as one
     @FXML
     private void setNormalSpeedAnimation(ActionEvent actionEvent) {
@@ -36,6 +46,8 @@ public class TonyHawkSimulatorController {
         slowMotionButton.setDisable(true);
         normalSpeedButton.setDisable(false);
     }
+
+
 
     @FXML
     private void showImportDatabaseWindow(ActionEvent actionEvent) {

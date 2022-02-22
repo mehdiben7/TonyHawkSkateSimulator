@@ -49,5 +49,7 @@ public class AnimationModel {
         this.skater = skater;
         this.isInSlowMotion = isInSlowMotion;
         this.skaterInitialHeight = skaterInitialHeight;
+
+
     }
 }
