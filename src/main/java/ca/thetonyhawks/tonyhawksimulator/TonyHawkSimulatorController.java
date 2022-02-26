@@ -15,6 +15,7 @@ import java.io.*;
 
 
 public class TonyHawkSimulatorController {
+    // TODO make sure radio buttons can only select one
 
     private PathTransition pt;
 
@@ -22,11 +23,10 @@ public class TonyHawkSimulatorController {
     private MenuItem about, database;
 
     @FXML
-    private Button normalSpeedButton, slowMotionButton,start,pause,reset;
+    private Button start, pause, reset;
 
     @FXML
-    private void startEventHandler(ActionEvent actionEvent)
-    {
+    private void startEventHandler(ActionEvent actionEvent) {
         System.out.println("start");
         start.setDisable(true);
 
@@ -37,29 +37,10 @@ public class TonyHawkSimulatorController {
         System.out.println("pause");
     }
     @FXML
-    private void resetEventHandler(ActionEvent actionEvent)
-    {
+    private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         start.setDisable(false);
     }
-    // TODO Check if the two methods of changing animation speed can be united as one
-    @FXML
-    private void setNormalSpeedAnimation(ActionEvent actionEvent) {
-        // TODO Implement setting normal speed animation
-        System.out.println("Animation set to normal speed");
-        normalSpeedButton.setDisable(true);
-        slowMotionButton.setDisable(false);
-    }
-
-    @FXML
-    private void setSlowMotionAnimation(ActionEvent actionEvent) {
-        // TODO Implement setting set slow motion speed animation
-        System.out.println("Animation set to slow motion");
-        slowMotionButton.setDisable(true);
-        normalSpeedButton.setDisable(false);
-    }
-
-
 
     @FXML
     private void showImportDatabaseWindow(ActionEvent actionEvent) {
