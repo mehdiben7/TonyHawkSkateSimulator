@@ -10,8 +10,16 @@ import javafx.stage.Stage;
 import java.io.*;
 
 //TODO radiobuttons for animation speed
-// TODO JavaDocs for the whole project
+
+/**
+ *  Application main class
+ */
 public class TonyHawkSimulator extends Application {
+    /**
+     *  Starts the application
+     * @param stage The application' stage
+     * @throws IOException If the FXML file cannot be found
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -28,6 +36,10 @@ public class TonyHawkSimulator extends Application {
         stage.show();
     }
 
+    /**
+     *  The application's main class's main method
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         launch();
     }
