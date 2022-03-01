@@ -96,4 +96,8 @@ public class Skater {
     public void setYProperty(double yProperty) {
         this.yProperty.set(yProperty);
     }
+
+    public Skater(double mass) {
+        this.mass = mass;
+    }
 }

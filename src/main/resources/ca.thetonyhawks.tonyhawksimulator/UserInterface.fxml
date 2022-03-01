@@ -14,6 +14,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -70,7 +71,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
                   <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#resetEventHandler" text="Reset" />
                   <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#pauseEventHandler" text="Pause" />
                </children>
@@ -78,8 +79,11 @@
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
                <children>
                   <Label text="Speed: " />
-                  <RadioButton mnemonicParsing="false" text="Normal" />
-                  <RadioButton mnemonicParsing="false" text="Slow motion" />
+                  <RadioButton fx:id="normalSpeedRadioButton" mnemonicParsing="false" onAction="#motionSpeedChangeEventHandler" selected="true" text="Normal">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="speed" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="slowMotionRadioButton" mnemonicParsing="false" onAction="#motionSpeedChangeEventHandler" text="Slow motion" toggleGroup="$speed" />
                </children>
             </HBox>
          </children>
