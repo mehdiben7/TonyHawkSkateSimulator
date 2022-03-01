@@ -39,4 +39,9 @@ public class Planet {
     public static void importPlanetsFromJSON(String jsonString){
 
     }
+
+    public Planet(String name, double gravitationalAcceleration) {
+        this.name = name;
+        this.gravitationalAcceleration = gravitationalAcceleration;
+    }
 }

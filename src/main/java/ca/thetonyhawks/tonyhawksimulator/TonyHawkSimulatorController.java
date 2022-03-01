@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import java.io.*;
 
@@ -16,10 +18,10 @@ import java.io.*;
  *   whose FXML file is <em>UserInterface.fxml</em>
  */
 public class TonyHawkSimulatorController {
-    // TODO make sure radio buttons can only select one
+    AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
     /**
-     * @since Commit <em>start event</em> by Chanfan on 2022-02-22
+     * @since Commit <em>start event</em> by Chanfang on 2022-02-22
      * @// FIXME: 2022-02-26 Create JavaDoc for this property
      */
     private PathTransition pt;
@@ -36,15 +38,29 @@ public class TonyHawkSimulatorController {
     @FXML
     private Button start, pause, reset;
 
+    @FXML
+    private RadioButton normalSpeedRadioButton, slowMotionRadioButton; // TODO are these properties necessary ?
+
+    @FXML
+    private ToggleGroup speed;
+
     /**
-     *  Triggers the animation start, putting him on top of the plane
+     *  Toggles the change between slow motion and regular speed of animation
+     * @param actionEvent An event representing the switch between radio buttons
+     */
+    @FXML
+    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {
+        animationModel.toggleSlowMotion();
+    }
+
+    /**
+     *  Triggers the animation start, putting the skater on top of the plane
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
     private void startEventHandler(ActionEvent actionEvent) {
         System.out.println("start");
         start.setDisable(true);
-
     }
 
     /**
@@ -52,9 +68,9 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void pauseEventHandler(ActionEvent actionEvent)
-    {
+    private void pauseEventHandler(ActionEvent actionEvent) {
         System.out.println("pause");
+
     }
 
     /**
