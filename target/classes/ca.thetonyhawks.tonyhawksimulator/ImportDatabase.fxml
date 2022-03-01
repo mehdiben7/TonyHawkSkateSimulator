@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.ImportDatabaseController">
+   <children>
+      <VBox alignment="CENTER" layoutX="-1.0" prefHeight="600.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Import planets' gravitational acceleration">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TableView>
+              <columns>
+                <TableColumn prefWidth="118.0" text="Planet name" />
+                <TableColumn prefWidth="214.0" text="Gravitational acceleration (m/s^2)" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Select database file..." />
+                  <Button disable="true" mnemonicParsing="false" text="Import data" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</Pane>
