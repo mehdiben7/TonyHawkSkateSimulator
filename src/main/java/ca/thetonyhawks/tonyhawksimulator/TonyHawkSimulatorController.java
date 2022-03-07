@@ -135,4 +135,12 @@ public class TonyHawkSimulatorController {
         aboutStage.show();
 
     }
+
+    public TonyHawkSimulatorController() {
+        if(animationModel.getPlane().getClass().equals(AngledSkaterPlane.class)) { // TODO Change to instanceof
+            System.out.println("Angled");
+        } else if(animationModel.getPlane().getClass().equals(ParabolaSkaterPlane.class)) {
+            System.out.println("Parabola");
+        }
+    }
 }
