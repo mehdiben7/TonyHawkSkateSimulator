@@ -1,16 +1,19 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 import javafx.animation.PathTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.*;
 
 /**
@@ -43,6 +46,15 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private ToggleGroup speed;
+
+    @FXML
+    private Slider planeAngleSlider;
+
+    @FXML
+    private Label planeAngleLabel;
+
+    @FXML
+    private Pane skaterPlanePane;
 
     /**
      *  Toggles the change between slow motion and regular speed of animation
@@ -136,11 +148,34 @@ public class TonyHawkSimulatorController {
 
     }
 
+    @FXML
+    public void planeAngleSliderDragDetected(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void planeAngleSliderDragDone(MouseEvent mouseEvent) {
+
+    }
+
     public TonyHawkSimulatorController() {
-        if(animationModel.getPlane().getClass().equals(AngledSkaterPlane.class)) { // TODO Change to instanceof
+        if(animationModel.getPlane() instanceof AngledSkaterPlane) {
             System.out.println("Angled");
-        } else if(animationModel.getPlane().getClass().equals(ParabolaSkaterPlane.class)) {
+        } else if(animationModel.getPlane() instanceof ParabolaSkaterPlane) {
             System.out.println("Parabola");
         }
     }
+
+    public void initialize() {
+        planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().angleOrAValueProperty());
+        animationModel.getPlane().angleOrAValueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                planeAngleLabel.setText((double) t1 + " deg");
+            }
+        });
+
+
+    }
+
+
 }

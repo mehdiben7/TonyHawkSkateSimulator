@@ -1,5 +1,8 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 /**
  * A class representing an angled plane for the skater to ride on <br>
  *  Parent & Sister class:
@@ -7,6 +10,8 @@ package ca.thetonyhawks.tonyhawksimulator;
  * @see ParabolaSkaterPlane
  */
 public class AngledSkaterPlane extends SkaterPlane {
+
+    public DoubleProperty angleProperty;
 
     /**
      *  Default angle for angled skater plane, which is 45 deg
@@ -16,7 +21,7 @@ public class AngledSkaterPlane extends SkaterPlane {
     /**
      *  The angle of the plane
      */
-    private double angle = AngledSkaterPlane.DEFAULT_PLANE_ANGLE;
+    private double angle;
 
     /**
      *  Instantiates a new angled skater plane
@@ -26,6 +31,8 @@ public class AngledSkaterPlane extends SkaterPlane {
     public AngledSkaterPlane(double kineticFrictionCoefficient, double angle) {
         super(kineticFrictionCoefficient);
         this.angle = angle;
+        this.angleProperty = new SimpleDoubleProperty();
+        this.angleProperty.setValue(angle);
     }
 
     /**
@@ -42,5 +49,10 @@ public class AngledSkaterPlane extends SkaterPlane {
      */
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    @Override
+    public DoubleProperty angleOrAValueProperty() {
+        return this.angleProperty;
     }
 }

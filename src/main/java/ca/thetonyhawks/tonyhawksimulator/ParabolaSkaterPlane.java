@@ -1,5 +1,8 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 /**
  *  A class representing a parabola plane for the skater to ride on <br>
  *  Parent & Sister class:
@@ -18,6 +21,7 @@ public class ParabolaSkaterPlane extends SkaterPlane {
      *  The <em>a</em> coefficient of the plane function <em>f(x) = a * x^2</em>
      */
     private double aCoefficient = ParabolaSkaterPlane.DEFAULT_PARABOLA_A_COEFFICIENT;
+    private DoubleProperty aCoefficientProperty;
 
     /**
      *  Instantiates a new parabola skater plane
@@ -26,7 +30,9 @@ public class ParabolaSkaterPlane extends SkaterPlane {
      */
     public ParabolaSkaterPlane(double kineticFrictionCoefficient, double aCoefficient) {
         super(kineticFrictionCoefficient);
-        this.aCoefficient = aCoefficient;
+        this.aCoefficientProperty = new SimpleDoubleProperty(aCoefficient);
+        this.aCoefficientProperty.setValue(aCoefficient);
+        this.aCoefficient = aCoefficient; // TODO Are these non-Property properties necessary
     }
 
     /**
@@ -43,5 +49,10 @@ public class ParabolaSkaterPlane extends SkaterPlane {
      */
     public void setACoefficient(double aCoefficient) {
         this.aCoefficient = aCoefficient;
+    }
+
+    @Override
+    public DoubleProperty angleOrAValueProperty() {
+        return this.aCoefficientProperty;
     }
 }

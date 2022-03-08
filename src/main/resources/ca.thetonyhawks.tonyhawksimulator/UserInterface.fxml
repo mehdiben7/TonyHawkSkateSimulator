@@ -34,7 +34,7 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Pane prefWidth="648.0">
+                  <Pane fx:id="skaterPlanePane" prefWidth="648.0">
                      <children>
                         <Line endY="359.0" startX="648.0" startY="671.0" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                      </children>
@@ -149,8 +149,8 @@
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
                         <Label text="Angle of the incline " />
-                        <Slider majorTickUnit="10.0" max="45.0" min="15.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="45.0" />
-                        <Label text="45 deg" />
+                        <Slider fx:id="planeAngleSlider" majorTickUnit="10.0" max="45.0" min="15.0" minorTickCount="1" onDragDetected="#planeAngleSliderDragDetected" onDragExited="#planeAngleSliderDragDone" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="45.0" />
+                        <Label fx:id="planeAngleLabel" text="45 deg" />
                         <Label disable="true" text="Parabola width" />
                         <Slider disable="true" majorTickUnit="0.2" max="0.8" min="0.1" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.4" />
                         <Label disable="true" text="a = 0.4" />

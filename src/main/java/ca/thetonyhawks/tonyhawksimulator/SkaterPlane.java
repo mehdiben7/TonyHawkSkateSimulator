@@ -1,5 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.beans.property.DoubleProperty;
+
 /**
  *  An abstract class representing a plane with no define shape
  * @see AngledSkaterPlane
@@ -15,6 +17,8 @@ public abstract class SkaterPlane {
      *  Kinetic friction coefficient <em>µ_k</em>
      */
     private double kineticFrictionCoefficient;
+
+    public abstract DoubleProperty angleOrAValueProperty(); // TODO Find a better name because this is hideous
 
     /**
      *  Instantiates a new plane with provided kinetic friction coefficient

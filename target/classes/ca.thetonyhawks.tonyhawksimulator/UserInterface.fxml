@@ -14,28 +14,33 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane style="-fx-background-image: url(&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
    <center>
       <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="725.0" prefWidth="600.0">
+            <VBox alignment="TOP_CENTER">
                <children>
-                  <Label layoutX="131.0" layoutY="17.0" text="Tony Hawk's Skate Simulator ">
+                  <Label text="Tony Hawk's Skate Simulator ">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Polyline fill="#ffbc00" layoutX="286.0" layoutY="382.0" points="314.0, 72.0, 314.0, 343.0, -286.0, 343.0, -286.0, -190.0" strokeType="INSIDE" strokeWidth="5.0" />
+                  <Pane prefWidth="648.0">
+                     <children>
+                        <Line endY="359.0" startX="648.0" startY="671.0" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
+            </VBox>
          </children>
       </HBox>
    </center>
@@ -70,7 +75,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
                   <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#resetEventHandler" text="Reset" />
                   <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#pauseEventHandler" text="Pause" />
                </children>
@@ -78,8 +83,11 @@
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
                <children>
                   <Label text="Speed: " />
-                  <RadioButton mnemonicParsing="false" text="Normal" />
-                  <RadioButton mnemonicParsing="false" text="Slow motion" />
+                  <RadioButton fx:id="normalSpeedRadioButton" mnemonicParsing="false" onAction="#motionSpeedChangeEventHandler" selected="true" text="Normal">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="speed" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="slowMotionRadioButton" mnemonicParsing="false" onAction="#motionSpeedChangeEventHandler" text="Slow motion" toggleGroup="$speed" />
                </children>
             </HBox>
          </children>
@@ -107,7 +115,7 @@
       </Pane>
    </left>
    <right>
-      <VBox alignment="TOP_CENTER" minWidth="200.0" spacing="35.0" style="-fx-background-color: #19C7DC;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" spacing="35.0" style="-fx-background-color: #19C7DC;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" spacing="25.0">
                <children>
@@ -141,14 +149,14 @@
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
                         <Label text="Angle of the incline " />
-                        <Slider />
-                        <Label text="Current angle" />
-                        <Label text="Parabola width" />
-                        <Slider />
-                        <Label text="Current width" />
+                        <Slider fx:id="planeAngleSlider" majorTickUnit="10.0" max="45.0" min="15.0" minorTickCount="1" onDragDetected="#planeAngleSliderDragDetected" onDragExited="#planeAngleSliderDragDone" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="45.0" />
+                        <Label fx:id="planeAngleLabel" text="45 deg" />
+                        <Label disable="true" text="Parabola width" />
+                        <Slider disable="true" majorTickUnit="0.2" max="0.8" min="0.1" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.4" />
+                        <Label disable="true" text="a = 0.4" />
                         <Label text="Friction" />
-                        <Slider />
-                        <Label text="Current friction" />
+                        <Slider majorTickUnit="0.5" max="2.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Label text="μ_k = 0" />
                         <CheckBox mnemonicParsing="false" text="Show force vector" />
                      </children>
                      <padding>

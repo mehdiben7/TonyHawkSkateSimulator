@@ -4,27 +4,54 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="591.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="591.0" spacing="20.0" style="-fx-background-image: url(&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Double-alaskan-rainbow.jpg/1200px-Double-alaskan-rainbow.jpg&quot;);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Tony Hawk Skate Simulator">
+      <Label alignment="CENTER" prefHeight="44.0" prefWidth="513.0" style="-fx-background-color: rgb(1,0,0,0.15); -fx-background-radius: 7;" text="Tony Hawk Skate Simulator" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font size="25.0" />
+            <Font name="Franklin Gothic Heavy Italic" size="38.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.0761904761904762">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.2776000315993206">
+                     <color>
+                        <Color red="0.32894736528396606" green="0.1461988240480423" blue="0.1461988240480423" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7282458427143816">
+                     <color>
+                        <Color red="0.5526315569877625" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8026315569877625" green="0.018579434603452682" blue="0.018579434603452682" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <TextArea editable="false" maxHeight="-Infinity" prefHeight="300.0" prefWidth="500.0" text="Welcome to Tony Hawk Skate Simulator!&#10;&#10;This project was made collaboratively by:&#10;&#10;Changfan Deng &#10;David Qi&#10;Mehdi Benouhoud&#10;Réda Alidrissi-Omari&#10;&#10;The project consists of a skater that will be released at a certain height moving down an incline with variables such as the mass of the projectile, gravity, slope of the incline, and friction that will change the various energies (kinetic and potential energy) of the object as it follows a certain path. Hence, we will use concepts mostly related to the mechanic’s course. &#10;&#10;Our project will help the user understand visually the energy of an object at certain mass, gravity, slope of the incline and friction of the path. As mentioned, the parameters will either bring a slight or large change to the energy of the object according to the alteration by the user. Hence, the parameters control the animation of the object moving down an incline.A typical input will be an integer or float number of the mass, gravity, and velocity.The output will be an object moving down an incline and its animation is monitored according to the user input.  &#10;&#10;&#10;" wrapText="true">
+      <TextArea editable="false" maxHeight="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: rgb(1,0,0,0.15);" text="Welcome to Tony Hawk Skate Simulator!&#10;&#10;This project was made collaboratively by:&#10;&#10;Changfan Deng &#10;David Qi&#10;Mehdi Benouhoud&#10;Réda Alidrissi-Omari&#10;&#10;The project consists of a skater that will be released at a certain height moving down an incline with variables such as the mass of the projectile, gravity, slope of the incline, and friction that will change the various energies (kinetic and potential energy) of the object as it follows a certain path. Hence, we will use concepts mostly related to the mechanic’s course. &#10;&#10;Our project will help the user understand visually the energy of an object at certain mass, gravity, slope of the incline and friction of the path. As mentioned, the parameters will either bring a slight or large change to the energy of the object according to the alteration by the user. Hence, the parameters control the animation of the object moving down an incline.A typical input will be an integer or float number of the mass, gravity, and velocity.The output will be an object moving down an incline and its animation is monitored according to the user input.  &#10;&#10;&#10;" wrapText="true">
          <font>
-            <Font size="12.0" />
+            <Font name="Comic Sans MS Bold" size="14.0" />
          </font>
       </TextArea>
-      <ImageView fitHeight="61.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="100.0" fitWidth="219.0" pickOnBounds="true">
          <image>
-            <Image url="https://www.collegesinstitutes.ca/wp-content/uploads/2015/11/VanierWordmarkRGB.jpg" />
+            <Image url="https://www.vaniercollege.qc.ca/files/2014/12/logo-red.png" />
          </image>
       </ImageView>
    </children>
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </VBox>
