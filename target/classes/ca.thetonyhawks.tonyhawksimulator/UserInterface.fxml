@@ -21,11 +21,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane style="-fx-background-image: url(&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
    <center>
-      <HBox alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
@@ -34,9 +35,10 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Pane prefWidth="648.0">
+                  <Pane fx:id="skaterPlanePane" prefWidth="648.0">
                      <children>
-                        <Line endY="359.0" startX="648.0" startY="671.0" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
+                        <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="648.0" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
+                        <Rectangle fx:id="skater" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="77.0" layoutX="303.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
                      </children>
                   </Pane>
                </children>

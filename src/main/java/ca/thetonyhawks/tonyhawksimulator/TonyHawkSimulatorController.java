@@ -12,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 
@@ -25,11 +25,11 @@ import java.io.*;
 public class TonyHawkSimulatorController {
     AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
-    /**
-     * @since Commit <em>start event</em> by Chanfang on 2022-02-22
-     * @// FIXME: 2022-02-26 Create JavaDoc for this property
-     */
-    private PathTransition pt;
+    private PathTransition angledPlaneSkaterPathTransition;
+    private Path angledPlanePath;
+
+    @FXML
+    private Rectangle skater;
 
     /**
      *  Menu item buttons that trigger the opening of complementary windows
@@ -79,8 +79,22 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void startEventHandler(ActionEvent actionEvent) {
-        System.out.println("start");
+        System.out.println("Animation started !");
         start.setDisable(true);
+        planeAngleSlider.setDisable(true);
+
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(angledPlaneLine.getStartX());
+        moveTo.setY(angledPlaneLine.getStartY());
+
+        LineTo lineTo = new LineTo();
+        lineTo.setX(angledPlaneLine.getEndX());
+        lineTo.setY(angledPlaneLine.getEndY());
+
+        angledPlanePath.getElements().addAll(moveTo, lineTo);
+
+
+
     }
 
     /**
@@ -101,6 +115,7 @@ public class TonyHawkSimulatorController {
     private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         start.setDisable(false);
+        planeAngleSlider.setDisable(false);
     }
 
     /**
@@ -183,13 +198,13 @@ public class TonyHawkSimulatorController {
             }
         });
 
-
         angledPlaneLine.rotateProperty().bind(animationModel.getPlane().angleOrAValueProperty().subtract(90));
-
-
-
+        // TODO Check if we can ensure the end x and y of the line stays at the same place when we rotate it
         angledPlaneLine.setTranslateX(-300);
         angledPlaneLine.setTranslateY(100);
+
+        skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
+        skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
     }
 
