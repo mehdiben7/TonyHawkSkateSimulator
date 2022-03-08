@@ -20,6 +20,11 @@ public abstract class SkaterPlane {
 
     public abstract DoubleProperty angleOrAValueProperty(); // TODO Find a better name because this is hideous
 
+//    public abstract DoubleProperty planeStartXProperty();
+//    public abstract DoubleProperty planeStartYProperty();
+//    public abstract DoubleProperty planeEndXProperty();
+//    public abstract DoubleProperty planeEndYProperty();
+
     /**
      *  Instantiates a new plane with provided kinetic friction coefficient
      * @param kineticFrictionCoefficient Kinetic friction coefficient <em>µ_k</em>

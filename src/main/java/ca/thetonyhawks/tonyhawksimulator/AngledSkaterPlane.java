@@ -55,4 +55,6 @@ public class AngledSkaterPlane extends SkaterPlane {
     public DoubleProperty angleOrAValueProperty() {
         return this.angleProperty;
     }
+
+
 }

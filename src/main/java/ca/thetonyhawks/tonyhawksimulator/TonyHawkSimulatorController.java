@@ -10,8 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -54,7 +56,13 @@ public class TonyHawkSimulatorController {
     private Label planeAngleLabel;
 
     @FXML
-    private Pane skaterPlanePane;
+    private Pane skaterPlanePane; // TODO Is this useful ?
+
+    @FXML
+    private Line angledPlaneLine;
+
+    @FXML
+    private HBox centerPanel;
 
     /**
      *  Toggles the change between slow motion and regular speed of animation
@@ -167,6 +175,7 @@ public class TonyHawkSimulatorController {
 
     public void initialize() {
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().angleOrAValueProperty());
+
         animationModel.getPlane().angleOrAValueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -174,6 +183,13 @@ public class TonyHawkSimulatorController {
             }
         });
 
+
+        angledPlaneLine.rotateProperty().bind(animationModel.getPlane().angleOrAValueProperty().subtract(90));
+
+
+
+        angledPlaneLine.setTranslateX(-300);
+        angledPlaneLine.setTranslateY(100);
 
     }
 
