@@ -40,4 +40,6 @@ public abstract class SkaterPlane {
     public double getKineticFrictionCoefficient() {
         return kineticFrictionCoefficient;
     }
+
+
 }

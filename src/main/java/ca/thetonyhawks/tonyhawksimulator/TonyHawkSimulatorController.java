@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.*;
 
@@ -64,6 +66,9 @@ public class TonyHawkSimulatorController {
     @FXML
     private HBox centerPanel;
 
+    private PathTransition pt;
+    private Path path=new Path();
+
     /**
      *  Toggles the change between slow motion and regular speed of animation
      * @param actionEvent An event representing the switch between radio buttons
@@ -79,10 +84,23 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void startEventHandler(ActionEvent actionEvent) {
+
         System.out.println("Animation started !");
         start.setDisable(true);
         planeAngleSlider.setDisable(true);
 
+        animate(angledPlaneLine);
+
+//        skaterPlanePane.getChildren().addAll(angledPlaneLine,skater);
+        pt.play();
+
+
+
+    }
+
+    void animate(Line line){
+        skater.setX(line.getStartX());
+        skater.setY(700-line.getStartY());
         MoveTo moveTo = new MoveTo();
         moveTo.setX(angledPlaneLine.getStartX());
         moveTo.setY(angledPlaneLine.getStartY());
@@ -91,10 +109,12 @@ public class TonyHawkSimulatorController {
         lineTo.setX(angledPlaneLine.getEndX());
         lineTo.setY(angledPlaneLine.getEndY());
 
-        angledPlanePath.getElements().addAll(moveTo, lineTo);
+        path.getElements().addAll(moveTo, lineTo);
 
+        pt=new PathTransition(Duration.seconds(10),path,skater);
 
-
+        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pt.interpolatorProperty().setValue(Interpolator.LINEAR);
     }
 
     /**
