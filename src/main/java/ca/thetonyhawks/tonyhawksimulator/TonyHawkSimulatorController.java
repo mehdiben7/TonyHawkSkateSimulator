@@ -89,10 +89,11 @@ public class TonyHawkSimulatorController {
         start.setDisable(true);
         planeAngleSlider.setDisable(true);
 
+        skater.setVisible(true);
+
         animate(angledPlaneLine);
 
-//        skaterPlanePane.getChildren().addAll(angledPlaneLine,skater);
-        pt.play();
+
 
 
 
@@ -115,6 +116,7 @@ public class TonyHawkSimulatorController {
 
         pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pt.interpolatorProperty().setValue(Interpolator.LINEAR);
+        pt.play();
     }
 
     /**
