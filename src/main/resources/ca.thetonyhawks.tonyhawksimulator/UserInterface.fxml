@@ -1,30 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
-<BorderPane style="-fx-background-image: url();" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
+
+<BorderPane style="-fx-background-image: url();" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,9 +63,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="start" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#resetEventHandler" text="Reset" />
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#pauseEventHandler" text="Pause" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" stylesheets="@../CSS%20stylesheets/start_button.css" />
+                  <Button minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" stylesheets="@../CSS%20stylesheets/reset_button.css" />
+                  <Button minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#pauseEventHandler" stylesheets="@../CSS%20stylesheets/pause_button.css" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
