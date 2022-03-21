@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
@@ -88,9 +89,9 @@ public class TonyHawkSimulatorController {
         System.out.println("Animation started !");
         start.setDisable(true);
         planeAngleSlider.setDisable(true);
-
-        skater.setVisible(true);
-
+        skater.setFill(Color.BLACK);
+        skater.setScaleX(10);
+        skater.setScaleY(20);
         animate(angledPlaneLine);
 
 
@@ -100,8 +101,10 @@ public class TonyHawkSimulatorController {
     }
 
     void animate(Line line){
-        skater.setX(line.getStartX());
-        skater.setY(700-line.getStartY());
+        System.out.println(line.getStartX());
+
+        skater.setX(1400-line.getStartX());
+        skater.setY(800-line.getStartY());
         MoveTo moveTo = new MoveTo();
         moveTo.setX(angledPlaneLine.getStartX());
         moveTo.setY(angledPlaneLine.getStartY());
