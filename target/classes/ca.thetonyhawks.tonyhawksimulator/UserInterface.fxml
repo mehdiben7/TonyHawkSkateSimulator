@@ -23,8 +23,10 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
-<BorderPane style="-fx-background-image: url();" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
+
+<BorderPane prefHeight="802.0" prefWidth="1401.0" style="-fx-background-image: url();" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -37,7 +39,7 @@
                   </Label>
                   <Pane fx:id="skaterPlanePane" prefWidth="648.0">
                      <children>
-                        <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="648.0" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
+                        <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                         <Rectangle fx:id="skater" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="77.0" layoutX="303.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
                      </children>
                   </Pane>
@@ -48,28 +50,28 @@
    </center>
    <top>
       <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem fx:id="database" mnemonicParsing="false" onAction="#showImportDatabaseWindow" text="Import planets database..." />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="database" mnemonicParsing="false" onAction="#showImportDatabaseWindow" text="Import planets database..." />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Window">
                <items>
                   <MenuItem mnemonicParsing="false" text="Appearance" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#showAboutWindow" text="About" />
-            </items>
-          </Menu>
-        </menus>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="about" mnemonicParsing="false" onAction="#showAboutWindow" text="About" />
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
    </top>
    <bottom>
@@ -77,9 +79,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="start" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#startEventHandler" text="Start" />
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#resetEventHandler" text="Reset" />
-                  <Button minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#pauseEventHandler" text="Pause" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" stylesheets="@../CSS%20stylesheets/start_button.css" />
+                  <Button fx:id="reset" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" stylesheets="@../CSS%20stylesheets/reset_button.css" />
+                  <Button fx:id="pause" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#pauseEventHandler" stylesheets="@../CSS%20stylesheets/pause_button.css" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="236.0" spacing="10.0">
@@ -99,11 +101,11 @@
       <Pane minWidth="150.0" style="-fx-background-color: #78D128;" BorderPane.alignment="CENTER">
          <children>
             <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
                      <effect>
                         <Blend />
                      </effect>
@@ -111,7 +113,7 @@
                         <Font size="10.0" />
                      </tickLabelFont>
                   </NumberAxis>
-              </yAxis>
+               </yAxis>
             </BarChart>
          </children>
       </Pane>
