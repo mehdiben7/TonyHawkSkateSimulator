@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.value.ChangeListener;
@@ -47,7 +48,7 @@ public class TonyHawkSimulatorController {
     private Button start, pause, reset;
 
     @FXML
-    private RadioButton normalSpeedRadioButton, slowMotionRadioButton; // TODO are these properties necessary ?
+    private RadioButton normalSpeedRadioButton, slowMotionRadioButton;
 
     @FXML
     private ToggleGroup speed;
@@ -68,7 +69,7 @@ public class TonyHawkSimulatorController {
     private HBox centerPanel;
 
     private PathTransition pt;
-    private Path path=new Path();
+    private Path path = new Path();
 
     /**
      *  Toggles the change between slow motion and regular speed of animation
@@ -76,8 +77,10 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {   // TODO Remove link in FXML
-//        animationModel.toggleSlowMotion();
+        double duration = normalSpeedRadioButton.isSelected() ? animationModel.animationSpeedProperty().get() * 0.5 :
+                                                                animationModel.animationSpeedProperty().get();
 
+        pt.setDuration(Duration.seconds(duration));
     }
 
     /**
@@ -88,9 +91,12 @@ public class TonyHawkSimulatorController {
     private void startEventHandler(ActionEvent actionEvent) {
 
         System.out.println("Animation started !");
-        start.setDisable(true);
         planeAngleSlider.setDisable(true);
-        animate(angledPlaneLine);
+
+        if(animationModel.isPausedProperty().get())
+            pt.play();
+        else
+            animate(angledPlaneLine);
 
     }
 
@@ -113,6 +119,7 @@ public class TonyHawkSimulatorController {
 
         pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
 
+        pt.setCycleCount(Animation.INDEFINITE);
         pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pt.interpolatorProperty().setValue(Interpolator.LINEAR);
         pt.playFromStart();
@@ -124,18 +131,8 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void pauseEventHandler(ActionEvent actionEvent) {
-        if(pause.getText().equals("Pause"))
-        {
-            pause.setText("Resume");
-            System.out.println("pause");
-            pt.pause();
-        }
-        else
-        {
-            pause.setText("Pause");
-            System.out.println("Resume");
-            pt.play();
-        }
+        pt.pause();
+        animationModel.isPausedProperty().set(true);
     }
 
     /**
@@ -146,7 +143,7 @@ public class TonyHawkSimulatorController {
     private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         pt.stop();
-        start.setDisable(false);
+        pt.playFromStart();
         planeAngleSlider.setDisable(false);
     }
 
@@ -226,7 +223,7 @@ public class TonyHawkSimulatorController {
         animationModel.getPlane().angleOrAValueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                planeAngleLabel.setText((double) t1 + " deg");
+                planeAngleLabel.setText((double) t1 + " deg"); // TODO BigDecimal formatting
             }
         });
 

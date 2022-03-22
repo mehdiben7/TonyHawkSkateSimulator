@@ -18,7 +18,11 @@ public class AnimationModel {
 
     private DoubleProperty animationSpeedProperty;
     private BooleanProperty isInSlowMotionProperty;
+    private BooleanProperty isPausedProperty;
 
+    public BooleanProperty isPausedProperty() {
+        return this.isPausedProperty;
+    }
 
     public BooleanProperty isInSlowMotionProperty() {
         return this.isInSlowMotionProperty;
@@ -101,6 +105,7 @@ public class AnimationModel {
 
         this.animationSpeedProperty = new SimpleDoubleProperty();
         this.isInSlowMotionProperty = new SimpleBooleanProperty(isInSlowMotion);
+        this.isPausedProperty = new SimpleBooleanProperty(false);
     }
 
     public void toggleSlowMotion() {
