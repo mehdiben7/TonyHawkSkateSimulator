@@ -75,8 +75,9 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the switch between radio buttons
      */
     @FXML
-    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {
-        animationModel.toggleSlowMotion();
+    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {   // TODO Remove link in FXML
+//        animationModel.toggleSlowMotion();
+
     }
 
     /**
@@ -93,9 +94,13 @@ public class TonyHawkSimulatorController {
 
     }
 
-    void animate(Line line){
+    void animate(Line line) {
+
+        double animationNormalSpeed = animationModel.animationSpeedProperty().get() * 0.5;
+        double animationSlowMotionSpeed = animationModel.animationSpeedProperty().get(); // The two values should be inverted but it doesn't work idk why
+
         skater.setX(line.getStartX());
-        skater.setY(700-line.getStartY());
+        skater.setY(700 - line.getStartY());
         MoveTo moveTo = new MoveTo();
         moveTo.setX(angledPlaneLine.getStartX());
         moveTo.setY(angledPlaneLine.getStartY());
@@ -106,7 +111,7 @@ public class TonyHawkSimulatorController {
 
         path.getElements().addAll(moveTo, lineTo);
 
-        pt=new PathTransition(Duration.seconds(10),path,skater);
+        pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
 
         pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pt.interpolatorProperty().setValue(Interpolator.LINEAR);
@@ -225,14 +230,13 @@ public class TonyHawkSimulatorController {
             }
         });
 
-//        angledPlaneLine.rotateProperty().bind(animationModel.getPlane().angleOrAValueProperty().subtract(90));
-//        // TODO Check if we can ensure the end x and y of the line stays at the same place when we rotate it
-//        angledPlaneLine.setTranslateX(-300);
-//        angledPlaneLine.setTranslateY(100);
+        slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
+
 
         skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
         skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
+        animationModel.animationSpeedProperty().set(10);
     }
 
 

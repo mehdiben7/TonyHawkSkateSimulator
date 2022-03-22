@@ -1,5 +1,10 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 /**
  *  The animation's model
  */
@@ -9,8 +14,19 @@ public class AnimationModel {
     private Planet planet;
     private SkaterPlane plane;
     private Skater skater;
-    private boolean isInSlowMotion;
     private double skaterInitialHeight;
+
+    private DoubleProperty animationSpeedProperty;
+    private BooleanProperty isInSlowMotionProperty;
+
+
+    public BooleanProperty isInSlowMotionProperty() {
+        return this.isInSlowMotionProperty;
+    }
+
+    public DoubleProperty animationSpeedProperty() {
+        return this.animationSpeedProperty;
+    }
 
     /**
      *  Returns the planet used for the animation
@@ -60,20 +76,6 @@ public class AnimationModel {
         this.skater = skater;
     }
 
-    /**
-     *  Returns whether the animation is in slow motion
-     * @return <em>true</em> if it is, <em>false</em> otherwise
-     */
-    public boolean isInSlowMotion(){
-       return this.isInSlowMotion;
-    }
-
-    /**
-     *  Toggles (changes the value of) whether the animation is in slow motion or not
-     */
-    public void toggleSlowMotion(){
-        this.isInSlowMotion = !this.isInSlowMotion;
-    }
 
     /**
      *  Set a new initial height for the skater
@@ -95,7 +97,13 @@ public class AnimationModel {
         this.planet = planet;
         this.plane = plane;
         this.skater = skater;
-        this.isInSlowMotion = isInSlowMotion;
         this.skaterInitialHeight = skaterInitialHeight;
+
+        this.animationSpeedProperty = new SimpleDoubleProperty();
+        this.isInSlowMotionProperty = new SimpleBooleanProperty(isInSlowMotion);
+    }
+
+    public void toggleSlowMotion() {
+        this.isInSlowMotionProperty.set(!this.isInSlowMotionProperty.get());
     }
 }
