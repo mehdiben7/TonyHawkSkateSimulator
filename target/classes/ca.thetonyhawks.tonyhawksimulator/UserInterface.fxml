@@ -128,7 +128,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
                               <Label text="Skater's mass" />
-                              <TextField prefWidth="50.0" />
+                              <TextField fx:id="skaterMassField" onAction="#onSkaterMassEntered" prefWidth="50.0" />
                               <Label prefHeight="15.0" prefWidth="14.0" text="kg" />
                            </children>
                            <padding>
@@ -138,7 +138,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
                               <Label text="Initial height" />
-                              <TextField prefWidth="50.0" />
+                              <TextField fx:id="skaterInitialHeightField" prefWidth="50.0" />
                               <Label text="m" />
                            </children>
                            <padding>

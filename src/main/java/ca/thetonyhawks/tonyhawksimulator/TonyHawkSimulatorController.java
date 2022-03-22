@@ -3,6 +3,8 @@ package ca.thetonyhawks.tonyhawksimulator;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +70,9 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private HBox centerPanel;
+
+    @FXML
+    private TextField skaterMassField, skaterInitialHeightField;
 
     private PathTransition pt;
     private Path path = new Path();
@@ -213,6 +218,11 @@ public class TonyHawkSimulatorController {
 
     }
 
+    @FXML
+    public void onSkaterMassEntered(ActionEvent actionEvent) {
+        animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
+    }
+
     public TonyHawkSimulatorController() {
         if(animationModel.getPlane() instanceof AngledSkaterPlane) {
             System.out.println("Angled");
@@ -238,6 +248,10 @@ public class TonyHawkSimulatorController {
         skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
         animationModel.animationSpeedProperty().set(10);
+
+        // Temporary
+
+
     }
 
 
