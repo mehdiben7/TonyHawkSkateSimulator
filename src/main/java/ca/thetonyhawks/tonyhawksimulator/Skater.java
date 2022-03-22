@@ -1,6 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  *  A class representing the skater going down the plane
@@ -12,11 +13,8 @@ public class Skater {
      */
     public static final double DEFAULT_SKATER_MASS = 70.0;
 
-    /**
-     *  The skater's mass, in kg
-     * @// FIXME: 2022-02-26 Should this be a DoubleProperty?
-     */
-    private double mass;
+
+    private DoubleProperty skaterMassProperty;
     private DoubleProperty heightProperty;
     private DoubleProperty velocityProperty;
     private DoubleProperty accelerationProperty;
@@ -41,20 +39,9 @@ public class Skater {
         return this.yProperty;
     }
 
-    /**
-     * Returns the mass of the skater
-     * @return The skater's mass, in kg
-     */
-    public double getMass() {
-        return this.mass;
-    }
 
-    /**
-     *  Sets the mass of the skater
-     * @param mass The new skater's mass, in kg
-     */
-    public void setMass(double mass) {
-        this.mass = mass;
+    public DoubleProperty skaterMassProperty() {
+        return this.skaterMassProperty;
     }
 
     /**
@@ -98,6 +85,6 @@ public class Skater {
     }
 
     public Skater(double mass) {
-        this.mass = mass;
+        this.skaterMassProperty = new SimpleDoubleProperty(mass);
     }
 }

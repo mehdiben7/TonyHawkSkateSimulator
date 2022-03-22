@@ -3,8 +3,6 @@ package ca.thetonyhawks.tonyhawksimulator;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,19 +12,22 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.*;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  *  The Controller class linked to the main user interface window of the simulator <br>
  *   whose FXML file is <em>UserInterface.fxml</em>
  */
 public class TonyHawkSimulatorController {
+
+    public static final DecimalFormat TWO_DECIMAL_PLACES = new DecimalFormat("0.00");
+
     AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
     private PathTransition angledPlaneSkaterPathTransition;
@@ -76,7 +77,7 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the switch between radio buttons
      */
     @FXML
-    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {   // TODO Remove link in FXML
+    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {
         double duration = normalSpeedRadioButton.isSelected() ? animationModel.animationSpeedProperty().get() * 0.5 :
                                                                 animationModel.animationSpeedProperty().get();
 
@@ -91,19 +92,22 @@ public class TonyHawkSimulatorController {
     private void startEventHandler(ActionEvent actionEvent) {
 
         System.out.println("Animation started !");
-        planeAngleSlider.setDisable(true);
 
-        if(animationModel.isPausedProperty().get())
+        if(animationModel.isPausedProperty().get()) {
             pt.play();
-        else
+            animationModel.isPausedProperty().set(false);
+        }
+        else {
             animate(angledPlaneLine);
+            animationModel.isPausedProperty().set(true);
+        }
 
     }
 
     void animate(Line line) {
 
         double animationNormalSpeed = animationModel.animationSpeedProperty().get() * 0.5;
-        double animationSlowMotionSpeed = animationModel.animationSpeedProperty().get(); // The two values should be inverted but it doesn't work idk why
+        double animationSlowMotionSpeed = animationModel.animationSpeedProperty().get(); // The two values should be inverted, but it doesn't work IDK why
 
         skater.setX(line.getStartX());
         skater.setY(700 - line.getStartY());
@@ -219,12 +223,12 @@ public class TonyHawkSimulatorController {
 
     public void initialize() {
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().angleOrAValueProperty());
+        planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
 
-        animationModel.getPlane().angleOrAValueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                planeAngleLabel.setText((double) t1 + " deg"); // TODO BigDecimal formatting
-            }
+        animationModel.getPlane().angleOrAValueProperty().addListener((observableValue, number, t1) -> {
+            double newAngle = (double) t1;
+            String formattedNewAngleString = TWO_DECIMAL_PLACES.format(newAngle);
+            planeAngleLabel.setText(formattedNewAngleString + " deg");
         });
 
         slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());

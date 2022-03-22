@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-//TODO radiobuttons for animation speed
-
 /**
  *  Application main class
  */
