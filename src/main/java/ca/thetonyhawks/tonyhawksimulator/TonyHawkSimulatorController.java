@@ -89,25 +89,7 @@ public class TonyHawkSimulatorController {
         pt.setDuration(Duration.seconds(duration));
     }
 
-    /**
-     *  Triggers the animation start, putting the skater on top of the plane
-     * @param actionEvent An event representing the click on the about menu item button
-     */
-    @FXML
-    private void startEventHandler(ActionEvent actionEvent) {
 
-        System.out.println("Animation started !");
-
-        if(animationModel.isPausedProperty().get()) {
-            pt.play();
-            animationModel.isPausedProperty().set(false);
-        }
-        else {
-            animate(angledPlaneLine);
-            animationModel.isPausedProperty().set(true);
-        }
-
-    }
 
     void animate(Line line) {
 
@@ -135,11 +117,31 @@ public class TonyHawkSimulatorController {
     }
 
     /**
+     *  Triggers the animation start, putting the skater on top of the plane
+     * @param actionEvent An event representing the click on the about menu item button
+     */
+    @FXML
+    private void startEventHandler(ActionEvent actionEvent) {
+
+        if(animationModel.isPausedProperty().get()) {
+            System.out.println("Amination resumes!");
+            pt.play();
+        }
+        else {
+            System.out.println("Animation started !");
+            animate(angledPlaneLine);
+            animationModel.isPausedProperty().set(true);
+        }
+
+    }
+
+    /**
      *  Triggers the pause of the animation, stopping the "fall" of the skater on the plane
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
     private void pauseEventHandler(ActionEvent actionEvent) {
+        System.out.println("Animation paused!");
         pt.pause();
         animationModel.isPausedProperty().set(true);
     }
