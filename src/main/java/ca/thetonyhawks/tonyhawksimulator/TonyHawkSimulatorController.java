@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
@@ -151,7 +150,7 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void resetEventHandler(ActionEvent actionEvent) {
+    private void resetEventHandler(ActionEvent actionEvent) { // TODO Fix the crash error
         System.out.println("reset");
         pt.stop();
         pt.playFromStart();
@@ -225,6 +224,11 @@ public class TonyHawkSimulatorController {
         animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
     }
 
+    @FXML
+    public void onSkaterInitialHeightEntered(ActionEvent actionEvent) {
+        animationModel.getSkater().heightProperty().set(Double.parseDouble(skaterInitialHeightField.getText()));
+    }
+
     public TonyHawkSimulatorController() {
         if(animationModel.getPlane() instanceof AngledSkaterPlane) {
             System.out.println("Angled");
@@ -252,6 +256,20 @@ public class TonyHawkSimulatorController {
         animationModel.animationSpeedProperty().set(10);
 
         // Temporary
+
+        animationModel.getSkater().skaterMassProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("hey btw you changed the skater mass");
+            }
+        });
+
+        animationModel.getSkater().heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("hey btw you changed the skater's initial height");
+            }
+        });
 
 
     }

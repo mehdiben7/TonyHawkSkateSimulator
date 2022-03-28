@@ -86,5 +86,6 @@ public class Skater {
 
     public Skater(double mass) {
         this.skaterMassProperty = new SimpleDoubleProperty(mass);
+        this.heightProperty = new SimpleDoubleProperty(0);
     }
 }
