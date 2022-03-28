@@ -52,7 +52,7 @@ public class AngledSkaterPlane extends SkaterPlane {
     }
 
     @Override
-    public DoubleProperty angleOrAValueProperty() {
+    public DoubleProperty planeCoefficient() {
         return this.angleProperty;
     }
 

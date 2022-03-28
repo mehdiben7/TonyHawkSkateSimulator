@@ -17,10 +17,7 @@ public class ParabolaSkaterPlane extends SkaterPlane {
      */
     private static final double DEFAULT_PARABOLA_A_COEFFICIENT = 1.0;
 
-    /**
-     *  The <em>a</em> coefficient of the plane function <em>f(x) = a * x^2</em>
-     */
-    private double aCoefficient = ParabolaSkaterPlane.DEFAULT_PARABOLA_A_COEFFICIENT;
+
     private DoubleProperty aCoefficientProperty;
 
     /**
@@ -30,29 +27,15 @@ public class ParabolaSkaterPlane extends SkaterPlane {
      */
     public ParabolaSkaterPlane(double kineticFrictionCoefficient, double aCoefficient) {
         super(kineticFrictionCoefficient);
-        this.aCoefficientProperty = new SimpleDoubleProperty(aCoefficient);
-        this.aCoefficientProperty.setValue(aCoefficient);
-        this.aCoefficient = aCoefficient; // TODO Are these non-Property properties necessary
+        this.aCoefficientProperty = new SimpleDoubleProperty(DEFAULT_PARABOLA_A_COEFFICIENT);
     }
 
-    /**
-     * Gets the <em>a</em> coefficient of the parabola plane's function
-     * @return The <em>a</em> coefficient
-     */
-    public double getACoefficient() {
-        return aCoefficient;
-    }
-
-    /**
-     *  Sets a new <em>a</em> coefficient for the parabola plane
-     * @param aCoefficient The <em>a</em> coefficient of the plane function <em>f(x) = a * x^2</em>
-     */
-    public void setACoefficient(double aCoefficient) {
-        this.aCoefficient = aCoefficient;
+    public DoubleProperty aCoefficientProperty() {
+        return this.aCoefficientProperty;
     }
 
     @Override
-    public DoubleProperty angleOrAValueProperty() {
+    public DoubleProperty planeCoefficient() {
         return this.aCoefficientProperty;
     }
 }

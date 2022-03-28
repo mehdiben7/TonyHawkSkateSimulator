@@ -10,6 +10,24 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public class AnimationModel {
 
+    /**
+     *
+     * @param gravitionalAcceleration The gravitational acceleration of the planet the skater is skating on (in m/s^2)
+     * @param dynamicFrictionCoefficient The friction coefficient between the skater and the plane if any, otherwise 0
+     * @param planeAngle The angle of the plane
+     * @param skaterMass The skater mass in kg
+     * @return The acceleration of the skater
+     */
+    public static double getAngledPlaneAcceleration(double gravitionalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) { // TODO Implement general method
+        // TODO Test methods for getAngledPlaneAcceleration method
+        return 0.0;
+    }
+
+    public double getModelAcceleration() { // TODO Implement animation model method
+        // Will use the values of the animationModel object and plug them in the general method
+        return 0.0;
+    }
+
     // MARK - Object properties
     private Planet planet;
     private SkaterPlane plane;

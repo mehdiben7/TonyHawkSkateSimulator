@@ -1,5 +1,4 @@
 package ca.thetonyhawks.tonyhawksimulator;
-// TODO Source code credits
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
