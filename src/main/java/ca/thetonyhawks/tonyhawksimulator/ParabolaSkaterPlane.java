@@ -35,7 +35,7 @@ public class ParabolaSkaterPlane extends SkaterPlane {
     }
 
     @Override
-    public DoubleProperty planeCoefficient() {
+    public DoubleProperty planeCoefficientProperty() {
         return this.aCoefficientProperty;
     }
 }

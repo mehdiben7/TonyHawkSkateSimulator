@@ -11,6 +11,17 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public class AngledSkaterPlane extends SkaterPlane {
 
+    /**
+     *  Calculates the height of the top of the angled plane
+     * @param baseLength The length, the horizontal difference between the top and the bottom of the angled plane (in m)
+     * @param planeAngle The angle of the plane (in degrees)
+     * @return The height of the top of the angled plane (in m)
+     */
+    public static double getHeight(double baseLength, double planeAngle) { // TODO Make test for this method
+        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT
+                                                .format(baseLength * Math.tan(Math.toRadians(planeAngle))));
+    }
+
     public DoubleProperty angleProperty;
 
     /**
@@ -52,7 +63,7 @@ public class AngledSkaterPlane extends SkaterPlane {
     }
 
     @Override
-    public DoubleProperty planeCoefficient() {
+    public DoubleProperty planeCoefficientProperty() {
         return this.angleProperty;
     }
 

@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -268,10 +267,10 @@ public class TonyHawkSimulatorController {
 //        skaterMassField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
 //        skaterInitialHeightField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
 
-        planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficient());
+        planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficientProperty());
         planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
 
-        animationModel.getPlane().planeCoefficient().addListener((observableValue, number, t1) -> {
+        animationModel.getPlane().planeCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newAngle = (double) t1;
             String formattedNewAngleString = TWO_DECIMAL_PLACES.format(newAngle);
             planeAngleLabel.setText(formattedNewAngleString + " deg");

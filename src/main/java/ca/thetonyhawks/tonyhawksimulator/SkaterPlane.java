@@ -19,7 +19,7 @@ public abstract class SkaterPlane {
      */
     private DoubleProperty kineticFrictionCoefficientProperty;
 
-    public abstract DoubleProperty planeCoefficient();
+    public abstract DoubleProperty planeCoefficientProperty();
 
 //    public abstract DoubleProperty planeStartXProperty();
 //    public abstract DoubleProperty planeStartYProperty();
