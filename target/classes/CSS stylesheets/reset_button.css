@@ -1,0 +1,14 @@
+.button {
+    -fx-background-image: url("../images/reset_unpressed.png");
+    -fx-background-color: transparent;
+
+}
+
+.button:hover {
+    -fx-background-image: url("../images/reset_hovered.png");
+
+}
+
+.button:pressed {
+    -fx-background-image: url("../images/reset_pressed.png");
+}
