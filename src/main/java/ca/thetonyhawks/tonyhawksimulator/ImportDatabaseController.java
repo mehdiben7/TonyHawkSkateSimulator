@@ -27,7 +27,6 @@ public class ImportDatabaseController
 //        String connectingString=engine+":"+db;
         try
         {
-
             connectingString="jdbc:sqlite:C:/Users/2067309/Documents/TonyHawkSimulator.db";
             Connection dbConnection=DriverManager.getConnection(connectingString);
             return dbConnection;
@@ -60,7 +59,8 @@ public class ImportDatabaseController
             {
                 Statement statement=connection.createStatement();
                 ResultSet   resultSet=statement.executeQuery(query);
-                name.getColumns().add(resultSet.getString("Name"));
+                // name.getColumns().add(resultSet.getString("Name"));
+                name.setText(resultSet.getString("Name"));
 
 
             }catch(SQLException ex)
