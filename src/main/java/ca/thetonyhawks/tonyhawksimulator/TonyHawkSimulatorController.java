@@ -22,8 +22,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
 
 /**
  *  The Controller class linked to the main user interface window of the simulator <br>
@@ -31,11 +29,10 @@ import java.util.regex.Pattern;
  */
 public class TonyHawkSimulatorController {
 
+    public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
+    public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
+
     public static final DecimalFormat TWO_DECIMAL_PLACES = new DecimalFormat("0.00");
-    public static final Pattern DOUBLE_PATTERN = Pattern.compile("\\\\d*|\\\\d+\\\\.\\\\d*"); // TODO Solve RegEx problems
-    public static final TextFormatter DOUBLE_PATTERN_TEXT_FORMATTER = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
-        return DOUBLE_PATTERN.matcher(change.getControlNewText()).matches() ? change : null;
-    });
 
     AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
@@ -75,16 +72,13 @@ public class TonyHawkSimulatorController {
     private CheckBox showForceVectorsCheckBox;
 
     @FXML
-    private Pane skaterPlanePane; // TODO Is this useful ? (dont think so)
-
-    @FXML
     private Line angledPlaneLine;
 
     @FXML
     private HBox centerPanel;
 
     @FXML
-    private TextField skaterMassField, skaterInitialHeightField; // TODO Only allow double values
+    private TextField skaterMassField, skaterInitialHeightField;
 
     private PathTransition pt;
     private Path path = new Path();
@@ -163,11 +157,10 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void resetEventHandler(ActionEvent actionEvent) { // TODO Fix the crash error
+    private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         pt.stop();
         pt.playFromStart();
-        planeAngleSlider.setDisable(false);
     }
 
     /**
@@ -251,7 +244,28 @@ public class TonyHawkSimulatorController {
 
     public void initialize() {
 
-        skaterMassField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
+        skaterMassField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                    skaterMassField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
+                }
+            }
+        });
+
+        skaterInitialHeightField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                    skaterInitialHeightField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
+                }
+            }
+        });
+
+        skaterMassField.setText(String.valueOf(animationModel.getSkater().skaterMassProperty().get()));
+        skaterInitialHeightField.setText(String.valueOf(animationModel.getSkater().heightProperty().get()));
+
+//        skaterMassField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
 //        skaterInitialHeightField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
 
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficient());
@@ -265,14 +279,11 @@ public class TonyHawkSimulatorController {
 
         planeDynamicCoefficientSlider.valueProperty().bindBidirectional(animationModel.getPlane().kineticFrictionCoefficientProperty());
 
-        animationModel.getPlane().kineticFrictionCoefficientProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double newDynamicCoefficient = (double) t1;
-                String formattedNewDynamicCoefficient = TWO_DECIMAL_PLACES.format(newDynamicCoefficient);
-                planeDynamicCoefficientLabel.setText("μ_k = " + formattedNewDynamicCoefficient);
+        animationModel.getPlane().kineticFrictionCoefficientProperty().addListener((observableValue, number, t1) -> {
+            double newDynamicCoefficient = (double) t1;
+            String formattedNewDynamicCoefficient = TWO_DECIMAL_PLACES.format(newDynamicCoefficient);
+            planeDynamicCoefficientLabel.setText("μ_k = " + formattedNewDynamicCoefficient);
 
-            }
         });
 
         slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
@@ -287,26 +298,11 @@ public class TonyHawkSimulatorController {
 
         // MARK - The next change listeners are for testing purposes only
 
-        animationModel.getSkater().skaterMassProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("hey btw you changed the skater mass");
-            }
-        });
+        animationModel.getSkater().skaterMassProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater mass"));
 
-        animationModel.getSkater().heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("hey btw you changed the skater's initial height");
-            }
-        });
+        animationModel.getSkater().heightProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater's initial height"));
 
-        this.showForceVectorsProperty.addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                System.out.println("hey, you changed the visibility of the force vectors. new value: " + t1);
-            }
-        });
+        this.showForceVectorsProperty.addListener((observableValue, aBoolean, t1) -> System.out.println("hey, you changed the visibility of the force vectors. new value: " + t1));
 
 
     }

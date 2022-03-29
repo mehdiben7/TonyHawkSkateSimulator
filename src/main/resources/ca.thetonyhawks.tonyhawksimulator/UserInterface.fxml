@@ -37,7 +37,7 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Pane fx:id="skaterPlanePane" prefWidth="648.0">
+                  <Pane prefWidth="648.0">
                      <children>
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                         <Rectangle fx:id="skater" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="77.0" layoutX="303.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
