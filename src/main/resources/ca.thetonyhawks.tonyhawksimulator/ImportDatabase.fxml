@@ -20,7 +20,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TableView>
+            <TableView fx:id="table">
               <columns>
                 <TableColumn prefWidth="118.0" text="Planet name" fx:id="name"/>
                 <TableColumn prefWidth="214.0" text="Gravitational acceleration (m/s^2)" fx:id="acceleration"/>

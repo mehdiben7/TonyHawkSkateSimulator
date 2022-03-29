@@ -1,7 +1,10 @@
 package ca.thetonyhawks.tonyhawksimulator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -16,6 +19,9 @@ public class ImportDatabaseController
 
     @FXML
     private TableColumn name,acceleration;
+
+    @FXML
+    private TableView table;
 
     private Stage importDatabaseStage;
 
@@ -57,11 +63,12 @@ public class ImportDatabaseController
             String query="SELECT * From TonyHawkSimulator";
             try
             {
+                ObservableList<String> data = null;
                 Statement statement=connection.createStatement();
                 ResultSet   resultSet=statement.executeQuery(query);
-                // name.getColumns().add(resultSet.getString("Name"));
+                data.add(resultSet.getString("Name"));
                 name.setText(resultSet.getString("Name"));
-
+                table.setItems(data);
 
             }catch(SQLException ex)
             {
