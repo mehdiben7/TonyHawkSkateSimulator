@@ -5,10 +5,41 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 /**
  *  The animation's model
  */
 public class AnimationModel {
+
+    public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("#.##");
+
+
+    /**
+     *
+     * @param gravitationalAcceleration The gravitational acceleration of the planet the skater is skating on (in m/s^2)
+     * @param dynamicFrictionCoefficient The friction coefficient between the skater and the plane if any, otherwise 0
+     * @param planeAngle The angle of the plane (in degrees)
+     * @param skaterMass The skater mass (in kg)
+     * @return The acceleration of the skater
+     */
+    public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) {
+
+        double horizontalGravitationalForce = skaterMass * gravitationalAcceleration * Math.sin(Math.toRadians(planeAngle));
+        double verticalGravitationalForce = skaterMass * gravitationalAcceleration * Math.cos(Math.toRadians(planeAngle));
+        double frictionForce = - (dynamicFrictionCoefficient * verticalGravitationalForce);
+        double totalForce = horizontalGravitationalForce + frictionForce;
+
+        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(totalForce / skaterMass));
+    }
+
+    public double getModelAcceleration() {
+        // Will use the values of the animationModel object and plug them in the general method
+        // And since i was not able to test the method i don't know if this method works
+        return getAngledPlaneAcceleration(this.planet.getGravitationalAcceleration(), this.plane.kineticFrictionCoefficientProperty().get(),
+                                          this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
+    }
 
     // MARK - Object properties
     private Planet planet;
@@ -98,6 +129,9 @@ public class AnimationModel {
      * @param skaterInitialHeight The skater's initial height, in m
      */
     public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, double skaterInitialHeight) {
+
+        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
+
         this.planet = planet;
         this.plane = plane;
         this.skater = skater;

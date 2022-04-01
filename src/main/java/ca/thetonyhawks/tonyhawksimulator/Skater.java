@@ -9,6 +9,27 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class Skater {
 
     /**
+     *  Calculates the kinetic energy of the skater
+     * @param skaterMass The skater's mass (in kg)
+     * @param skaterVelocity The skater's velocity (in m/s)
+     * @return The skater's kinetic energy (in J)
+     */
+    public static double getKineticEnergy(double skaterMass, double skaterVelocity) {
+        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(0.5 * skaterMass * Math.pow(skaterVelocity, 2)));
+    }
+
+    /**
+     *  Calculates the skater's potential gravitational energy
+     * @param skaterMass The skater's mass (in kg)
+     * @param gravitationalAcceleration The gravitational acceleration acting on the skater (in m/s^2)
+     * @param skaterHeight The skater's height (in m)
+     * @return The skater's potential gravitational energy (in J)
+     */
+    public static double getPotentialGravitationalEnergy(double skaterMass, double gravitationalAcceleration, double skaterHeight) {
+        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(skaterMass * gravitationalAcceleration * skaterHeight));
+    }
+
+    /**
      *  The default skater mass, in kg, which is 70.00 kg
      */
     public static final double DEFAULT_SKATER_MASS = 70.0;

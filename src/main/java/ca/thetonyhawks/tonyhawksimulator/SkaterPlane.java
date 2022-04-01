@@ -1,6 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  *  An abstract class representing a plane with no define shape
@@ -16,9 +17,9 @@ public abstract class SkaterPlane {
     /**
      *  Kinetic friction coefficient <em>µ_k</em>
      */
-    private double kineticFrictionCoefficient;
+    private DoubleProperty kineticFrictionCoefficientProperty;
 
-    public abstract DoubleProperty angleOrAValueProperty(); // TODO Find a better name because this is hideous
+    public abstract DoubleProperty planeCoefficientProperty();
 
 //    public abstract DoubleProperty planeStartXProperty();
 //    public abstract DoubleProperty planeStartYProperty();
@@ -30,15 +31,15 @@ public abstract class SkaterPlane {
      * @param kineticFrictionCoefficient Kinetic friction coefficient <em>µ_k</em>
      */
     public SkaterPlane(double kineticFrictionCoefficient) {
-        this.kineticFrictionCoefficient = kineticFrictionCoefficient;
+        this.kineticFrictionCoefficientProperty = new SimpleDoubleProperty(kineticFrictionCoefficient);
     }
 
     /**
      *  Returns the kinetic friction coefficient <em>µ_k</em> in the kinetic friction relation <em>f_kf = µ_k * F_N</em>
      * @return Kinetic friction coefficient <em>µ_k</em>
      */
-    public double getKineticFrictionCoefficient() {
-        return kineticFrictionCoefficient;
+    public DoubleProperty kineticFrictionCoefficientProperty() {
+        return this.kineticFrictionCoefficientProperty;
     }
 
 

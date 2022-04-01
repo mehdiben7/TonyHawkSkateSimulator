@@ -3,6 +3,8 @@ package ca.thetonyhawks.tonyhawksimulator;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,10 +28,15 @@ import java.text.DecimalFormat;
  */
 public class TonyHawkSimulatorController {
 
+    public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
+    public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
+
     public static final DecimalFormat TWO_DECIMAL_PLACES = new DecimalFormat("0.00");
 
     AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
+
+    private BooleanProperty showForceVectorsProperty;
     private PathTransition angledPlaneSkaterPathTransition;
     private Path angledPlanePath;
 
@@ -56,13 +62,13 @@ public class TonyHawkSimulatorController {
     private ToggleGroup speed;
 
     @FXML
-    private Slider planeAngleSlider;
+    private Slider planeAngleSlider, planeDynamicCoefficientSlider;
 
     @FXML
-    private Label planeAngleLabel;
+    private Label planeAngleLabel, planeDynamicCoefficientLabel;
 
     @FXML
-    private Pane skaterPlanePane; // TODO Is this useful ?
+    private CheckBox showForceVectorsCheckBox;
 
     @FXML
     private Line angledPlaneLine;
@@ -150,11 +156,10 @@ public class TonyHawkSimulatorController {
      * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void resetEventHandler(ActionEvent actionEvent) { // TODO Fix the crash error
+    private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         pt.stop();
         pt.playFromStart();
-        planeAngleSlider.setDisable(false);
     }
 
     /**
@@ -171,7 +176,6 @@ public class TonyHawkSimulatorController {
             databaseContent = loader.load();
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            // TODO catch exception
         }
 
         Stage importDatabaseStage = new Stage();
@@ -179,7 +183,6 @@ public class TonyHawkSimulatorController {
         importDatabaseStage.setTitle("Import planets' acceleration values");
         importDatabaseStage.setScene(databaseScene);
         importDatabaseStage.setResizable(false);
-        // TODO Make sure the database import UI is responsive
         importDatabaseStage.show();
     }
 
@@ -196,13 +199,13 @@ public class TonyHawkSimulatorController {
         try {
             aboutContent = loader.load();
         } catch (IOException ex) {
-            // TODO Actually catch IOException
             ex.printStackTrace();
         }
 
         Stage aboutStage = new Stage();
         Scene scene = new Scene(aboutContent, 920, 400);
-        // TODO Change minimum size of About window
+        aboutStage.setMinWidth(920);
+        aboutStage.setMinHeight(400);
 
         aboutStage.setTitle("About this project");
         aboutStage.setScene(scene);
@@ -230,46 +233,75 @@ public class TonyHawkSimulatorController {
     }
 
     public TonyHawkSimulatorController() {
-        if(animationModel.getPlane() instanceof AngledSkaterPlane) {
-            System.out.println("Angled");
-        } else if(animationModel.getPlane() instanceof ParabolaSkaterPlane) {
-            System.out.println("Parabola");
-        }
+//        if(animationModel.getPlane() instanceof AngledSkaterPlane) {
+//            System.out.println("Angled");
+//        } else if(animationModel.getPlane() instanceof ParabolaSkaterPlane) {
+//            System.out.println("Parabola");
+//        }
+        this.showForceVectorsProperty = new SimpleBooleanProperty(false);
     }
 
     public void initialize() {
-        planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().angleOrAValueProperty());
+
+        skaterMassField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                    skaterMassField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
+                }
+            }
+        });
+
+        skaterInitialHeightField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                    skaterInitialHeightField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
+                }
+            }
+        });
+
+        skaterMassField.setText(String.valueOf(animationModel.getSkater().skaterMassProperty().get()));
+        skaterInitialHeightField.setText(String.valueOf(animationModel.getSkater().heightProperty().get()));
+
+//        skaterMassField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
+//        skaterInitialHeightField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
+
+        planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficientProperty());
         planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
 
-        animationModel.getPlane().angleOrAValueProperty().addListener((observableValue, number, t1) -> {
+        animationModel.getPlane().planeCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newAngle = (double) t1;
             String formattedNewAngleString = TWO_DECIMAL_PLACES.format(newAngle);
             planeAngleLabel.setText(formattedNewAngleString + " deg");
         });
 
+        planeDynamicCoefficientSlider.valueProperty().bindBidirectional(animationModel.getPlane().kineticFrictionCoefficientProperty());
+
+        animationModel.getPlane().kineticFrictionCoefficientProperty().addListener((observableValue, number, t1) -> {
+            double newDynamicCoefficient = (double) t1;
+            String formattedNewDynamicCoefficient = TWO_DECIMAL_PLACES.format(newDynamicCoefficient);
+            planeDynamicCoefficientLabel.setText("μ_k = " + formattedNewDynamicCoefficient);
+
+        });
+
         slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
 
+
+        showForceVectorsCheckBox.selectedProperty().bindBidirectional(this.showForceVectorsProperty);
 
         skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
         skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
         animationModel.animationSpeedProperty().set(10);
 
-        // Temporary
+        // MARK - The next change listeners are for testing purposes only
 
-        animationModel.getSkater().skaterMassProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("hey btw you changed the skater mass");
-            }
-        });
+        animationModel.getSkater().skaterMassProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater mass"));
 
-        animationModel.getSkater().heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("hey btw you changed the skater's initial height");
-            }
-        });
+        animationModel.getSkater().heightProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater's initial height"));
+
+        this.showForceVectorsProperty.addListener((observableValue, aBoolean, t1) -> System.out.println("hey, you changed the visibility of the force vectors. new value: " + t1));
 
 
     }
