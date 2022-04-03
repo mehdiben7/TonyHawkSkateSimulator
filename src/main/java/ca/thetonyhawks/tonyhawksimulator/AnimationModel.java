@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 /**
  *  The animation's model
@@ -14,6 +15,22 @@ import java.text.DecimalFormat;
 public class AnimationModel {
 
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("#.##");
+
+    /**
+     *  Computes the fall of an object on an angled plane
+     * @param planeLength The length of the plane (in m)
+     * @param horizontalAcceleration The horizontal acceleration acting on the object (in m/s^2)
+     * @return The fall duration (in s)
+     */
+    public static double getFallDuration(double planeLength, double horizontalAcceleration) {
+        double fallDuration =  Math.sqrt((2 * planeLength) / horizontalAcceleration);
+
+        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(fallDuration));
+    }
+
+    public double getModelFallDuration() {
+        return getFallDuration(AngledSkaterPlane.PLANE_LENGTH, skater.accelerationProperty().get());
+    }
 
 
     /**
@@ -35,8 +52,6 @@ public class AnimationModel {
     }
 
     public double getModelAcceleration() {
-        // Will use the values of the animationModel object and plug them in the general method
-        // And since i was not able to test the method i don't know if this method works
         return getAngledPlaneAcceleration(this.planet.getGravitationalAcceleration(), this.plane.kineticFrictionCoefficientProperty().get(),
                                           this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
     }
@@ -59,7 +74,7 @@ public class AnimationModel {
         return this.isInSlowMotionProperty;
     }
 
-    public DoubleProperty animationSpeedProperty() {
+    public DoubleProperty animationDurationProperty() {
         return this.animationSpeedProperty;
     }
 
@@ -131,6 +146,12 @@ public class AnimationModel {
     public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, double skaterInitialHeight) {
 
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
+
+        DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
+        System.out.println(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(23.4039430493094));
+
 
         this.planet = planet;
         this.plane = plane;

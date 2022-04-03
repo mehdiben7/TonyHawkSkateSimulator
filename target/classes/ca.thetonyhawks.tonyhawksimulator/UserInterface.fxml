@@ -98,24 +98,34 @@
       </HBox>
    </bottom>
    <left>
-      <Pane minWidth="150.0" style="-fx-background-color: #78D128;" BorderPane.alignment="CENTER">
+      <Pane minWidth="150.0" style="-fx-background-color: #78D128;" BorderPane.alignment="TOP_CENTER">
          <children>
-            <BarChart barGap="5.0" layoutX="-1.0" layoutY="1.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
-               <xAxis>
-                  <CategoryAxis side="BOTTOM" />
-               </xAxis>
-               <yAxis>
-                  <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
-                     <effect>
-                        <Blend />
-                     </effect>
-                     <tickLabelFont>
-                        <Font size="10.0" />
-                     </tickLabelFont>
-                  </NumberAxis>
-               </yAxis>
-            </BarChart>
+            <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="1.0">
+               <children>
+                  <BarChart barGap="5.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="200.0" title="Energy Graph Bar">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis autoRanging="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="11.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+                           <effect>
+                              <Blend />
+                           </effect>
+                           <tickLabelFont>
+                              <Font size="10.0" />
+                           </tickLabelFont>
+                        </NumberAxis>
+                     </yAxis>
+                  </BarChart>
+                  <Label fx:id="skaterPositionLabel" text="x = 0.0 m" />
+                  <Label fx:id="skaterSpeedLabel" text="v = 0.0 m/s" />
+                  <Label fx:id="skaterAccelerationLabel" text="a = 0.0 m/s^2" />
+               </children>
+            </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </Pane>
    </left>
    <right>
@@ -159,7 +169,7 @@
                         <Slider disable="true" majorTickUnit="0.2" max="0.8" min="0.1" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@../CSS%20stylesheets/slider.css" value="0.4" />
                         <Label disable="true" text="a = 0.4" />
                         <Label text="Friction" />
-                        <Slider fx:id="planeDynamicCoefficientSlider" majorTickUnit="0.5" max="2.0" prefHeight="38.0" prefWidth="225.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@../CSS%20stylesheets/slider.css" />
+                        <Slider fx:id="planeDynamicCoefficientSlider" majorTickUnit="0.5" max="1.0" minorTickCount="4" prefHeight="38.0" prefWidth="225.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@../CSS%20stylesheets/slider.css" />
                         <Label fx:id="planeDynamicCoefficientLabel" text="μ_k = 0" />
                         <CheckBox fx:id="showForceVectorsCheckBox" mnemonicParsing="false" text="Show force vector" />
                      </children>

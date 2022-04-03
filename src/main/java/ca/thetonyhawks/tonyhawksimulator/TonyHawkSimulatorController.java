@@ -33,7 +33,7 @@ public class TonyHawkSimulatorController {
 
     public static final DecimalFormat TWO_DECIMAL_PLACES = new DecimalFormat("0.00");
 
-    AnimationModel animationModel = new AnimationModel(new Planet("A planet", 100), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
+    AnimationModel animationModel = new AnimationModel(new Planet("A planet", 9.8), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
 
 
     private BooleanProperty showForceVectorsProperty;
@@ -79,8 +79,16 @@ public class TonyHawkSimulatorController {
     @FXML
     private TextField skaterMassField, skaterInitialHeightField;
 
+    @FXML
+    private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
+
     private PathTransition pt;
     private Path path = new Path();
+
+    private void updateAngledPlaneValues() {
+        animationModel.getSkater().accelerationProperty().set(animationModel.getModelAcceleration());
+
+    }
 
     /**
      *  Toggles the change between slow motion and regular speed of animation
@@ -88,18 +96,16 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {
-        double duration = normalSpeedRadioButton.isSelected() ? animationModel.animationSpeedProperty().get() * 0.5 :
-                                                                animationModel.animationSpeedProperty().get();
+        double duration = normalSpeedRadioButton.isSelected() ? animationModel.animationDurationProperty().get() * 0.5 :
+                                                                animationModel.animationDurationProperty().get();
 
         pt.setDuration(Duration.seconds(duration));
     }
 
-
-
     void animate(Line line) {
 
-        double animationNormalSpeed = animationModel.animationSpeedProperty().get() * 0.5;
-        double animationSlowMotionSpeed = animationModel.animationSpeedProperty().get(); // The two values should be inverted, but it doesn't work IDK why
+        double animationNormalSpeed = animationModel.animationDurationProperty().get() * 0.5;
+        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get(); // The two values should be inverted, but it doesn't work IDK why
 
         skater.setX(line.getStartX());
         skater.setY(700 - line.getStartY());
@@ -134,6 +140,7 @@ public class TonyHawkSimulatorController {
         }
         else {
             System.out.println("Animation started !");
+            updateAngledPlaneValues();
             animate(angledPlaneLine);
             animationModel.isPausedProperty().set(true);
         }
@@ -159,6 +166,7 @@ public class TonyHawkSimulatorController {
     private void resetEventHandler(ActionEvent actionEvent) {
         System.out.println("reset");
         pt.stop();
+        updateAngledPlaneValues();
         pt.playFromStart();
     }
 
@@ -285,6 +293,8 @@ public class TonyHawkSimulatorController {
 
         });
 
+
+
         slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
 
 
@@ -293,17 +303,34 @@ public class TonyHawkSimulatorController {
         skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
         skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
-        animationModel.animationSpeedProperty().set(10);
+        animationModel.getSkater().positionProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double newPosition = (double) t1;
+                String formattedNewPosition = TWO_DECIMAL_PLACES.format(newPosition);
+                skaterPositionLabel.setText("x = " + formattedNewPosition + " m");
+            }
+        });
 
-        // MARK - The next change listeners are for testing purposes only
+        animationModel.getSkater().velocityProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double newSpeed = (double) t1;
+                String formattedNewSpeed = TWO_DECIMAL_PLACES.format(newSpeed);
+                skaterSpeedLabel.setText("v = " + formattedNewSpeed + " m/s");
+            }
+        });
 
-        animationModel.getSkater().skaterMassProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater mass"));
+        animationModel.getSkater().accelerationProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double newAcceleration = (double) t1;
+                String formattedNewAcceleration = TWO_DECIMAL_PLACES.format(newAcceleration);
+                skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
+            }
+        });
 
-        animationModel.getSkater().heightProperty().addListener((observable, oldValue, newValue) -> System.out.println("hey btw you changed the skater's initial height"));
-
-        this.showForceVectorsProperty.addListener((observableValue, aBoolean, t1) -> System.out.println("hey, you changed the visibility of the force vectors. new value: " + t1));
-
-
+        animationModel.animationDurationProperty().set(10);
     }
 
 

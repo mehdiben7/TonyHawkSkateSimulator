@@ -8,6 +8,11 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public class Skater {
 
+//    assertEquals(140, Skater.getKineticEnergy(70, 2));
+//    assertEquals(215.63, Skater.getKineticEnergy(69, 2.5));
+//    assertEquals(4648.86, Skater.getKineticEnergy(89, 10.221));
+//    assertEquals(141.02, Skater.getKineticEnergy(50, 2.375));
+
     /**
      *  Calculates the kinetic energy of the skater
      * @param skaterMass The skater's mass (in kg)
@@ -15,6 +20,9 @@ public class Skater {
      * @return The skater's kinetic energy (in J)
      */
     public static double getKineticEnergy(double skaterMass, double skaterVelocity) {
+        double kineticEnergyDouble = 0.5 * skaterMass * Math.pow(skaterVelocity, 2);
+        String kineticEnergyString = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(kineticEnergyDouble);
+        double parsedDouble = Double.parseDouble(kineticEnergyString);
         return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(0.5 * skaterMass * Math.pow(skaterVelocity, 2)));
     }
 
@@ -37,6 +45,7 @@ public class Skater {
 
     private DoubleProperty skaterMassProperty;
     private DoubleProperty heightProperty;
+    private DoubleProperty positionProperty;
     private DoubleProperty velocityProperty;
     private DoubleProperty accelerationProperty;
     private DoubleProperty xProperty;
@@ -58,6 +67,9 @@ public class Skater {
     }
     public DoubleProperty yProperty(){
         return this.yProperty;
+    }
+    public DoubleProperty positionProperty() {
+        return this.positionProperty;
     }
 
 
@@ -108,5 +120,8 @@ public class Skater {
     public Skater(double mass) {
         this.skaterMassProperty = new SimpleDoubleProperty(mass);
         this.heightProperty = new SimpleDoubleProperty(0);
+        this.positionProperty = new SimpleDoubleProperty(0);
+        this.velocityProperty = new SimpleDoubleProperty(0);
+        this.accelerationProperty = new SimpleDoubleProperty(0);
     }
 }

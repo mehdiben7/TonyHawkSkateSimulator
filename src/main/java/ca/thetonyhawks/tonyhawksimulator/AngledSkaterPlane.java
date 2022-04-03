@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public class AngledSkaterPlane extends SkaterPlane {
 
+    public static final double PLANE_LENGTH = 8.0;
+
     /**
      *  Calculates the height of the top of the angled plane
      * @param baseLength The length, the horizontal difference between the top and the bottom of the angled plane (in m)
