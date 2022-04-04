@@ -1,25 +1,12 @@
 package ca.thetonyhawks.tonyhawksimulator.tests;
 
-import ca.thetonyhawks.tonyhawksimulator.AnimationModel;
-import org.junit.Before;
+import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
 import org.junit.Test;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormatSymbols;
-
-import static ca.thetonyhawks.tonyhawksimulator.AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnimationModelTest {
 
-    @Before
-    public void beforeEach() {
-        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
-
-        DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
-        dfs.setDecimalSeparator('.');
-        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
-    }
     @Test
     public void testGetAngledPlaneAcceleration() {
 

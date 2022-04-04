@@ -1,20 +1,25 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.model;
 
+import ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane;
+import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 
 /**
  *  The animation's model
  */
 public class AnimationModel {
 
-    public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
     /**
      *  Computes the fall of an object on an angled plane
@@ -66,6 +71,8 @@ public class AnimationModel {
     private BooleanProperty isInSlowMotionProperty;
     private BooleanProperty isPausedProperty;
 
+    private ObservableList<String> planeTypesProperty;
+
     public BooleanProperty isPausedProperty() {
         return this.isPausedProperty;
     }
@@ -76,6 +83,10 @@ public class AnimationModel {
 
     public DoubleProperty animationDurationProperty() {
         return this.animationSpeedProperty;
+    }
+
+    public ObservableList<String> planeTypesProperty() {
+        return this.planeTypesProperty;
     }
 
     /**
@@ -150,7 +161,8 @@ public class AnimationModel {
         DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
-        System.out.println(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(23.4039430493094));
+
+        planeTypesProperty = FXCollections.observableList(Arrays.asList(SkaterPlane.PLANE_TYPES));
 
 
         this.planet = planet;

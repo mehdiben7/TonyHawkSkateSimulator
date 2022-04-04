@@ -1,4 +1,4 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.model.planes;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,6 +9,9 @@ import javafx.beans.property.SimpleDoubleProperty;
  * @see ParabolaSkaterPlane
  */
 public abstract class SkaterPlane {
+
+    public static final String[] PLANE_TYPES = {"Angled plane", "Parabola"};
+
     /**
      *  Default kinetic friction coefficient, which 0 with no friction
      */
@@ -17,14 +20,9 @@ public abstract class SkaterPlane {
     /**
      *  Kinetic friction coefficient <em>µ_k</em>
      */
-    private DoubleProperty kineticFrictionCoefficientProperty;
+    private final DoubleProperty kineticFrictionCoefficientProperty;
 
     public abstract DoubleProperty planeCoefficientProperty();
-
-//    public abstract DoubleProperty planeStartXProperty();
-//    public abstract DoubleProperty planeStartYProperty();
-//    public abstract DoubleProperty planeEndXProperty();
-//    public abstract DoubleProperty planeEndYProperty();
 
     /**
      *  Instantiates a new plane with provided kinetic friction coefficient

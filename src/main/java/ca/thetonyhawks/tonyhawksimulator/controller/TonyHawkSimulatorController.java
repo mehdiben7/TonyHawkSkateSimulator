@@ -1,12 +1,16 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.controller;
 
+import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
+import ca.thetonyhawks.tonyhawksimulator.model.Planet;
+import ca.thetonyhawks.tonyhawksimulator.model.Skater;
+import ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane;
+import ca.thetonyhawks.tonyhawksimulator.model.planes.ParabolaSkaterPlane;
+import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +25,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  *  The Controller class linked to the main user interface window of the simulator <br>
@@ -33,14 +35,13 @@ public class TonyHawkSimulatorController {
     public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
     public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
 
-    public static final DecimalFormat TWO_DECIMAL_PLACES = new DecimalFormat("0.00");
+    public static final AngledSkaterPlane DEFAULT_ANGLED_SKATER_PLANE = new AngledSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT, 45);
+    public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT, 2);
 
-    AnimationModel animationModel = new AnimationModel(new Planet("A planet", 9.8), new AngledSkaterPlane(0, 45), new Skater(75), false, 10 );
+    AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]), DEFAULT_ANGLED_SKATER_PLANE, new Skater(Skater.DEFAULT_SKATER_MASS), false, 10 );
 
 
     private BooleanProperty showForceVectorsProperty;
-    private PathTransition angledPlaneSkaterPathTransition;
-    private Path angledPlanePath;
 
     @FXML
     private Rectangle skater;
@@ -76,6 +77,9 @@ public class TonyHawkSimulatorController {
     private Line angledPlaneLine;
 
     @FXML
+    private QuadCurve parabolaPlaneCurve;
+
+    @FXML
     private HBox centerPanel;
 
     @FXML
@@ -85,7 +89,7 @@ public class TonyHawkSimulatorController {
     private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
 
     @FXML
-    private ComboBox<String> planetComboBox;
+    private ComboBox<String> planetComboBox, planeTypesComboBox;
 
     private PathTransition pt;
     private Path path = new Path();
@@ -246,11 +250,6 @@ public class TonyHawkSimulatorController {
     }
 
     public TonyHawkSimulatorController() {
-//        if(animationModel.getPlane() instanceof AngledSkaterPlane) {
-//            System.out.println("Angled");
-//        } else if(animationModel.getPlane() instanceof ParabolaSkaterPlane) {
-//            System.out.println("Parabola");
-//        }
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
     }
 
@@ -258,56 +257,60 @@ public class TonyHawkSimulatorController {
 
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
         planetComboBox.getSelectionModel().selectFirst();
-        planetComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-//                double gravitationalConstant = Planet.PLANETS_NAMES
-//                int selectedPlanetIndex = Arrays.stream(Planet.PLANETS_NAMES)
-//                                                .mapToInt(t1::indexOf)
-//                                                .filter(i -> i >= 0)
-//                                                .findFirst()
-//                                                .orElse(-1);
-                // TODO Repair lambda in planet combo box change listener
+        planetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
 
-                int selectedItemIndex = planetComboBox.getSelectionModel().getSelectedIndex();
 
-                double gravitationalConstant = Planet.PLANETS_GRAVITATIONAL_CONSTANTS[selectedItemIndex];
-                System.out.println("new grav const. : " + gravitationalConstant);
-                animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
+            int selectedItemIndex = planetComboBox.getSelectionModel().getSelectedIndex();
 
+            double gravitationalConstant = Planet.PLANETS_GRAVITATIONAL_CONSTANTS[selectedItemIndex];
+            System.out.println("new grav const. : " + gravitationalConstant);
+            animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
+
+        });
+
+        planeTypesComboBox.setItems(animationModel.planeTypesProperty());
+        planeTypesComboBox.getSelectionModel().selectFirst();
+        planeTypesComboBox.valueProperty().addListener((observableValue, s, t1) -> {
+            if (t1.equalsIgnoreCase("Angled plane")) {
+                System.out.println("An angled plane");
+                parabolaPlaneCurve.setVisible(false);
+                angledPlaneLine.setVisible(true);
+                animationModel.setPlane(DEFAULT_ANGLED_SKATER_PLANE);
+
+
+            } else if (t1.equalsIgnoreCase("Parabola")) {
+                System.out.println("A parabola");
+                parabolaPlaneCurve.setVisible(true);
+                angledPlaneLine.setVisible(false);
+                animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
+            }
+            // This should never happen, but if the selected option is neither Angled plane nor Parabola, we do
+            // not do anything
+        });
+
+
+
+        skaterMassField.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                skaterMassField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
             }
         });
 
-        skaterMassField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
-                    skaterMassField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
-                }
-            }
-        });
-
-        skaterInitialHeightField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
-                    skaterInitialHeightField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
-                }
+        skaterInitialHeightField.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
+                skaterInitialHeightField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
             }
         });
 
         skaterMassField.setText(String.valueOf(animationModel.getSkater().skaterMassProperty().get()));
         skaterInitialHeightField.setText(String.valueOf(animationModel.getSkater().heightProperty().get()));
 
-//        skaterMassField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
-//        skaterInitialHeightField.setTextFormatter(DOUBLE_PATTERN_TEXT_FORMATTER);
-
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficientProperty());
         planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
 
         animationModel.getPlane().planeCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newAngle = (double) t1;
-            String formattedNewAngleString = TWO_DECIMAL_PLACES.format(newAngle);
+            String formattedNewAngleString = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newAngle);
             planeAngleLabel.setText(formattedNewAngleString + " deg");
         });
 
@@ -315,7 +318,7 @@ public class TonyHawkSimulatorController {
 
         animationModel.getPlane().kineticFrictionCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newDynamicCoefficient = (double) t1;
-            String formattedNewDynamicCoefficient = TWO_DECIMAL_PLACES.format(newDynamicCoefficient);
+            String formattedNewDynamicCoefficient = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newDynamicCoefficient);
             planeDynamicCoefficientLabel.setText("μ_k = " + formattedNewDynamicCoefficient);
 
         });
@@ -330,31 +333,22 @@ public class TonyHawkSimulatorController {
         skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
         skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
 
-        animationModel.getSkater().positionProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double newPosition = (double) t1;
-                String formattedNewPosition = TWO_DECIMAL_PLACES.format(newPosition);
-                skaterPositionLabel.setText("x = " + formattedNewPosition + " m");
-            }
+        animationModel.getSkater().positionProperty().addListener((observableValue, number, t1) -> {
+            double newPosition = (double) t1;
+            String formattedNewPosition = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newPosition);
+            skaterPositionLabel.setText("x = " + formattedNewPosition + " m");
         });
 
-        animationModel.getSkater().velocityProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double newSpeed = (double) t1;
-                String formattedNewSpeed = TWO_DECIMAL_PLACES.format(newSpeed);
-                skaterSpeedLabel.setText("v = " + formattedNewSpeed + " m/s");
-            }
+        animationModel.getSkater().velocityProperty().addListener((observableValue, number, t1) -> {
+            double newSpeed = (double) t1;
+            String formattedNewSpeed = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newSpeed);
+            skaterSpeedLabel.setText("v = " + formattedNewSpeed + " m/s");
         });
 
-        animationModel.getSkater().accelerationProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double newAcceleration = (double) t1;
-                String formattedNewAcceleration = TWO_DECIMAL_PLACES.format(newAcceleration);
-                skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
-            }
+        animationModel.getSkater().accelerationProperty().addListener((observableValue, number, t1) -> {
+            double newAcceleration = (double) t1;
+            String formattedNewAcceleration = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newAcceleration);
+            skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
         });
 
         animationModel.animationDurationProperty().set(10);

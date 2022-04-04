@@ -1,4 +1,4 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.model;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

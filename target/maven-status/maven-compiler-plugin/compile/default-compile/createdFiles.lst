@@ -1,4 +1,3 @@
-ca/thetonyhawks/tonyhawksimulator/TonyHawkSimulatorController$5.class
 module-info.class
-ca/thetonyhawks/tonyhawksimulator/TonyHawkSimulatorController$3.class
-ca/thetonyhawks/tonyhawksimulator/TonyHawkSimulatorController$4.class
+ca\thetonyhawks\tonyhawksimulator\tests\SkaterTest.class
+ca\thetonyhawks\tonyhawksimulator\tests\AnimationModelTest.class

@@ -1,5 +1,6 @@
-package ca.thetonyhawks.tonyhawksimulator;
+package ca.thetonyhawks.tonyhawksimulator.model.planes;
 
+import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -15,13 +16,13 @@ public class AngledSkaterPlane extends SkaterPlane {
 
     /**
      *  Calculates the height of the top of the angled plane
-     * @param baseLength The length, the horizontal difference between the top and the bottom of the angled plane (in m)
+     * @param planeWidth The width of the plane (in m)
      * @param planeAngle The angle of the plane (in degrees)
      * @return The height of the top of the angled plane (in m)
      */
-    public static double getHeight(double baseLength, double planeAngle) { // TODO Make test for this method
-        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT
-                                                .format(baseLength * Math.tan(Math.toRadians(planeAngle))));
+    public static double getHeight(double planeWidth, double planeAngle) {
+        double calculatedHeight = planeWidth * Math.sin(Math.toRadians(planeAngle));
+        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
     }
 
     public DoubleProperty angleProperty;
