@@ -1,6 +1,7 @@
 package ca.thetonyhawks.tonyhawksimulator.tests;
 
 import ca.thetonyhawks.tonyhawksimulator.AnimationModel;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.RoundingMode;
@@ -10,13 +11,18 @@ import static ca.thetonyhawks.tonyhawksimulator.AnimationModel.TWO_DECIMALS_PHYS
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnimationModelTest {
-    @Test
-    public void testGetAngledPlaneAcceleration() {
+
+    @Before
+    public void beforeEach() {
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
 
         DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
+    }
+    @Test
+    public void testGetAngledPlaneAcceleration() {
+
         assertEquals(1.61, AnimationModel.getAngledPlaneAcceleration(9.8, 0.01, 10, 65));
         assertEquals(1.94, AnimationModel.getAngledPlaneAcceleration(2, 0, 75.6, 200));
         assertEquals(49.76, AnimationModel.getAngledPlaneAcceleration(50, 0.9, 89.69, 400));
@@ -25,11 +31,7 @@ public class AnimationModelTest {
 
     @Test
     public void testGetFallDuration() {
-        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
 
-        DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
-        dfs.setDecimalSeparator('.');
-        TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
         assertEquals(2.53, AnimationModel.getFallDuration(8, 2.5));
         assertEquals(4.35, AnimationModel.getFallDuration(236, 25));
         assertEquals(2.80, AnimationModel.getFallDuration(999.99, 254.66));

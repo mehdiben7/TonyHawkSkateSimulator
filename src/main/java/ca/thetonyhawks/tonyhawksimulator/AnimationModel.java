@@ -52,7 +52,7 @@ public class AnimationModel {
     }
 
     public double getModelAcceleration() {
-        return getAngledPlaneAcceleration(this.planet.getGravitationalAcceleration(), this.plane.kineticFrictionCoefficientProperty().get(),
+        return getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(), this.plane.kineticFrictionCoefficientProperty().get(),
                                           this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
     }
 

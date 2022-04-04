@@ -21,6 +21,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  *  The Controller class linked to the main user interface window of the simulator <br>
@@ -81,6 +83,9 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
+
+    @FXML
+    private ComboBox<String> planetComboBox;
 
     private PathTransition pt;
     private Path path = new Path();
@@ -250,6 +255,28 @@ public class TonyHawkSimulatorController {
     }
 
     public void initialize() {
+
+        planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
+        planetComboBox.getSelectionModel().selectFirst();
+        planetComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+//                double gravitationalConstant = Planet.PLANETS_NAMES
+//                int selectedPlanetIndex = Arrays.stream(Planet.PLANETS_NAMES)
+//                                                .mapToInt(t1::indexOf)
+//                                                .filter(i -> i >= 0)
+//                                                .findFirst()
+//                                                .orElse(-1);
+                // TODO Repair lambda in planet combo box change listener
+
+                int selectedItemIndex = planetComboBox.getSelectionModel().getSelectedIndex();
+
+                double gravitationalConstant = Planet.PLANETS_GRAVITATIONAL_CONSTANTS[selectedItemIndex];
+                System.out.println("new grav const. : " + gravitationalConstant);
+                animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
+
+            }
+        });
 
         skaterMassField.textProperty().addListener(new ChangeListener<String>() {
             @Override
