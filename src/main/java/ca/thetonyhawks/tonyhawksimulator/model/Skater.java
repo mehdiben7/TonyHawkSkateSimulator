@@ -53,7 +53,7 @@ public class Skater {
 
 
     // MARK - Properties getter
-    public DoubleProperty heightProperty() {
+    public DoubleProperty initialHeightProperty() {
         return this.heightProperty;
     }
     public DoubleProperty velocityProperty() {

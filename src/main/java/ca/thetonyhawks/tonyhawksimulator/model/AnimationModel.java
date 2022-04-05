@@ -47,7 +47,6 @@ public class AnimationModel {
      * @return The acceleration of the skater
      */
     public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) {
-
         double horizontalGravitationalForce = skaterMass * gravitationalAcceleration * Math.sin(Math.toRadians(planeAngle));
         double verticalGravitationalForce = skaterMass * gravitationalAcceleration * Math.cos(Math.toRadians(planeAngle));
         double frictionForce = - (dynamicFrictionCoefficient * verticalGravitationalForce);
@@ -57,9 +56,10 @@ public class AnimationModel {
     }
 
     public double getModelAcceleration() {
-        return getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(), this.plane.kineticFrictionCoefficientProperty().get(),
-                                          this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
+        double computedAngledPlaneAcceleration = getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(), this.plane.kineticFrictionCoefficientProperty().get(), this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
+        return computedAngledPlaneAcceleration;
     }
+
 
     // MARK - Object properties
     private Planet planet;
@@ -155,6 +155,7 @@ public class AnimationModel {
      * @param skaterInitialHeight The skater's initial height, in m
      */
     public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, double skaterInitialHeight) {
+
 
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
 
