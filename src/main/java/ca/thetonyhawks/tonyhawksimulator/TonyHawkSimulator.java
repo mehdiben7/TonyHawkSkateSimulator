@@ -1,10 +1,14 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
+import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.*;
 
@@ -23,6 +27,7 @@ public class TonyHawkSimulator extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/UserInterface.fxml"));
         Pane content = loader.load();
+
 
         Scene mainScene = new Scene(content, 1400, 800);
         stage.setTitle("Tony Hawk Skate Simulator");

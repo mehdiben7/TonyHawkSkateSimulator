@@ -19,7 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -79,6 +82,8 @@ public class TonyHawkSimulatorController {
     @FXML
     private QuadCurve parabolaPlaneCurve;
 
+    private CubicCurveTo planeParabola;
+
     @FXML
     private HBox centerPanel;
 
@@ -91,8 +96,15 @@ public class TonyHawkSimulatorController {
     @FXML
     private ComboBox<String> planetComboBox, planeTypesComboBox;
 
+    @FXML
+    private Pane midpane;
+
+    private Path path1;
+
     private PathTransition pt;
     private Path path = new Path();
+
+
 
     private void updateAngledPlaneValues() {
         animationModel.getSkater().accelerationProperty().set(animationModel.getModelAcceleration());
@@ -136,6 +148,22 @@ public class TonyHawkSimulatorController {
         pt.playFromStart();
     }
 
+   void animate2(){
+
+
+
+        pt.setDuration(Duration.millis(5000));
+        pt.setNode(skater);
+        pt.setPath(path1);
+        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pt.setCycleCount((int) 4f);
+        pt.setAutoReverse(true);
+
+        pt.play();
+    }
+
+
+
     /**
      *  Triggers the animation start, putting the skater on top of the plane
      * @param actionEvent An event representing the click on the about menu item button
@@ -151,6 +179,7 @@ public class TonyHawkSimulatorController {
             System.out.println("Animation started !");
             updateAngledPlaneValues();
             animate(angledPlaneLine);
+
             animationModel.isPausedProperty().set(true);
         }
 
@@ -273,16 +302,45 @@ public class TonyHawkSimulatorController {
         planeTypesComboBox.valueProperty().addListener((observableValue, s, t1) -> {
             if (t1.equalsIgnoreCase("Angled plane")) {
                 System.out.println("An angled plane");
-                parabolaPlaneCurve.setVisible(false);
-                angledPlaneLine.setVisible(true);
+                midpane.getChildren().remove(planeParabola);
+                midpane.getChildren().add(angledPlaneLine);
                 animationModel.setPlane(DEFAULT_ANGLED_SKATER_PLANE);
 
 
+
             } else if (t1.equalsIgnoreCase("Parabola")) {
+                //*********************************** initializes path without fxml
+                path1 = new Path();
+                //width of the arc path
+                int x = 400;
+                //height
+                int height=x-100;
+                planeParabola = new CubicCurveTo();
+
+                planeParabola.setControlX1(200);
+                planeParabola.setControlY1(x);
+                planeParabola.setControlX2(300);
+                planeParabola.setControlY2(x);
+                planeParabola.setX(400);
+                planeParabola.setY(100);
+
+                path1.setStroke(Color.BLACK);
+                path1.setStrokeWidth(5);
+                path1.setStrokeType(StrokeType.INSIDE);
+
+                path1.getElements().add (new MoveTo(100, 100));
+                path1.getElements().add (planeParabola);
+
+
+                //**********************************************
                 System.out.println("A parabola");
-                parabolaPlaneCurve.setVisible(true);
-                angledPlaneLine.setVisible(false);
+                //path1.setVisible(true);
+//                parabolaPlaneCurve.setVisible(true);
+//                angledPlaneLine.setVisible(false);
                 animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
+                midpane.getChildren().add(path1);
+                midpane.getChildren().remove(angledPlaneLine);
+
             }
             // This should never happen, but if the selected option is neither Angled plane nor Parabola, we do
             // not do anything

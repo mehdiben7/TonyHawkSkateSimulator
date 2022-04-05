@@ -27,7 +27,7 @@
 
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
 
-<BorderPane prefHeight="802.0" prefWidth="1401.0" style="-fx-background-image: url(&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
+<BorderPane prefHeight="802.0" prefWidth="1401.0" style="-fx-background-image: url(&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -38,7 +38,7 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Pane prefWidth="648.0">
+                  <Pane fx:id="midpane" prefWidth="648.0">
                      <children>
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                         <Rectangle fx:id="skater" arcHeight="5.0" arcWidth="5.0" fill="#ffdf1f" height="77.0" layoutX="303.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="42.0" />
