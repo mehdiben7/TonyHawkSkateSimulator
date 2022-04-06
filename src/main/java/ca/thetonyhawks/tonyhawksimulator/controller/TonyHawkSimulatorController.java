@@ -42,8 +42,7 @@ public class TonyHawkSimulatorController {
     public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT, 2);
 
     private AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]), DEFAULT_ANGLED_SKATER_PLANE, new Skater(Skater.DEFAULT_SKATER_MASS), false, 10 );
-
-    private SkaterAnimationTimer skaterAnimationTimer;
+    private SkaterAnimationTimer animationTimer = new SkaterAnimationTimer(animationModel);
 
     private BooleanProperty showForceVectorsProperty;
 
@@ -180,16 +179,15 @@ public class TonyHawkSimulatorController {
             System.out.println("Amination resumes!");
             updateSkaterMassValue();
             updateAngledPlaneValues();
-            skaterAnimationTimer.start();
+            animationTimer.start();
             pt.play();
         }
         else {
             System.out.println("Animation started !");
             updateSkaterMassValue();
             updateAngledPlaneValues();
-            skaterAnimationTimer.start();
             animate(angledPlaneLine);
-
+            animationTimer.start();
             animationModel.isPausedProperty().set(true);
         }
 
@@ -202,7 +200,7 @@ public class TonyHawkSimulatorController {
     @FXML
     private void pauseEventHandler(ActionEvent actionEvent) {
         System.out.println("Animation paused!");
-        skaterAnimationTimer.stop();
+        animationTimer.pause();
         pt.pause();
         animationModel.isPausedProperty().set(true);
     }
@@ -215,10 +213,11 @@ public class TonyHawkSimulatorController {
     private void resetEventHandler(ActionEvent actionEvent) {
         // TODO Prevent reset if animation hasn't been started before
         System.out.println("reset");
-        skaterAnimationTimer.stop();
+        animationTimer.stop();
         pt.stop();
         updateSkaterMassValue();
         updateAngledPlaneValues();
+        animationTimer.start();
         pt.playFromStart();
     }
 
@@ -296,7 +295,6 @@ public class TonyHawkSimulatorController {
 
     public TonyHawkSimulatorController() {
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
-        this.skaterAnimationTimer = new SkaterAnimationTimer(animationModel);
     }
 
     public void initialize() {

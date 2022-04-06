@@ -2,23 +2,34 @@ package ca.thetonyhawks.tonyhawksimulator.model;
 
 import javafx.animation.AnimationTimer;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
+/**
+ *  A timer that keeps track of the elapsed time of the skater animation, in order to determine its position and its velocity
+ */
 public class SkaterAnimationTimer extends AnimationTimer {
-    private long lastUpdateTimeStamp;
-    private double timeElapsed = 0.0;
 
+    /**
+     *  The animation's model
+     */
     private AnimationModel animationModel;
 
+    private double skaterVelocity;
+
+    /**
+     *  The first timestamp of the timer (in ns)
+     */
+    private double firstTimestamp;
+
     @Override
-    public void handle(long now) {
+    public void handle(long l) {
+        if(firstTimestamp == -1.0)
+            firstTimestamp = l;
 
-        double t = (System.nanoTime() - now) / 1E9;
-        timeElapsed += t;
+        double timeSinceTimestamp = l - firstTimestamp;
+        double elapsedTime = timeSinceTimestamp / 1E9;
 
+        skaterVelocity = elapsedTime * animationModel.getSkater().accelerationProperty().get();
+
+        animationModel.getSkater().velocityProperty().set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(skaterVelocity)));
 
     }
 
@@ -30,18 +41,21 @@ public class SkaterAnimationTimer extends AnimationTimer {
     @Override
     public void stop() {
         super.stop();
-        System.out.println(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(timeElapsed));
-        timeElapsed = 0.0;
+        this.firstTimestamp = -1.0;
     }
 
+    /**
+     *  Pauses the timer but keeps the elapsed time in memory
+     *  can be resumed using {@link #start()}
+     */
     public void pause() {
         super.stop();
-
     }
 
     public SkaterAnimationTimer(AnimationModel animationModel) {
-
+        super();
+        this.firstTimestamp = -1.0;
+        this.skaterVelocity = 0.0;
         this.animationModel = animationModel;
-        this.lastUpdateTimeStamp = 0;
     }
 }
