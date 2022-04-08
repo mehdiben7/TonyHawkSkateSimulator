@@ -10,8 +10,11 @@ public class SkaterAnimationTimer extends AnimationTimer {
     /**
      *  The animation's model
      */
-    private AnimationModel animationModel;
+    private final AnimationModel animationModel;
 
+    /**
+     *  The velocity of the skater (in m/s)
+     */
     private double skaterVelocity;
 
     /**
@@ -52,6 +55,10 @@ public class SkaterAnimationTimer extends AnimationTimer {
         super.stop();
     }
 
+    /**
+     *  Instantiates a new SkaterAnimationTimer related to the provided model
+     * @param animationModel The model of the animation related to the timer
+     */
     public SkaterAnimationTimer(AnimationModel animationModel) {
         super();
         this.firstTimestamp = -1.0;

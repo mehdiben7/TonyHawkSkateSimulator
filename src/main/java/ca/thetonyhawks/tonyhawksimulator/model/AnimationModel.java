@@ -46,11 +46,11 @@ public class AnimationModel {
      * @param skaterMass The skater mass (in kg)
      * @return The acceleration of the skater
      */
-    public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) {
+    public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) { // TODO Move this method to AngledSkaterPlane ?
         double horizontalGravitationalForce = skaterMass * gravitationalAcceleration * Math.sin(Math.toRadians(planeAngle));
         double verticalGravitationalForce = skaterMass * gravitationalAcceleration * Math.cos(Math.toRadians(planeAngle));
         double frictionForce = - (dynamicFrictionCoefficient * verticalGravitationalForce);
-        double totalForce = horizontalGravitationalForce + frictionForce;
+        double totalForce = horizontalGravitationalForce + frictionForce; // TODO Should we make sure this is never negative (in case of very low angle/very high kinetic coefficient
 
         return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(totalForce / skaterMass));
     }
@@ -169,6 +169,8 @@ public class AnimationModel {
         this.planet = planet;
         this.plane = plane;
         this.skater = skater;
+        this.skater.setPlanet(this.planet);
+        this.skater.setPlane(this.plane);
         this.skaterInitialHeight = skaterInitialHeight;
 
         this.animationSpeedProperty = new SimpleDoubleProperty();

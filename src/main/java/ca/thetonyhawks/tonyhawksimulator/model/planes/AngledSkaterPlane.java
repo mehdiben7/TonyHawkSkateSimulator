@@ -3,6 +3,8 @@ package ca.thetonyhawks.tonyhawksimulator.model.planes;
 import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 /**
  * A class representing an angled plane for the skater to ride on <br>
@@ -47,6 +49,14 @@ public class AngledSkaterPlane extends SkaterPlane {
         this.angle = angle;
         this.angleProperty = new SimpleDoubleProperty();
         this.angleProperty.setValue(angle);
+
+
+        this.angleProperty.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                updateModelPlaneHeightProperty();
+            }
+        });
     }
 
     /**
@@ -68,6 +78,14 @@ public class AngledSkaterPlane extends SkaterPlane {
     @Override
     public DoubleProperty planeCoefficientProperty() {
         return this.angleProperty;
+    }
+
+
+    @Override
+    public void updateModelPlaneHeightProperty() {
+        double calculatedHeight = AngledSkaterPlane.getHeight(AngledSkaterPlane.PLANE_LENGTH, this.angleProperty.get());
+        double formattedAngledPlaneHeight = Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
+        this.planeHeightProperty().set(formattedAngledPlaneHeight);
     }
 
 

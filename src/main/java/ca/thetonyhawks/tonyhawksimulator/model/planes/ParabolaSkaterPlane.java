@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator.model.planes;
 
+import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -10,6 +11,15 @@ import javafx.beans.property.SimpleDoubleProperty;
  * @see AngledSkaterPlane
  */
 public class ParabolaSkaterPlane extends SkaterPlane {
+
+    /**
+     *  Computes the height of any parabola plane
+     * @param coefficient  The <em>a</em> coefficient of the plane
+     * @return The height of the parabola plane (in m)
+     */
+    public static double getHeight(double coefficient) { // TODO Implement method to calculate height of a parabola plane
+        return 0.0;
+    }
 
     /**
      * The default <em>a</em> coefficient of the plane function <em>f(x) = a * x^2</em>, which is 1 <br>
@@ -38,4 +48,13 @@ public class ParabolaSkaterPlane extends SkaterPlane {
     public DoubleProperty planeCoefficientProperty() {
         return this.aCoefficientProperty;
     }
+
+    @Override
+    public void updateModelPlaneHeightProperty() {
+        double calculatedHeight = ParabolaSkaterPlane.getHeight(this.aCoefficientProperty.get());
+        double formattedHeight = Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
+        this.planeHeightProperty.set(formattedHeight);
+    }
+
+
 }
