@@ -1,5 +1,5 @@
 package ca.thetonyhawks.tonyhawksimulator.controller;
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.sql.*;
 
@@ -18,7 +19,7 @@ public class ImportDatabaseController
 {
 
     @FXML
-    private TableColumn name,acceleration;
+    private TableColumn name, acceleration;
 
     @FXML
     private TableView table;

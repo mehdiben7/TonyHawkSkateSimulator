@@ -3,8 +3,6 @@ package ca.thetonyhawks.tonyhawksimulator.model;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 /**
  *  A class representing the skater going down the plane
@@ -20,10 +18,7 @@ public class Skater {
      * @param skaterVelocity The skater's velocity (in m/s)
      * @return The skater's kinetic energy (in J)
      */
-    public static double getKineticEnergy(double skaterMass, double skaterVelocity) { // TODO Clean useless code
-        double kineticEnergyDouble = 0.5 * skaterMass * Math.pow(skaterVelocity, 2);
-        String kineticEnergyString = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(kineticEnergyDouble);
-        double parsedDouble = Double.parseDouble(kineticEnergyString);
+    public static double getKineticEnergy(double skaterMass, double skaterVelocity) {
         return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(0.5 * skaterMass * Math.pow(skaterVelocity, 2)));
     }
 
@@ -49,13 +44,13 @@ public class Skater {
     public static final double DEFAULT_SKATER_MASS = 70.0;
 
 
-    private DoubleProperty skaterMassProperty;
-    private DoubleProperty initialHeightProperty;
-    private DoubleProperty positionProperty;
-    private DoubleProperty velocityProperty;
-    private DoubleProperty accelerationProperty;
-    private DoubleProperty kineticEnergyProperty;
-    private DoubleProperty potentialGravitationalEnergyProperty;
+    private final DoubleProperty skaterMassProperty;
+    private final DoubleProperty initialHeightProperty;
+    private final DoubleProperty positionProperty;
+    private final DoubleProperty velocityProperty;
+    private final DoubleProperty accelerationProperty;
+    private final DoubleProperty kineticEnergyProperty;
+    private final DoubleProperty potentialGravitationalEnergyProperty;
 
 
     // MARK - Properties getter
@@ -74,7 +69,9 @@ public class Skater {
     public DoubleProperty kineticEnergyProperty() {
         return this.kineticEnergyProperty;
     }
-
+    public DoubleProperty potentialGravitationalEnergyProperty() {
+        return this.potentialGravitationalEnergyProperty;
+    }
 
     public DoubleProperty skaterMassProperty() {
         return this.skaterMassProperty;
@@ -101,33 +98,25 @@ public class Skater {
         this.kineticEnergyProperty = new SimpleDoubleProperty(0);
         this.potentialGravitationalEnergyProperty = new SimpleDoubleProperty(0);
 
-        this.velocityProperty.addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                double currentVelocity = (double) newValue;
+        this.velocityProperty.addListener((observable, oldValue, newValue) -> {
+            double currentVelocity = (double) newValue;
 
-                plane.updateModelPlaneHeightProperty();
+            plane.updateModelPlaneHeightProperty();
 
-                kineticEnergyProperty.set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(
-                                                        getKineticEnergy(skaterMassProperty.get(), currentVelocity))));
+            kineticEnergyProperty.set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(
+                                                    getKineticEnergy(skaterMassProperty.get(), currentVelocity))));
 
 
 
-                potentialGravitationalEnergyProperty.set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(
-                                                        getPotentialGravitationalEnergy(skaterMassProperty.get(),
-                                                                planet.getGravitationalAccelerationProperty().get(),
-                                                                plane.planeHeightProperty().get(), kineticEnergyProperty.get()))));
-            }
+            potentialGravitationalEnergyProperty.set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(
+                                                    getPotentialGravitationalEnergy(skaterMassProperty.get(),
+                                                            planet.getGravitationalAccelerationProperty().get(),
+                                                            plane.planeHeightProperty().get(), kineticEnergyProperty.get()))));
         });
 
         // MARK - Temporary
 
-        this.potentialGravitationalEnergyProperty.addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println((double) newValue + " is the potential energy in Jouls");
-            }
-        });
+//        this.potentialGravitationalEnergyProperty.addListener((observable, oldValue, newValue) -> System.out.println((double) newValue + " is the potential energy in Joules"));
 
     }
 }

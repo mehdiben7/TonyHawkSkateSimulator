@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+import static ca.thetonyhawks.tonyhawksimulator.model.AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT;
+
 /**
  * A class representing an angled plane for the skater to ride on <br>
  *  Parent & Sister class:
@@ -14,7 +16,25 @@ import javafx.beans.value.ObservableValue;
  */
 public class AngledSkaterPlane extends SkaterPlane {
 
-    public static final double PLANE_LENGTH = 8.0;
+    /**
+     *
+     * @param gravitationalAcceleration The gravitational acceleration of the planet the skater is skating on (in m/s^2)
+     * @param dynamicFrictionCoefficient The friction coefficient between the skater and the plane if any, otherwise 0
+     * @param planeAngle The angle of the plane (in degrees)
+     * @param skaterMass The skater mass (in kg)
+     * @return The acceleration of the skater
+     */
+    public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) {
+        double horizontalGravitationalForce = skaterMass * gravitationalAcceleration * Math.sin(Math.toRadians(planeAngle));
+        double verticalGravitationalForce = skaterMass * gravitationalAcceleration * Math.cos(Math.toRadians(planeAngle));
+        double frictionForce = - (dynamicFrictionCoefficient * verticalGravitationalForce);
+        double totalForce = horizontalGravitationalForce + frictionForce;
+        totalForce = totalForce >= 0 ? totalForce : 0.0;
+
+        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(totalForce / skaterMass));
+    }
+
+    public static final double PLANE_LENGTH = 30.0;
 
     /**
      *  Calculates the height of the top of the angled plane
@@ -24,7 +44,7 @@ public class AngledSkaterPlane extends SkaterPlane {
      */
     public static double getHeight(double planeWidth, double planeAngle) {
         double calculatedHeight = planeWidth * Math.sin(Math.toRadians(planeAngle));
-        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
+        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
     }
 
     public DoubleProperty angleProperty;
@@ -32,7 +52,7 @@ public class AngledSkaterPlane extends SkaterPlane {
     /**
      *  Default angle for angled skater plane, which is 45 deg
      */
-    private static final double DEFAULT_PLANE_ANGLE = 45;
+    public static final double DEFAULT_PLANE_ANGLE = 45;
 
     /**
      *  The angle of the plane
@@ -84,7 +104,7 @@ public class AngledSkaterPlane extends SkaterPlane {
     @Override
     public void updateModelPlaneHeightProperty() {
         double calculatedHeight = AngledSkaterPlane.getHeight(AngledSkaterPlane.PLANE_LENGTH, this.angleProperty.get());
-        double formattedAngledPlaneHeight = Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
+        double formattedAngledPlaneHeight = Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(calculatedHeight));
         this.planeHeightProperty().set(formattedAngledPlaneHeight);
     }
 

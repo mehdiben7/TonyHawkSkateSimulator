@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator.model;
 
+import ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.beans.property.BooleanProperty;
@@ -14,12 +15,19 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 
+import static ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane.getAngledPlaneAcceleration;
+
 /**
  *  The animation's model
  */
 public class AnimationModel {
 
+    private TonyHawkSimulatorController controller;
+
+
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
+
+
 
     /**
      *  Computes the fall of an object on an angled plane
@@ -30,48 +38,49 @@ public class AnimationModel {
     public static double getFallDuration(double planeLength, double horizontalAcceleration) {
         double fallDuration =  Math.sqrt((2 * planeLength) / horizontalAcceleration);
 
-        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(fallDuration));
+        return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(fallDuration));
     }
 
     public double getModelFallDuration() {
         return getFallDuration(AngledSkaterPlane.PLANE_LENGTH, skater.accelerationProperty().get());
     }
 
-
-    /**
-     *
-     * @param gravitationalAcceleration The gravitational acceleration of the planet the skater is skating on (in m/s^2)
-     * @param dynamicFrictionCoefficient The friction coefficient between the skater and the plane if any, otherwise 0
-     * @param planeAngle The angle of the plane (in degrees)
-     * @param skaterMass The skater mass (in kg)
-     * @return The acceleration of the skater
-     */
-    public static double getAngledPlaneAcceleration(double gravitationalAcceleration, double dynamicFrictionCoefficient, double planeAngle, double skaterMass) { // TODO Move this method to AngledSkaterPlane ?
-        double horizontalGravitationalForce = skaterMass * gravitationalAcceleration * Math.sin(Math.toRadians(planeAngle));
-        double verticalGravitationalForce = skaterMass * gravitationalAcceleration * Math.cos(Math.toRadians(planeAngle));
-        double frictionForce = - (dynamicFrictionCoefficient * verticalGravitationalForce);
-        double totalForce = horizontalGravitationalForce + frictionForce; // TODO Should we make sure this is never negative (in case of very low angle/very high kinetic coefficient
-
-        return Double.parseDouble(TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(totalForce / skaterMass));
+    public TonyHawkSimulatorController getController() {
+        return this.controller;
     }
 
+//
+//    public double getModelInstantaneousPosition() {
+//        return getInstantaneousPosition(this.skater.velocityProperty().get(), this.skater.accelerationProperty().get());
+//    }
+
+    public static double getInstantaneousPosition(double horizontalAcceleration, double elapsedTime) { // TODO Solve problem with instantaneous position method
+        double instantaneousPosition = 0.5 * horizontalAcceleration * Math.pow(elapsedTime, 2);
+        String formattedPosition = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(instantaneousPosition);
+        return Double.parseDouble(formattedPosition);
+    }
+
+
+
+
     public double getModelAcceleration() {
-        double computedAngledPlaneAcceleration = getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(), this.plane.kineticFrictionCoefficientProperty().get(), this.plane.planeCoefficientProperty().get(), this.skater.skaterMassProperty().get());
-        return computedAngledPlaneAcceleration;
+        return getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(),
+                                            this.plane.kineticFrictionCoefficientProperty().get(),
+                                            this.plane.planeCoefficientProperty().get(),
+                                            this.skater.skaterMassProperty().get());
     }
 
 
     // MARK - Object properties
-    private Planet planet;
+    private final Planet planet;
     private SkaterPlane plane;
-    private Skater skater;
-    private double skaterInitialHeight;
+    private final Skater skater;
 
-    private DoubleProperty animationSpeedProperty;
-    private BooleanProperty isInSlowMotionProperty;
-    private BooleanProperty isPausedProperty;
+    private final DoubleProperty animationSpeedProperty;
+    private final BooleanProperty isInSlowMotionProperty;
+    private final BooleanProperty isPausedProperty;
 
-    private ObservableList<String> planeTypesProperty;
+    private final ObservableList<String> planeTypesProperty;
 
     public BooleanProperty isPausedProperty() {
         return this.isPausedProperty;
@@ -114,14 +123,6 @@ public class AnimationModel {
     }
 
     /**
-     *  Sets a new planet for the animation
-     * @param planet The new planet
-     */
-    public void setPlanet(Planet planet) {
-        this.planet = planet;
-    }
-
-    /**
      *  Sets a new plane for the animation
      * @param plane The new plane
      */
@@ -129,22 +130,6 @@ public class AnimationModel {
         this.plane = plane;
     }
 
-    /**
-     *  Sets a new skater for the animation
-     * @param skater The new skater
-     */
-    public void setSkater(Skater skater) {
-        this.skater = skater;
-    }
-
-
-    /**
-     *  Set a new initial height for the skater
-     * @param skaterInitialHeight The new skater's initial height, in m
-     */
-    public void setSkaterInitialHeight(double skaterInitialHeight){
-        this.skaterInitialHeight = skaterInitialHeight;
-    }
 
     /**
      *  Instantiates a new animation model
@@ -152,9 +137,8 @@ public class AnimationModel {
      * @param plane The plane the skater will ride on
      * @param skater The skater that will ride on the plane
      * @param isInSlowMotion Whether the animation starts in slow motion or not <br> <em>true</em> if it does, <em>false</em> otherwise
-     * @param skaterInitialHeight The skater's initial height, in m
      */
-    public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, double skaterInitialHeight) {
+    public AnimationModel(Planet planet, SkaterPlane plane, Skater skater, boolean isInSlowMotion, TonyHawkSimulatorController controller) {
 
 
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
@@ -171,14 +155,12 @@ public class AnimationModel {
         this.skater = skater;
         this.skater.setPlanet(this.planet);
         this.skater.setPlane(this.plane);
-        this.skaterInitialHeight = skaterInitialHeight;
 
         this.animationSpeedProperty = new SimpleDoubleProperty();
         this.isInSlowMotionProperty = new SimpleBooleanProperty(isInSlowMotion);
         this.isPausedProperty = new SimpleBooleanProperty(false);
+
+        this.controller = controller;
     }
 
-    public void toggleSlowMotion() {
-        this.isInSlowMotionProperty.set(!this.isInSlowMotionProperty.get());
-    }
 }

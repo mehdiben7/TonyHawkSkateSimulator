@@ -12,18 +12,19 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.shape.CubicCurveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -38,13 +39,18 @@ public class TonyHawkSimulatorController {
     public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
     public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
 
-    public static final AngledSkaterPlane DEFAULT_ANGLED_SKATER_PLANE = new AngledSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT, 45);
-    public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT, 2);
+    public static final AngledSkaterPlane DEFAULT_ANGLED_SKATER_PLANE = new AngledSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
+                                                                                                AngledSkaterPlane.DEFAULT_PLANE_ANGLE);
+    public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
+                                                                                            2);
 
-    private AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]), DEFAULT_ANGLED_SKATER_PLANE, new Skater(Skater.DEFAULT_SKATER_MASS), false, 10 );
-    private SkaterAnimationTimer animationTimer = new SkaterAnimationTimer(animationModel);
+    private final AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]),
+                                                                    DEFAULT_ANGLED_SKATER_PLANE,
+                                                                    new Skater(Skater.DEFAULT_SKATER_MASS),
+                                                        false, this);
+    private final SkaterAnimationTimer animationTimer = new SkaterAnimationTimer(animationModel);
 
-    private BooleanProperty showForceVectorsProperty;
+    private final BooleanProperty showForceVectorsProperty;
 
     @FXML
     private Rectangle skater;
@@ -99,10 +105,41 @@ public class TonyHawkSimulatorController {
     @FXML
     private Pane midpane;
 
+    @FXML
+    private BarChart<String, Double> energyBarChart;
+
     private Path path1;
 
     private PathTransition pt;
-    private Path path = new Path();
+    private final Path path = new Path();
+
+    public void setUpEnergyChart() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Energy");
+        final NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Value (in J)");
+        yAxis.setUpperBound(10_000.0);
+    }
+
+
+    public void updateEnergyValues(double kineticEnergy, double potentialGravitationalEnergy) { // TODO The calculated values somehow don't work; solve it
+        // TODO Change manual series switch to properties
+        energyBarChart.getData().removeAll(energyBarChart.getData());
+
+        System.out.println("Kinetic energy: " + kineticEnergy + " J");
+        System.out.println("Potential gravitational energy : " + potentialGravitationalEnergy + " J");
+
+        XYChart.Series kineticEnergySeries = new XYChart.Series();
+        kineticEnergySeries.setName("Kinetic Energy");
+        kineticEnergySeries.getData().add(new XYChart.Data("test A", kineticEnergy));
+
+
+        XYChart.Series potentialGravitationalEnergySeries = new XYChart.Series();
+        potentialGravitationalEnergySeries.setName("Potential Gravitational Energy");
+        potentialGravitationalEnergySeries.getData().add(new XYChart.Data("test B", potentialGravitationalEnergy));
+
+        energyBarChart.getData().addAll(kineticEnergySeries, potentialGravitationalEnergySeries);
+    }
 
 
 
@@ -115,12 +152,21 @@ public class TonyHawkSimulatorController {
         animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
     }
 
+    private void updateFallDuration() {
+        System.out.println("Fall duration: " + animationModel.getModelFallDuration() + " s");
+        animationModel.animationDurationProperty().set(animationModel.getModelFallDuration());
+        double animationNormalSpeed = animationModel.animationDurationProperty().get() * 0.5;
+        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get();
+        pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
+    }
+
+
+
     /**
      *  Toggles the change between slow motion and regular speed of animation
-     * @param actionEvent An event representing the switch between radio buttons
      */
     @FXML
-    private void motionSpeedChangeEventHandler(ActionEvent actionEvent) {
+    private void motionSpeedChangeEventHandler() {
         double duration = normalSpeedRadioButton.isSelected() ? animationModel.animationDurationProperty().get() * 0.5 :
                                                                 animationModel.animationDurationProperty().get();
 
@@ -152,7 +198,7 @@ public class TonyHawkSimulatorController {
         pt.playFromStart();
     }
 
-   void animate2(){
+   void animate2() {
 
 
 
@@ -170,10 +216,9 @@ public class TonyHawkSimulatorController {
 
     /**
      *  Triggers the animation start, putting the skater on top of the plane
-     * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void startEventHandler(ActionEvent actionEvent) {
+    private void startEventHandler() {
 
         if(animationModel.isPausedProperty().get()) {
             System.out.println("Amination resumes!");
@@ -195,10 +240,9 @@ public class TonyHawkSimulatorController {
 
     /**
      *  Triggers the pause of the animation, stopping the "fall" of the skater on the plane
-     * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void pauseEventHandler(ActionEvent actionEvent) {
+    private void pauseEventHandler() {
         System.out.println("Animation paused!");
         animationTimer.pause();
         pt.pause();
@@ -207,26 +251,25 @@ public class TonyHawkSimulatorController {
 
     /**
      *  Triggers the reset of the animation, putting the skater back on the top of the plane
-     * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void resetEventHandler(ActionEvent actionEvent) {
+    private void resetEventHandler() {
         // TODO Prevent reset if animation hasn't been started before
         System.out.println("reset");
         animationTimer.stop();
         pt.stop();
         updateSkaterMassValue();
         updateAngledPlaneValues();
+        updateFallDuration();
         animationTimer.start();
         pt.playFromStart();
     }
 
     /**
      *  Triggers the opening of the <em>import</em> database window
-     * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void showImportDatabaseWindow(ActionEvent actionEvent) {
+    private void showImportDatabaseWindow() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/ImportDatabase.fxml"));
         Parent databaseContent = null;
@@ -247,10 +290,9 @@ public class TonyHawkSimulatorController {
 
     /**
      *  Triggers the opening of the <em>about</em> window
-     * @param actionEvent An event representing the click on the about menu item button
      */
     @FXML
-    private void showAboutWindow(ActionEvent actionEvent) {
+    private void showAboutWindow() {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/ca.thetonyhawks.tonyhawksimulator/About.fxml"));
@@ -273,23 +315,23 @@ public class TonyHawkSimulatorController {
     }
 
     @FXML
-    public void planeAngleSliderDragDetected(MouseEvent mouseEvent) {
+    public void planeAngleSliderDragDetected() {
     }
 
     @FXML
-    public void planeAngleSliderDragDone(MouseEvent mouseEvent) {
+    public void planeAngleSliderDragDone() {
 
     }
 
     @FXML
-    public void onSkaterMassEntered(ActionEvent actionEvent) {
+    public void onSkaterMassEntered() {
         animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
         updateAngledPlaneValues();
 
     }
 
     @FXML
-    public void onSkaterInitialHeightEntered(ActionEvent actionEvent) {
+    public void onSkaterInitialHeightEntered() {
         animationModel.getSkater().initialHeightProperty().set(Double.parseDouble(skaterInitialHeightField.getText()));
     }
 
@@ -329,7 +371,7 @@ public class TonyHawkSimulatorController {
                 //width of the arc path
                 int x = 400;
                 //height
-                int height=x-100;
+                int height = x - 100;
                 planeParabola = new CubicCurveTo();
 
                 planeParabola.setControlX1(200);
@@ -359,6 +401,8 @@ public class TonyHawkSimulatorController {
             }
             // This should never happen, but if the selected option is neither Angled plane nor Parabola, we do
             // not do anything
+
+            setUpEnergyChart();
         });
 
 
@@ -426,6 +470,8 @@ public class TonyHawkSimulatorController {
         });
 
         animationModel.animationDurationProperty().set(10);
+
+
     }
 
 

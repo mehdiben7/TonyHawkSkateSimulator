@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator.model;
 
+import ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -11,6 +12,7 @@ public class SkaterAnimationTimer extends AnimationTimer {
      *  The animation's model
      */
     private final AnimationModel animationModel;
+
 
     /**
      *  The velocity of the skater (in m/s)
@@ -33,6 +35,11 @@ public class SkaterAnimationTimer extends AnimationTimer {
         skaterVelocity = elapsedTime * animationModel.getSkater().accelerationProperty().get();
 
         animationModel.getSkater().velocityProperty().set(Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(skaterVelocity)));
+
+        animationModel.getSkater().positionProperty().set(AnimationModel.getInstantaneousPosition(animationModel.getSkater().accelerationProperty().get(), elapsedTime));
+
+        animationModel.getController().updateEnergyValues(animationModel.getSkater().kineticEnergyProperty().get(),
+                                            animationModel.getSkater().potentialGravitationalEnergyProperty().get());
 
     }
 
@@ -64,5 +71,6 @@ public class SkaterAnimationTimer extends AnimationTimer {
         this.firstTimestamp = -1.0;
         this.skaterVelocity = 0.0;
         this.animationModel = animationModel;
+
     }
 }
