@@ -1,0 +1,108 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.mainBackground{
+    -fx-background-image: url("../images/sky4.png");
+    -fx-background-size: 2300;
+}
+
+.title{
+    -fx-background-image: url("../images/title.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: auto;
+}
+
+.right {
+    -fx-background-image: url("../images/rightWall.png");
+    -fx-font-family: 'Press Start 2P', cursive;
+    -fx-font-size: 12;
+}
+
+.left {
+    -fx-background-image: url("../images/leftWall.png");
+    -fx-font-family: 'Press Start 2P', cursive;
+    -fx-font-size: 13px;
+}
+
+.bottom {
+    -fx-background-image: url("../images/bottom2.png");
+    -fx-font-family: 'Press Start 2P', cursive;
+    -fx-font-size: 16;
+}
+
+
+
+.startButton {
+    -fx-background-image: url("../images/start_unpressed.png");
+    -fx-background-color: transparent;
+
+}
+
+.startButton:hover {
+    -fx-background-image: url("../images/start_hovered.png");
+
+}
+
+.startButton:pressed {
+    -fx-background-image: url("../images/start_pressed.png");
+}
+
+.pauseButton {
+    -fx-background-image: url("../images/pause_unpressed.png");
+    -fx-background-color: transparent;
+
+}
+
+.pauseButton:hover {
+    -fx-background-image: url("../images/pause_hovered.png");
+
+}
+
+.pauseButton:pressed {
+    -fx-background-image: url("../images/pause_pressed.png");
+}
+
+.resetButton {
+    -fx-background-image: url("../images/reset_unpressed.png");
+    -fx-background-color: transparent;
+
+}
+
+.resetButton:hover {
+    -fx-background-image: url("../images/reset_hovered.png");
+
+}
+
+.resetButton:pressed {
+    -fx-background-image: url("../images/reset_pressed.png");
+}
+
+
+
+.sliderMain .track {
+    -fx-background-color: rgba(69, 69, 69, 0);
+    -fx-background-image: url("../images/slider_track.png");
+    -fx-border-radius: 0px;
+    -fx-background-size: contain;
+    -fx-pref-height: 18px;
+    -fx-pref-width:  28px;
+}
+
+.sliderMain .thumb {
+    -fx-background-color: rgba(69, 69, 69, 0);
+    -fx-background-image: url("../images/slider_thumb.png");
+    -fx-background-size: contain;
+    -fx-pref-height: 35px;
+    -fx-pref-width:  28px;
+
+}
+
+.sliderMain .thumb: hover {
+    -fx-background-image: url("../images/slider_thumb_hovered.png");
+
+}
+
+.sliderMain .thumb: pressed {
+    -fx-background-image: url("../images/slider_thumb_pressed.png");
+
+}
