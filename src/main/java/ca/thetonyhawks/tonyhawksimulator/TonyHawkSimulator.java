@@ -32,8 +32,8 @@ public class TonyHawkSimulator extends Application {
         Scene mainScene = new Scene(content, 1400, 800);
         stage.setTitle("Tony Hawk Skate Simulator");
         stage.setScene(mainScene);
-        stage.setMinWidth(1000);
-        stage.setMinHeight(900);
+        stage.setMinWidth(1485);
+        stage.setMinHeight(1000);
 
         stage.show();
     }

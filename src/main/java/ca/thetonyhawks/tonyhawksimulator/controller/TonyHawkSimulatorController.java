@@ -135,7 +135,7 @@ public class TonyHawkSimulatorController {
 
 
         XYChart.Series potentialGravitationalEnergySeries = new XYChart.Series();
-        potentialGravitationalEnergySeries.setName("Potential Gravitational Energy");
+        potentialGravitationalEnergySeries.setName("Potential Energy");
         potentialGravitationalEnergySeries.getData().add(new XYChart.Data("test B", potentialGravitationalEnergy));
 
         energyBarChart.getData().addAll(kineticEnergySeries, potentialGravitationalEnergySeries);
