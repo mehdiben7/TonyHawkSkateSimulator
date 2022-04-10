@@ -16,12 +16,20 @@
     -fx-background-image: url("../images/rightWall.png");
     -fx-font-family: 'Press Start 2P', cursive;
     -fx-font-size: 12;
+
+    -fx-border-color: #5a5e78;
+    -fx-border-width: 12px;
+    -fx-border-radius: 5px;
 }
 
 .left {
     -fx-background-image: url("../images/leftWall.png");
     -fx-font-family: 'Press Start 2P', cursive;
     -fx-font-size: 13px;
+
+    -fx-border-color: #5a5e78;
+    -fx-border-width: 12px;
+    -fx-border-radius: 5px;
 }
 
 .bottom {

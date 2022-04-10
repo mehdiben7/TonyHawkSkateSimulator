@@ -17,7 +17,7 @@
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <Label prefHeight="56.0" prefWidth="806.0" style="\\: 500;" styleClass="title" stylesheets="@../CSS_stylesheets/Main.css">
+                  <Label prefHeight="56.0" prefWidth="806.0" styleClass="title" stylesheets="@../CSS_stylesheets/Main.css">
                      <font>
                         <Font name="Bodoni MT" size="26.0" />
                      </font>
