@@ -358,6 +358,10 @@ public class TonyHawkSimulatorController {
     public void initialize() {
         setUpEnergyChart();
 
+
+
+        angledPlaneLine.rotateProperty().bind(planeAngleSlider.valueProperty().subtract(45));
+
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
         planetComboBox.getSelectionModel().selectFirst();
         planetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
