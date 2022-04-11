@@ -12,6 +12,9 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -114,21 +117,24 @@ public class TonyHawkSimulatorController {
     private PathTransition pt;
     private final Path path = new Path();
 
+    private ObservableList<XYChart.Series<String, Double>> energyChartSeriesProperties;
+
+
     public void setUpEnergyChart() {
         final CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Energy");
+        xAxis.setLabel("Energy type");
         final NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Value (in J)");
-        yAxis.setUpperBound(10_000.0);
+        yAxis.setLabel("Energy (in J)");
+        yAxis.setUpperBound(20_000.0);
+        energyBarChart.setAnimated(false);
+        yAxis.setAnimated(false);
+        System.out.println("suce");
     }
 
 
     public void updateEnergyValues(double kineticEnergy, double potentialGravitationalEnergy) { // TODO The calculated values somehow don't work; solve it
         // TODO Change manual series switch to properties
         energyBarChart.getData().removeAll(energyBarChart.getData());
-
-        System.out.println("Kinetic energy: " + kineticEnergy + " J");
-        System.out.println("Potential gravitational energy : " + potentialGravitationalEnergy + " J");
 
         XYChart.Series kineticEnergySeries = new XYChart.Series();
         kineticEnergySeries.setName("Kinetic Energy");
@@ -238,17 +244,6 @@ public class TonyHawkSimulatorController {
     }
 
     /**
-     *  Triggers the pause of the animation, stopping the "fall" of the skater on the plane
-     */
-    @FXML
-    private void pauseEventHandler() {
-        System.out.println("Animation paused!");
-        animationTimer.pause();
-        pt.pause();
-        animationModel.isPausedProperty().set(true);
-    }
-
-    /**
      *  Triggers the reset of the animation, putting the skater back on the top of the plane
      */
     @FXML
@@ -262,6 +257,24 @@ public class TonyHawkSimulatorController {
         updateFallDuration();
         animationTimer.start();
         pt.playFromStart();
+    }
+
+    /**
+     *  Triggers the pause of the animation, stopping the "fall" of the skater on the plane
+     */
+    @FXML
+    private void pauseEventHandler() {
+        System.out.println("Animation paused!");
+        animationTimer.pause();
+        pt.pause();
+        animationModel.isPausedProperty().set(true);
+    }
+
+    /**
+     *  Can be called by other classes to pause the animation of the skater and keep physical coherence
+     */
+    public void pauseAnimation() {
+        pt.pause();
     }
 
     /**
@@ -335,9 +348,12 @@ public class TonyHawkSimulatorController {
 
     public TonyHawkSimulatorController() {
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
+        this.energyChartSeriesProperties = new SimpleListProperty<XYChart.Series<String, Double>>();
+
     }
 
     public void initialize() {
+        setUpEnergyChart();
 
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
         planetComboBox.getSelectionModel().selectFirst();
@@ -400,7 +416,7 @@ public class TonyHawkSimulatorController {
             // This should never happen, but if the selected option is neither Angled plane nor Parabola, we do
             // not do anything
 
-            setUpEnergyChart();
+
         });
 
 
@@ -471,6 +487,5 @@ public class TonyHawkSimulatorController {
 
 
     }
-
 
 }

@@ -57,6 +57,7 @@ public class AnimationModel {
     public static double getInstantaneousPosition(double horizontalAcceleration, double elapsedTime) { // TODO Solve problem with instantaneous position method
         double instantaneousPosition = 0.5 * horizontalAcceleration * Math.pow(elapsedTime, 2);
         String formattedPosition = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(instantaneousPosition);
+
         return Double.parseDouble(formattedPosition);
     }
 

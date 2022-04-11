@@ -4,7 +4,6 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
@@ -49,12 +48,8 @@
                   </Label>
                   <Pane fx:id="midpane" prefWidth="648.0">
                      <children>
-                        <ImageView fx:id="skater" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="120.0" nodeOrientation="INHERIT" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/skater.png" />
-                           </image>
-                        </ImageView>
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
+                        <Rectangle fx:id="skater" arcHeight="5.0" arcWidth="5.0" fill="#ffdf1f" height="77.0" layoutX="303.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="42.0" />
                         <QuadCurve fx:id="parabolaPlaneCurve" controlX="-172.0" controlY="226.0" endX="476.0" endY="220.0" fill="#1f93ff00" layoutX="172.0" layoutY="470.0" startX="-172.0" startY="-326.0" stroke="#4a0000" strokeType="INSIDE" strokeWidth="14.0" visible="false" />
                      </children>
                   </Pane>
@@ -97,8 +92,8 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="startButton" stylesheets="@../CSS_stylesheets/Main.css" />
-                  <Button fx:id="reset" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="resetButton" stylesheets="@../CSS_stylesheets/Main.css" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" styleClass="startButton" stylesheets="@../CSS_stylesheets/Main.css" />
+                  <Button fx:id="reset" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" styleClass="resetButton" stylesheets="@../CSS_stylesheets/Main.css" />
                   <Button fx:id="pause" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#pauseEventHandler" prefHeight="25.0" prefWidth="103.0" styleClass="pauseButton" stylesheets="@../CSS_stylesheets/Main.css" />
                </children>
             </HBox>
