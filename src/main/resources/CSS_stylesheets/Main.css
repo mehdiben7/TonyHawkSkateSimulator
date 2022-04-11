@@ -8,8 +8,7 @@
 
 .title{
     -fx-background-image: url("../images/title.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: auto;
+    -fx-background-size: cover;
 }
 
 .right {

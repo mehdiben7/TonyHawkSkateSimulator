@@ -304,12 +304,11 @@ public class TonyHawkSimulatorController {
         }
 
         Stage aboutStage = new Stage();
-        Scene scene = new Scene(aboutContent, 920, 400);
-        aboutStage.setMinWidth(920);
-        aboutStage.setMinHeight(400);
+        Scene scene = new Scene(aboutContent);
 
         aboutStage.setTitle("About this project");
         aboutStage.setScene(scene);
+        //aboutStage.setResizable(false);
         aboutStage.show();
 
     }

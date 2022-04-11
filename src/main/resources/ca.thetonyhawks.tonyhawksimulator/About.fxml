@@ -1,46 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1193.0" spacing="20.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Credits.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" spacing="20.0" styleClass="vbox" stylesheets="@../CSS_stylesheets/About.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" prefHeight="108.0" prefWidth="1264.0" style="-fx-background-color: rgb(1,0,0,0.15); -fx-background-radius: 7;" text="About" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Label alignment="CENTER" prefHeight="108.0" prefWidth="1264.0" text="About" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font name="Comic Sans MS Italic" size="72.0" />
+            <Font name="Comic Sans MS Bold" size="96.0" />
          </font>
          <textFill>
-            <LinearGradient endX="1.0" endY="1.0" startX="0.0761904761904762">
+            <LinearGradient endX="1.0" endY="0.5687203791469194" startX="0.26066350710900477">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="1.0" green="0.949999988079071" />
+                        <Color red="0.9473684430122375" green="0.9111111164093018" blue="0.4035087823867798" />
                      </color>
                   </Stop>
                   <Stop offset="0.007662835249042145">
                      <color>
-                        <Color red="1.0" green="0.949999988079071" />
+                        <Color red="0.9473684430122375" green="0.9111111164093018" blue="0.4035087823867798" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="1.0" green="0.4234055280685425" />
+                        <Color red="0.316546767950058" blue="1.0" />
                      </color>
                   </Stop>
                </stops>
             </LinearGradient>
          </textFill>
+         <effect>
+            <DropShadow height="52.88" offsetX="10.0" offsetY="10.0" radius="26.03" spread="0.49" width="53.24" />
+         </effect>
       </Label>
-      <TextArea editable="false" maxHeight="-Infinity" prefHeight="319.0" prefWidth="1097.0" style="-fx-background-color: rgb(1,0,0,0.15);" text="Welcome to Tony Hawk Skate Simulator!&#10;&#10;This project was made collaboratively by:&#10;&#10;Changfan Deng &#10;David Qi&#10;Mehdi Benouhoud&#10;Réda Alidrissi-Omari&#10;&#10;The project consists of a skater that will be released at a certain height moving down an incline with variables such as the mass of the projectile, gravity, slope of the incline, and friction that will change the various energies (kinetic and potential energy) of the object as it follows a certain path. Hence, we will use concepts mostly related to the mechanic’s course. &#10;&#10;Our project will help the user understand visually the energy of an object at certain mass, gravity, slope of the incline and friction of the path. As mentioned, the parameters will either bring a slight or large change to the energy of the object according to the alteration by the user. Hence, the parameters control the animation of the object moving down an incline.A typical input will be an integer or float number of the mass, gravity, and velocity.The output will be an object moving down an incline and its animation is monitored according to the user input.  &#10;&#10;&#10;" wrapText="true">
-         <font>
-            <Font name="Comic Sans MS Bold" size="14.0" />
-         </font>
-      </TextArea>
+      <ScrollPane prefHeight="304.0" prefWidth="1036.0" styleClass="scrollpane" stylesheets="@../CSS_stylesheets/About.css" vmax="1.5">
+        <content>
+            <Label alignment="TOP_LEFT" prefHeight="557.0" prefWidth="769.0" styleClass="scrollpane" stylesheets="@../CSS_stylesheets/About.css" text="&#10;Welcome to Tony Hawk Skate Simulator!&#10;&#10;    &#10;    This project was made collaboratively by:&#10;&#10;        Changfan Deng&#10;        David Qi&#10;        Mehdi Benouhoud&#10;        Réda Alidrissi-Omari&#10;&#10;    The project consists of a skater that will be released at a certain height moving down an incline with variables such as the mass of the projectile, gravity, slope of the incline, and friction that will change the various energies (kinetic and potential energy) of the object as it follows a certain path. Hence, we will use concepts mostly related to the mechanic’s course. &#10;&#10;    Our project will help the user understand visually the energy of an object at certain mass, gravity, slope of the incline and friction of the path. As mentioned, the parameters will either bring a slight or large change to the energy of the object according to the alteration by the user. Hence, the parameters control the animation of the object moving down an incline.A typical input will be an integer or float number of the mass, gravity, and velocity.&#10;&#10;The output will be an object moving down an incline and its animation is monitored according to the user input." wrapText="true">
+               <padding>
+                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+               </padding>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="0.616339426765967" startX="0.7827352742044685">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.9473684430122375" green="0.9111111164093018" blue="0.4035087823867798" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.007662835249042145">
+                           <color>
+                              <Color red="0.9473684430122375" green="0.9111111164093018" blue="0.4035087823867798" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.5340704321861267" green="0.3513036072254181" blue="0.9605262875556946" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+               <effect>
+                  <DropShadow height="52.88" offsetX="10.0" offsetY="10.0" radius="26.03" spread="0.49" width="53.24" />
+               </effect></Label>
+        </content>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ScrollPane>
    </children>
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
 </VBox>

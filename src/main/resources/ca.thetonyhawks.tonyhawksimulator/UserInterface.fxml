@@ -43,7 +43,7 @@
                         </LinearGradient>
                      </textFill>
                      <padding>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Label>
                   <Pane fx:id="midpane" prefWidth="648.0">
@@ -55,7 +55,7 @@
                   </Pane>
                </children>
                <HBox.margin>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                  <Insets bottom="12.0" left="8.0" right="4.0" top="12.0" />
                </HBox.margin>
             </VBox>
          </children>
@@ -176,7 +176,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="764.0" prefWidth="323.0" styleClass="left" stylesheets="@../CSS_stylesheets/Main.css">
          <children>
-            <BarChart fx:id="energyBarChart" barGap="0.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="326.0" title="Energy Graph Bar">
+            <BarChart fx:id="energyBarChart" barGap="0.0" minHeight="-Infinity" minWidth="150.0" prefHeight="725.0" prefWidth="326.0" title="Energy Graph">
                <xAxis>
                   <CategoryAxis label="Energy" side="BOTTOM" />
                </xAxis>
