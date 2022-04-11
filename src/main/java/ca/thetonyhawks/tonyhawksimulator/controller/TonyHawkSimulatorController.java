@@ -21,6 +21,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -53,7 +54,7 @@ public class TonyHawkSimulatorController {
     private final BooleanProperty showForceVectorsProperty;
 
     @FXML
-    private Rectangle skater;
+    private ImageView skater;
 
     /**
      *  Menu item buttons that trigger the opening of complementary windows
@@ -178,15 +179,13 @@ public class TonyHawkSimulatorController {
         double animationNormalSpeed = animationModel.animationDurationProperty().get() * 0.5;
         double animationSlowMotionSpeed = animationModel.animationDurationProperty().get(); // The two values should be inverted, but it doesn't work IDK why
 
-        skater.setX(line.getStartX());
-        skater.setY(700 - line.getStartY());
         MoveTo moveTo = new MoveTo();
-        moveTo.setX(angledPlaneLine.getStartX());
-        moveTo.setY(angledPlaneLine.getStartY());
+        moveTo.xProperty().bind( angledPlaneLine.startXProperty());
+        moveTo.yProperty().bind((angledPlaneLine.startYProperty().subtract(28)));
 
         LineTo lineTo = new LineTo();
-        lineTo.setX(angledPlaneLine.getEndX());
-        lineTo.setY(angledPlaneLine.getEndY());
+        lineTo.xProperty().bind( angledPlaneLine.endXProperty());
+        lineTo.yProperty().bind((angledPlaneLine.endYProperty().subtract(28)));
 
         path.getElements().addAll(moveTo, lineTo);
 
@@ -446,8 +445,8 @@ public class TonyHawkSimulatorController {
 
         showForceVectorsCheckBox.selectedProperty().bindBidirectional(this.showForceVectorsProperty);
 
-        skater.layoutXProperty().bind(angledPlaneLine.startXProperty());
-        skater.layoutYProperty().bind(angledPlaneLine.startYProperty());
+        skater.layoutXProperty().bind(angledPlaneLine.startXProperty().add(55));
+        skater.layoutYProperty().bind(angledPlaneLine.startYProperty().subtract(88));
 
         animationModel.getSkater().positionProperty().addListener((observableValue, number, t1) -> {
             double newPosition = (double) t1;
