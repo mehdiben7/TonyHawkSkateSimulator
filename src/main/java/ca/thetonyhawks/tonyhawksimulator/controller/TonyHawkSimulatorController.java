@@ -46,7 +46,7 @@ public class TonyHawkSimulatorController {
     public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
                                                                                             2);
 
-    private final AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]),
+    public final AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]),
                                                                     DEFAULT_ANGLED_SKATER_PLANE,
                                                                     new Skater(Skater.DEFAULT_SKATER_MASS),
                                                         false, this);
@@ -102,7 +102,7 @@ public class TonyHawkSimulatorController {
     private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
 
     @FXML
-    private ComboBox<String> planetComboBox, planeTypesComboBox;
+    public ComboBox<String> planetComboBox, planeTypesComboBox;
 
     @FXML
     private Pane midpane;
