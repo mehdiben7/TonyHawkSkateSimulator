@@ -22,7 +22,7 @@ import static ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane.g
  */
 public class AnimationModel {
 
-    private TonyHawkSimulatorController controller;
+    private final TonyHawkSimulatorController controller;
 
 
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
@@ -37,7 +37,7 @@ public class AnimationModel {
      */
     public static double getFallDuration(double planeLength, double horizontalAcceleration) {
         double fallDuration =  Math.sqrt((2 * planeLength) / horizontalAcceleration);
-
+        System.out.println("Fall duration " + fallDuration + " s");
         return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(fallDuration));
     }
 
@@ -49,12 +49,7 @@ public class AnimationModel {
         return this.controller;
     }
 
-//
-//    public double getModelInstantaneousPosition() {
-//        return getInstantaneousPosition(this.skater.velocityProperty().get(), this.skater.accelerationProperty().get());
-//    }
-
-    public static double getInstantaneousPosition(double horizontalAcceleration, double elapsedTime) { // TODO Solve problem with instantaneous position method
+    public static double getInstantaneousPosition(double horizontalAcceleration, double elapsedTime) {
         double instantaneousPosition = 0.5 * horizontalAcceleration * Math.pow(elapsedTime, 2);
         String formattedPosition = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(instantaneousPosition);
         return Double.parseDouble(formattedPosition);

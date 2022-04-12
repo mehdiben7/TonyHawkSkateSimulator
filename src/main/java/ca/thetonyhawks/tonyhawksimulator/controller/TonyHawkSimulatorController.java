@@ -7,14 +7,12 @@ import ca.thetonyhawks.tonyhawksimulator.model.SkaterAnimationTimer;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.ParabolaSkaterPlane;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -117,60 +115,71 @@ public class TonyHawkSimulatorController {
     private PathTransition pt;
     private final Path path = new Path();
 
-    private ObservableList<XYChart.Series<String, Double>> energyChartSeriesProperties;
+    private final DoubleProperty upperEnergyBoundProperty;
 
 
+    /**
+     *  Sets up the bar chart for displaying kinetic and potential gravitational energy
+     */
     public void setUpEnergyChart() {
         final CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Energy type");
         final NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Energy (in J)");
-        yAxis.setUpperBound(20_000.0);
         energyBarChart.setAnimated(false);
         yAxis.setAnimated(false);
-        System.out.println("suce");
+        yAxis.upperBoundProperty().bind(this.upperEnergyBoundProperty); // TODO Make sure Java updates the axis upper bound, because it thinks its optional apparently
+        yAxis.setForceZeroInRange(false);
+//        yAxis.setUpperBound(20000);
     }
 
 
-    public void updateEnergyValues(double kineticEnergy, double potentialGravitationalEnergy) { // TODO The calculated values somehow don't work; solve it
-        // TODO Change manual series switch to properties
+    /**
+     *  Updates the values of energy of the skater to the chart
+     * @param kineticEnergy The skater's kinetic energy (in J)
+     * @param potentialGravitationalEnergy The skater's potential gravitational energy (in J)
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void updateEnergyValues(double kineticEnergy, double potentialGravitationalEnergy) {
         energyBarChart.getData().removeAll(energyBarChart.getData());
-
-        System.out.println("Kinetic energy: " + kineticEnergy + " J");
-        System.out.println("Potential gravitational energy : " + potentialGravitationalEnergy + " J");
 
         XYChart.Series kineticEnergySeries = new XYChart.Series();
         kineticEnergySeries.setName("Kinetic Energy");
-        kineticEnergySeries.getData().add(new XYChart.Data("test A", kineticEnergy));
+        kineticEnergySeries.getData().add(new XYChart.Data("E_k", kineticEnergy));
 
 
         XYChart.Series potentialGravitationalEnergySeries = new XYChart.Series();
         potentialGravitationalEnergySeries.setName("Potential Energy");
-        potentialGravitationalEnergySeries.getData().add(new XYChart.Data("test B", potentialGravitationalEnergy));
+        potentialGravitationalEnergySeries.getData().add(new XYChart.Data("U_g", potentialGravitationalEnergy));
 
         energyBarChart.getData().addAll(kineticEnergySeries, potentialGravitationalEnergySeries);
+        this.upperEnergyBoundProperty.set(Math.max(kineticEnergy, potentialGravitationalEnergy));
     }
 
-
-
+    /**
+     *  Updates the value of the acceleration of the angled plane
+     */
     private void updateAngledPlaneValues() {
         animationModel.getSkater().accelerationProperty().set(animationModel.getModelAcceleration());
 
     }
 
+    /**
+     *  Updates the skater's mass in the animation's model
+     */
     private void updateSkaterMassValue() {
         animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
     }
 
+    /**
+     *  Updates the fall duration of the skater (in s)
+     */
     private void updateFallDuration() {
-        System.out.println("Fall duration: " + animationModel.getModelFallDuration() + " s");
         animationModel.animationDurationProperty().set(animationModel.getModelFallDuration());
-        double animationNormalSpeed = animationModel.animationDurationProperty().get() * 0.5;
-        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get();
+        double animationNormalSpeed = animationModel.animationDurationProperty().get();
+        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get() * 0.5;
         pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
     }
-
-
 
     /**
      *  Toggles the change between slow motion and regular speed of animation
@@ -183,10 +192,10 @@ public class TonyHawkSimulatorController {
         pt.setDuration(Duration.seconds(duration));
     }
 
-    void animate(Line line) {
-
-        double animationNormalSpeed = animationModel.animationDurationProperty().get() * 0.5;
-        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get(); // The two values should be inverted, but it doesn't work IDK why
+    /**
+     *  Sets up the animation of the skater along the plane
+     */
+    void setUpAngledPlaneAnimation() {
 
         MoveTo moveTo = new MoveTo();
         moveTo.xProperty().bind( angledPlaneLine.startXProperty());
@@ -198,17 +207,19 @@ public class TonyHawkSimulatorController {
 
         path.getElements().addAll(moveTo, lineTo);
 
-        pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
-
-        pt.setCycleCount(Animation.INDEFINITE);
+        pt.setCycleCount(1);
         pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pt.interpolatorProperty().setValue(Interpolator.LINEAR);
         pt.playFromStart();
     }
 
-   void animate2() {
-
-
+    /**
+     *  Sets up the animation for the parabola
+     * @author Changfan & David
+     * @apiNote Method is not functional yet
+      */
+    @Deprecated
+   void animate2() { // TODO Use this method
 
         pt.setDuration(Duration.millis(5000));
         pt.setNode(skater);
@@ -220,8 +231,6 @@ public class TonyHawkSimulatorController {
         pt.play();
     }
 
-
-
     /**
      *  Triggers the animation start, putting the skater on top of the plane
      */
@@ -229,9 +238,11 @@ public class TonyHawkSimulatorController {
     private void startEventHandler() {
 
         if(animationModel.isPausedProperty().get()) {
-            System.out.println("Amination resumes!");
+            System.out.println("Animation resumes!");
             updateSkaterMassValue();
             updateAngledPlaneValues();
+            updateFallDuration();
+            planeAngleSlider.setDisable(true);
             animationTimer.start();
             pt.play();
         }
@@ -239,7 +250,9 @@ public class TonyHawkSimulatorController {
             System.out.println("Animation started !");
             updateSkaterMassValue();
             updateAngledPlaneValues();
-            animate(angledPlaneLine);
+            updateFallDuration();
+            setUpAngledPlaneAnimation();
+            planeAngleSlider.setDisable(true);
             animationTimer.start();
             animationModel.isPausedProperty().set(true);
         }
@@ -251,15 +264,16 @@ public class TonyHawkSimulatorController {
      */
     @FXML
     private void resetEventHandler() {
-        // TODO Prevent reset if animation hasn't been started before
-        System.out.println("reset");
         animationTimer.stop();
-        pt.stop();
-        updateSkaterMassValue();
-        updateAngledPlaneValues();
-        updateFallDuration();
-        animationTimer.start();
-        pt.playFromStart();
+        if(pt != null) { // Prevents the animation from being reset if it has been started before
+            pt.stop();
+            updateSkaterMassValue();
+            updateAngledPlaneValues();
+            updateFallDuration();
+            planeAngleSlider.setDisable(true);
+            animationTimer.start();
+            pt.playFromStart();
+        }
     }
 
     /**
@@ -270,6 +284,7 @@ public class TonyHawkSimulatorController {
         System.out.println("Animation paused!");
         animationTimer.pause();
         pt.pause();
+        planeAngleSlider.setDisable(false);
         animationModel.isPausedProperty().set(true);
     }
 
@@ -323,17 +338,7 @@ public class TonyHawkSimulatorController {
 
         aboutStage.setTitle("About this project");
         aboutStage.setScene(scene);
-        //aboutStage.setResizable(false);
         aboutStage.show();
-
-    }
-
-    @FXML
-    public void planeAngleSliderDragDetected() {
-    }
-
-    @FXML
-    public void planeAngleSliderDragDone() {
 
     }
 
@@ -351,24 +356,18 @@ public class TonyHawkSimulatorController {
 
     public TonyHawkSimulatorController() {
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
-        this.energyChartSeriesProperties = new SimpleListProperty<XYChart.Series<String, Double>>();
-
+        this.upperEnergyBoundProperty = new SimpleDoubleProperty(2_500.0);
     }
 
     public void initialize() {
         setUpEnergyChart();
-
-
 
         angledPlaneLine.rotateProperty().bind(planeAngleSlider.valueProperty().subtract(45));
 
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
         planetComboBox.getSelectionModel().selectFirst();
         planetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
-
-
             int selectedItemIndex = planetComboBox.getSelectionModel().getSelectedIndex();
-
             double gravitationalConstant = Planet.PLANETS_GRAVITATIONAL_CONSTANTS[selectedItemIndex];
             System.out.println("new grav const. : " + gravitationalConstant);
             animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
@@ -392,7 +391,6 @@ public class TonyHawkSimulatorController {
                 //width of the arc path
                 int x = 400;
                 //height
-                int height = x - 100;
                 planeParabola = new CubicCurveTo();
 
                 planeParabola.setControlX1(200);
@@ -412,21 +410,13 @@ public class TonyHawkSimulatorController {
 
                 //**********************************************
                 System.out.println("A parabola");
-                //path1.setVisible(true);
-//                parabolaPlaneCurve.setVisible(true);
-//                angledPlaneLine.setVisible(false);
                 animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
                 midpane.getChildren().add(path1);
                 midpane.getChildren().remove(angledPlaneLine);
 
             }
-            // This should never happen, but if the selected option is neither Angled plane nor Parabola, we do
-            // not do anything
-
 
         });
-
-
 
         skaterMassField.textProperty().addListener((observableValue, s, t1) -> {
             if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
@@ -444,16 +434,21 @@ public class TonyHawkSimulatorController {
         skaterInitialHeightField.setText(String.valueOf(animationModel.getSkater().initialHeightProperty().get()));
 
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficientProperty());
-        planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
+
+        planeDynamicCoefficientSlider.valueProperty().bindBidirectional(animationModel.getPlane().kineticFrictionCoefficientProperty());
+
+        slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
+
+        showForceVectorsCheckBox.selectedProperty().bindBidirectional(this.showForceVectorsProperty);
+
+        skater.layoutXProperty().bind(angledPlaneLine.startXProperty().add(55));
+        skater.layoutYProperty().bind(angledPlaneLine.startYProperty().subtract(88));
 
         animationModel.getPlane().planeCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newAngle = (double) t1;
             String formattedNewAngleString = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newAngle);
             planeAngleLabel.setText(formattedNewAngleString + " deg");
         });
-
-        planeDynamicCoefficientSlider.valueProperty().bindBidirectional(animationModel.getPlane().kineticFrictionCoefficientProperty());
-
         animationModel.getPlane().kineticFrictionCoefficientProperty().addListener((observableValue, number, t1) -> {
             double newDynamicCoefficient = (double) t1;
             String formattedNewDynamicCoefficient = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newDynamicCoefficient);
@@ -461,28 +456,16 @@ public class TonyHawkSimulatorController {
 
         });
 
-
-
-        slowMotionRadioButton.selectedProperty().bindBidirectional(animationModel.isInSlowMotionProperty());
-
-
-        showForceVectorsCheckBox.selectedProperty().bindBidirectional(this.showForceVectorsProperty);
-
-        skater.layoutXProperty().bind(angledPlaneLine.startXProperty().add(55));
-        skater.layoutYProperty().bind(angledPlaneLine.startYProperty().subtract(88));
-
         animationModel.getSkater().positionProperty().addListener((observableValue, number, t1) -> {
             double newPosition = (double) t1;
             String formattedNewPosition = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newPosition);
             skaterPositionLabel.setText("x = " + formattedNewPosition + " m");
         });
-
         animationModel.getSkater().velocityProperty().addListener((observableValue, number, t1) -> {
             double newSpeed = (double) t1;
             String formattedNewSpeed = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newSpeed);
             skaterSpeedLabel.setText("v = " + formattedNewSpeed + " m/s");
         });
-
         animationModel.getSkater().accelerationProperty().addListener((observableValue, number, t1) -> {
             double newAcceleration = (double) t1;
             String formattedNewAcceleration = AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(newAcceleration);
@@ -490,7 +473,6 @@ public class TonyHawkSimulatorController {
             skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
         });
 
-        animationModel.animationDurationProperty().set(10);
 
 
     }

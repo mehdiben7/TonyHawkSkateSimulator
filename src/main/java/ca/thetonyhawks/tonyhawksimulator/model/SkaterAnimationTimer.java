@@ -1,6 +1,5 @@
 package ca.thetonyhawks.tonyhawksimulator.model;
 
-import ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane;
 import javafx.animation.AnimationTimer;
 
@@ -43,7 +42,7 @@ public class SkaterAnimationTimer extends AnimationTimer {
                                             animationModel.getSkater().potentialGravitationalEnergyProperty().get());
 
 
-        if(animationModel.getPlane() instanceof AngledSkaterPlane && animationModel.getSkater().positionProperty().get() > AngledSkaterPlane.PLANE_LENGTH) {
+        if(animationModel.getPlane() instanceof AngledSkaterPlane && animationModel.getSkater().positionProperty().get() >= AngledSkaterPlane.PLANE_LENGTH) {
             this.pause();
             animationModel.getController().pauseAnimation();
         }
