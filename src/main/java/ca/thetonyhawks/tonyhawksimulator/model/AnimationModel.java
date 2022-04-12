@@ -41,23 +41,39 @@ public class AnimationModel {
         return Double.parseDouble(AnimationModel.TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(fallDuration));
     }
 
+    /**
+     *  Gets the fall duration for this specific model's plane using
+     *  {@link ca.thetonyhawks.tonyhawksimulator.model.AnimationModel}'s getFallDuration(double, double)
+     * @return The fall duration for this model (in s)
+     */
     public double getModelFallDuration() {
         return getFallDuration(AngledSkaterPlane.PLANE_LENGTH, skater.accelerationProperty().get());
     }
 
+    /**
+     *  Gets the controller linked to this model
+     * @return The controller linked to this model
+     */
     public TonyHawkSimulatorController getController() {
         return this.controller;
     }
 
+    /**
+     *  Calculates the instantaneous position for any plane with a specific horizontal acceleration and time span
+     * @param horizontalAcceleration The horizontal acceleration, orthogonal to the normal of the plane (in m/s^2)
+     * @param elapsedTime The elapsed time since the beginning of the fall of the particle
+     * @return The instantaneous position of the particle with respect to the start of its fall (in m)
+     */
     public static double getInstantaneousPosition(double horizontalAcceleration, double elapsedTime) {
         double instantaneousPosition = 0.5 * horizontalAcceleration * Math.pow(elapsedTime, 2);
         String formattedPosition = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.format(instantaneousPosition);
         return Double.parseDouble(formattedPosition);
     }
 
-
-
-
+    /**
+     *  Gets the acceleration for this specific model
+     * @return The acceleration of this model (in m/s^2)
+     */
     public double getModelAcceleration() {
         return getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(),
                                             this.plane.kineticFrictionCoefficientProperty().get(),
@@ -65,8 +81,6 @@ public class AnimationModel {
                                             this.skater.skaterMassProperty().get());
     }
 
-
-    // MARK - Object properties
     private final Planet planet;
     private SkaterPlane plane;
     private final Skater skater;
@@ -140,7 +154,6 @@ public class AnimationModel {
 
 
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_UP);
-
         DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
