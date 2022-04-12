@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane  prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.ImportDatabaseController">
+<Pane  prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.ImportDatabaseController">
    <children>
       <VBox alignment="CENTER" layoutX="-1.0" prefHeight="600.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,7 +29,7 @@
             <HBox alignment="CENTER" spacing="30.0">
                <children>
                   <Button mnemonicParsing="false" text="Select database file..." onAction="#selectFileEventHandler"/>
-                  <Button disable="true" mnemonicParsing="false" text="Import data" onAction="#ImportEventHandler"/>
+                  <Button disable="true" mnemonicParsing="false" text="Import data" onAction="#ImportEventHandler" fx:id="importData"/>
                </children>
             </HBox>
          </children>

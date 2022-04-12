@@ -101,6 +101,8 @@ public class AnimationModel {
         return this.planet;
     }
 
+
+
     /**
      *  Returns the plane used for the animation
      * @return The plane used in the animation
@@ -124,6 +126,7 @@ public class AnimationModel {
     public void setPlane(SkaterPlane plane) {
         this.plane = plane;
     }
+
 
 
     /**
