@@ -360,10 +360,18 @@ public class TonyHawkSimulatorController {
     }
 
     public void initialize() {
+
         setUpEnergyChart();
 
-        angledPlaneLine.rotateProperty().bind(planeAngleSlider.valueProperty().subtract(45));
+        // Temporary - Disabling non-functional parts of the UI for the beta
 
+        planeTypesComboBox.setDisable(true);
+        showForceVectorsCheckBox.setDisable(true);
+        skaterInitialHeightField.setDisable(true);
+
+
+
+        midpane.rotateProperty().bind(planeAngleSlider.valueProperty().subtract(45));
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
         planetComboBox.getSelectionModel().selectFirst();
         planetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
