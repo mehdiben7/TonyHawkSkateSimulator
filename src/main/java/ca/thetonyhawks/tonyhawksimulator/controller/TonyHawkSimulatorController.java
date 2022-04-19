@@ -9,12 +9,10 @@ import ca.thetonyhawks.tonyhawksimulator.model.planes.ParabolaSkaterPlane;
 import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -37,6 +35,8 @@ import java.io.IOException;
  *   whose FXML file is <em>UserInterface.fxml</em>
  */
 public class TonyHawkSimulatorController {
+
+    public static final ObjectProperty<Interpolator> BEZIER_INTERPOLATOR_PROPERTY = new SimpleObjectProperty<>(Interpolator.SPLINE(0.76, 0.05, 0.95, 0.69));
 
     public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
     public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
@@ -179,6 +179,7 @@ public class TonyHawkSimulatorController {
         double animationNormalSpeed = animationModel.animationDurationProperty().get();
         double animationSlowMotionSpeed = animationModel.animationDurationProperty().get() * 0.5;
         pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
+
     }
 
     /**
@@ -209,7 +210,7 @@ public class TonyHawkSimulatorController {
 
         pt.setCycleCount(1);
         pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pt.interpolatorProperty().setValue(Interpolator.LINEAR);
+        pt.interpolatorProperty().bind(BEZIER_INTERPOLATOR_PROPERTY);
         pt.playFromStart();
     }
 
@@ -361,6 +362,7 @@ public class TonyHawkSimulatorController {
 
     public void initialize() {
 
+
         setUpEnergyChart();
 
         // Temporary - Disabling non-functional parts of the UI for the beta
@@ -377,7 +379,6 @@ public class TonyHawkSimulatorController {
         planetComboBox.valueProperty().addListener((observableValue, s, t1) -> {
             int selectedItemIndex = planetComboBox.getSelectionModel().getSelectedIndex();
             double gravitationalConstant = Planet.PLANETS_GRAVITATIONAL_CONSTANTS[selectedItemIndex];
-            System.out.println("new grav const. : " + gravitationalConstant);
             animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
 
         });
@@ -485,4 +486,16 @@ public class TonyHawkSimulatorController {
 
     }
 
+    public Point2D getPlaneStart() {
+        return new Point2D(angledPlaneLine.getStartX(), angledPlaneLine.getStartY());
+    }
+
+    public Point2D getPlaneEnd() {
+        return new Point2D(angledPlaneLine.getEndX(), angledPlaneLine.getEndY());
+    }
+
+    public void moveSkaterTo(Point2D midPoint) {
+        skater.setX(midPoint.getX());
+        skater.setY(midPoint.getY());
+    }
 }
