@@ -12,7 +12,6 @@ import javafx.animation.PathTransition;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -96,7 +95,7 @@ public class TonyHawkSimulatorController {
     private HBox centerPanel;
 
     @FXML
-    private TextField skaterMassField, skaterInitialHeightField;
+    private TextField skaterMassField;
 
     @FXML
     private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
@@ -128,7 +127,6 @@ public class TonyHawkSimulatorController {
         yAxis.setLabel("Energy (in J)");
         energyBarChart.setAnimated(false);
         yAxis.setAnimated(false);
-        yAxis.setUpperBound(5_000.0);
         yAxis.setForceZeroInRange(false);
     }
 
@@ -176,7 +174,7 @@ public class TonyHawkSimulatorController {
     private void updateFallDuration() {
         animationModel.animationDurationProperty().set(animationModel.getModelFallDuration());
         double animationNormalSpeed = animationModel.animationDurationProperty().get();
-        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get() * 0.5;
+        double animationSlowMotionSpeed = animationModel.animationDurationProperty().get() * 2;
         pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
 
     }
@@ -237,15 +235,21 @@ public class TonyHawkSimulatorController {
     @FXML
     private void startEventHandler() {
 
-        if(animationModel.isPausedProperty().get()) {
+        if(animationModel.hasBeenStartedBeforeProperty().get()) {
+            if(animationModel.isPausedProperty().get()) {
+                System.out.println("Paused -> Restarted");
+                pt.play();
+                animationTimer.start();
+            } else {
             System.out.println("Animation resumes!");
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
             pt.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
-            planeAngleSlider.setDisable(true);
             animationTimer.start();
             pt.play();
+
+            }
         }
         else {
             System.out.println("Animation started !");
@@ -253,9 +257,8 @@ public class TonyHawkSimulatorController {
             updateAngledPlaneValues();
             updateFallDuration();
             setUpAngledPlaneAnimation();
-            planeAngleSlider.setDisable(true);
             animationTimer.start();
-            animationModel.isPausedProperty().set(true);
+            animationModel.hasBeenStartedBeforeProperty().set(true);
         }
 
     }
@@ -267,11 +270,11 @@ public class TonyHawkSimulatorController {
     private void resetEventHandler() {
         animationTimer.stop();
         if(pt != null) { // Prevents the animation from being reset if it has been started before
+            animationModel.isPausedProperty().set(false);
             pt.stop();
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
-            planeAngleSlider.setDisable(true);
             animationTimer.start();
             pt.playFromStart();
         }
@@ -283,10 +286,10 @@ public class TonyHawkSimulatorController {
     @FXML
     private void pauseEventHandler() {
         System.out.println("Animation paused!");
+        animationModel.isPausedProperty().set(true);
         animationTimer.pause();
         pt.pause();
-        planeAngleSlider.setDisable(false);
-        animationModel.isPausedProperty().set(true);
+//        animationModel.hasBeenStartedBeforeProperty().set(true);
     }
 
     /**
@@ -350,10 +353,7 @@ public class TonyHawkSimulatorController {
 
     }
 
-    @FXML
-    public void onSkaterInitialHeightEntered() {
-        animationModel.getSkater().initialHeightProperty().set(Double.parseDouble(skaterInitialHeightField.getText()));
-    }
+
 
     public TonyHawkSimulatorController() {
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
@@ -369,7 +369,6 @@ public class TonyHawkSimulatorController {
 
         planeTypesComboBox.setDisable(true);
         showForceVectorsCheckBox.setDisable(true);
-        skaterInitialHeightField.setDisable(true);
 
 
 
@@ -382,6 +381,7 @@ public class TonyHawkSimulatorController {
             animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
 
         });
+        planetComboBox.disableProperty().bind(animationModel.isPausedProperty().not());
 
         planeTypesComboBox.setItems(animationModel.planeTypesProperty());
         planeTypesComboBox.getSelectionModel().selectFirst();
@@ -433,16 +433,13 @@ public class TonyHawkSimulatorController {
 
             }
         });
-        skaterInitialHeightField.textProperty().addListener((observableValue, s, t1) -> {
-            if (!t1.matches(MATCH_DECIMAL_CHARACTERS_REGEX)) {
-                skaterInitialHeightField.setText(t1.replaceAll(REPLACE_NON_DECIMAL_CHARACTERS_REGEX, ""));
-            }
-        });
+
 
         skaterMassField.setText(String.valueOf(animationModel.getSkater().skaterMassProperty().get()));
-        skaterInitialHeightField.setText(String.valueOf(animationModel.getSkater().initialHeightProperty().get()));
+        skaterMassField.disableProperty().bind(animationModel.isPausedProperty().not());
 
         planeAngleSlider.valueProperty().bindBidirectional(animationModel.getPlane().planeCoefficientProperty());
+        planeAngleSlider.disableProperty().bind(animationModel.isPausedProperty().not());
 
         planeDynamicCoefficientSlider.valueProperty().bindBidirectional(animationModel.getPlane().kineticFrictionCoefficientProperty());
 
@@ -486,16 +483,5 @@ public class TonyHawkSimulatorController {
 
     }
 
-    public Point2D getPlaneStart() {
-        return new Point2D(angledPlaneLine.getStartX(), angledPlaneLine.getStartY());
-    }
 
-    public Point2D getPlaneEnd() {
-        return new Point2D(angledPlaneLine.getEndX(), angledPlaneLine.getEndY());
-    }
-
-    public void moveSkaterTo(Point2D midPoint) {
-        skater.setX(midPoint.getX());
-        skater.setY(midPoint.getY());
-    }
 }

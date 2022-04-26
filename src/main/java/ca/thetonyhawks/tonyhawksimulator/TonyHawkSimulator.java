@@ -1,16 +1,12 @@
 package ca.thetonyhawks.tonyhawksimulator;
 
-import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  *  Application main class

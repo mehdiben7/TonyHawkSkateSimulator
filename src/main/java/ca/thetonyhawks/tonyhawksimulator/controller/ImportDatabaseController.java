@@ -1,6 +1,5 @@
 package ca.thetonyhawks.tonyhawksimulator.controller;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,11 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.sql.*;
 
@@ -24,6 +23,7 @@ public class ImportDatabaseController
 {
 
     @FXML
+    @SuppressWarnings("rawtypes")
     private TableColumn name, acceleration;
 
     @FXML
@@ -42,8 +42,7 @@ public class ImportDatabaseController
         String connectingString=engine+":"+db;
         try
         {
-            Connection dbConnection=DriverManager.getConnection(connectingString);
-            return dbConnection;
+            return DriverManager.getConnection(connectingString);
         }catch(SQLException ex)
         {
             System.out.println(ex.getMessage());

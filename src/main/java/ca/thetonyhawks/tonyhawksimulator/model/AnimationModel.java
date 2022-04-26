@@ -27,6 +27,7 @@ public class AnimationModel {
 
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
+    private BooleanProperty pausedProperty;
 
 
     /**
@@ -43,7 +44,7 @@ public class AnimationModel {
 
     /**
      *  Gets the fall duration for this specific model's plane using
-     *  {@link ca.thetonyhawks.tonyhawksimulator.model.AnimationModel}'s getFallDuration(double, double)
+     *  {@link AnimationModel}'s getFallDuration(double, double)
      * @return The fall duration for this model (in s)
      */
     public double getModelFallDuration() {
@@ -87,12 +88,12 @@ public class AnimationModel {
 
     private final DoubleProperty animationSpeedProperty;
     private final BooleanProperty isInSlowMotionProperty;
-    private final BooleanProperty isPausedProperty;
+    private final BooleanProperty hasBeenStartBeforeProperty;
 
     private final ObservableList<String> planeTypesProperty;
 
-    public BooleanProperty isPausedProperty() {
-        return this.isPausedProperty;
+    public BooleanProperty hasBeenStartedBeforeProperty() {
+        return this.hasBeenStartBeforeProperty;
     }
 
     public BooleanProperty isInSlowMotionProperty() {
@@ -169,9 +170,13 @@ public class AnimationModel {
 
         this.animationSpeedProperty = new SimpleDoubleProperty();
         this.isInSlowMotionProperty = new SimpleBooleanProperty(isInSlowMotion);
-        this.isPausedProperty = new SimpleBooleanProperty(false);
-
+        this.hasBeenStartBeforeProperty = new SimpleBooleanProperty(false);
+        this.pausedProperty = new SimpleBooleanProperty(true);
         this.controller = controller;
+    }
+
+    public BooleanProperty isPausedProperty() {
+        return this.pausedProperty;
     }
 
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -31,7 +32,7 @@
 
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
 
-<BorderPane prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
+<BorderPane prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -93,14 +94,13 @@
                   <MenuItem fx:id="database" mnemonicParsing="false" onAction="#showImportDatabaseWindow" text="Import planets database..." />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false" text="Window">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Appearance" />
+                  <Menu mnemonicParsing="false" text="Appearance">
+                    <items>
+                        <CheckMenuItem mnemonicParsing="false" text="Dark Mode" />
+                    </items>
+                  </Menu>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -205,7 +205,7 @@
                   <CategoryAxis label="Energy" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis autoRanging="false" label="Value (J)" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="55.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0" tickUnit="1250.0" upperBound="20000.0">
+                  <NumberAxis label="Value (J)" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="55.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0" tickUnit="1250.0" upperBound="0.0">
                      <effect>
                         <Blend />
                      </effect>
@@ -233,16 +233,6 @@
                               <Label prefHeight="13.0" prefWidth="203.0" text="Skater's mass" />
                               <TextField fx:id="skaterMassField" onAction="#onSkaterMassEntered" prefWidth="100.0" />
                               <Label prefHeight="15.0" prefWidth="14.0" text="kg" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="15.0">
-                           <children>
-                              <Label text="Initial height" />
-                              <TextField fx:id="skaterInitialHeightField" onAction="#onSkaterInitialHeightEntered" prefWidth="50.0" />
-                              <Label text="m" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

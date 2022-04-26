@@ -45,7 +45,6 @@ public class Skater {
 
 
     private final DoubleProperty skaterMassProperty;
-    private final DoubleProperty initialHeightProperty;
     private final DoubleProperty positionProperty;
     private final DoubleProperty velocityProperty;
     private final DoubleProperty accelerationProperty;
@@ -53,10 +52,6 @@ public class Skater {
     private final DoubleProperty potentialGravitationalEnergyProperty;
 
 
-    // MARK - Properties getter
-    public DoubleProperty initialHeightProperty() {
-        return this.initialHeightProperty;
-    }
     public DoubleProperty velocityProperty() {
         return this.velocityProperty;
     }
@@ -91,7 +86,6 @@ public class Skater {
      */
     public Skater(double mass) {
         this.skaterMassProperty = new SimpleDoubleProperty(mass);
-        this.initialHeightProperty = new SimpleDoubleProperty(0);
         this.positionProperty = new SimpleDoubleProperty(0);
         this.velocityProperty = new SimpleDoubleProperty(0);
         this.accelerationProperty = new SimpleDoubleProperty(0);
