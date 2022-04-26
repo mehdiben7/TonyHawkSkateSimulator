@@ -128,9 +128,8 @@ public class TonyHawkSimulatorController {
         yAxis.setLabel("Energy (in J)");
         energyBarChart.setAnimated(false);
         yAxis.setAnimated(false);
-        yAxis.upperBoundProperty().bind(this.upperEnergyBoundProperty); // TODO Make sure Java updates the axis upper bound, because it thinks its optional apparently
+        yAxis.setUpperBound(5_000.0);
         yAxis.setForceZeroInRange(false);
-//        yAxis.setUpperBound(20000);
     }
 
 
@@ -243,6 +242,7 @@ public class TonyHawkSimulatorController {
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
+            pt.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
             planeAngleSlider.setDisable(true);
             animationTimer.start();
             pt.play();

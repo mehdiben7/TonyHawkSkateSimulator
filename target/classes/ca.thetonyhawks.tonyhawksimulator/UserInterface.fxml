@@ -31,7 +31,7 @@
 
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
 
-<BorderPane prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
+<BorderPane prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -205,7 +205,7 @@
                   <CategoryAxis label="Energy" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis autoRanging="false" label="Value (J)" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="55.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0">
+                  <NumberAxis autoRanging="false" label="Value (J)" nodeOrientation="LEFT_TO_RIGHT" prefHeight="660.0" prefWidth="55.0" side="LEFT" tickLabelGap="2.0" tickLength="2.0" tickUnit="1250.0" upperBound="20000.0">
                      <effect>
                         <Blend />
                      </effect>
