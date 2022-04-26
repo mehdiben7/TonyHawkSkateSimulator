@@ -39,13 +39,13 @@ public class ImportDatabaseController
     public Connection getConnection(String db)
     {
         //String connectingString;
-        String connectingString=engine+":"+db;
+        String connectingString = engine + ":" + db;
         try
         {
             return DriverManager.getConnection(connectingString);
-        }catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
+
+        } catch(SQLException ex) {
+            System.out.println("SQL Error:" + ex.getMessage()); // Error here
             return null;
         }
     }
@@ -62,8 +62,7 @@ public class ImportDatabaseController
 
 
 
-    public void selectFileEventHandler(ActionEvent actionEvent)
-    {
+    public void selectFileEventHandler(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Database Files", "*.db");
         chooser.getExtensionFilters().add(extFilter);
@@ -73,12 +72,12 @@ public class ImportDatabaseController
         {
             System.out.println(file.getPath());
             Connection connection = getConnection(file.getPath());
-            String query="SELECT * From TonyHawkSimulator";
+            String query = "SELECT * From TonyHawkSimulator";
             try
             {
 
-                Statement statement=connection.createStatement();
-                ResultSet   resultSet=statement.executeQuery(query);
+                Statement statement = connection.createStatement(); // crash here
+                ResultSet   resultSet = statement.executeQuery(query);
                 name.setCellValueFactory(new PropertyValueFactory<Planet,String>("name"));
                 acceleration.setCellValueFactory(new PropertyValueFactory<Planet,String>("acceleration"));
                 ObservableList<Planet> data=FXCollections.observableArrayList();

@@ -1,2 +1,15 @@
+ca\thetonyhawks\tonyhawksimulator\model\SkaterAnimationTimer.class
+ca\thetonyhawks\tonyhawksimulator\TonyHawkSimulator.class
+ca\thetonyhawks\tonyhawksimulator\model\Planet.class
 module-info.class
-ca/thetonyhawks/tonyhawksimulator/controller/ImportDatabaseController$Planet.class
+ca\thetonyhawks\tonyhawksimulator\controller\TonyHawkSimulatorController.class
+ca\thetonyhawks\tonyhawksimulator\model\planes\SkaterPlane.class
+ca\thetonyhawks\tonyhawksimulator\model\planes\ParabolaSkaterPlane.class
+ca\thetonyhawks\tonyhawksimulator\tests\SkaterTest.class
+ca\thetonyhawks\tonyhawksimulator\model\AnimationModel.class
+ca\thetonyhawks\tonyhawksimulator\tests\AnimationModelTest.class
+ca\thetonyhawks\tonyhawksimulator\controller\ImportDatabaseController.class
+ca\thetonyhawks\tonyhawksimulator\controller\ImportDatabaseController$Planet.class
+ca\thetonyhawks\tonyhawksimulator\model\planes\AngledSkaterPlane.class
+ca\thetonyhawks\tonyhawksimulator\tests\AngledSkaterPlaneTest.class
+ca\thetonyhawks\tonyhawksimulator\model\Skater.class
