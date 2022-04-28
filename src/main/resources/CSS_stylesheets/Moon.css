@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .mainBackground{
-    -fx-background-image: url("../images/sky4.png");
+    -fx-background-image: url("../images/moon.png");
     -fx-background-size: 2300;
     -fx-background-size: cover;
 }
@@ -13,27 +13,27 @@
 }
 
 .right {
-    -fx-background-image: url("../images/rightWall.png");
+    -fx-background-image: url("../images/wallMoon.png");
     -fx-font-family: 'Press Start 2P', cursive;
     -fx-font-size: 12;
 
-    -fx-border-color: #5a5e78;
+    -fx-border-color: #6b684f;
     -fx-border-width: 12px;
 
 }
 
 .left {
-    -fx-background-image: url("../images/leftWall.png");
+    -fx-background-image: url("../images/wallMoon.png");
     -fx-font-family: 'Press Start 2P', cursive;
     -fx-font-size: 13px;
 
-    -fx-border-color: #5a5e78;
+    -fx-border-color: #6b684f;
     -fx-border-width: 12px;
 
 }
 
 .bottom {
-    -fx-background-image: url("../images/bottom2.png");
+    -fx-background-image: url("../images/bottomSpace.png");
     -fx-font-family: 'Press Start 2P', cursive;
     -fx-font-size: 16;
 }
@@ -98,7 +98,7 @@
 
 .sliderMain .thumb {
     -fx-background-color: rgba(69, 69, 69, 0);
-    -fx-background-image: url("../images/slider_thumb.png");
+    -fx-background-image: url("../images/slider_thumb_moon.png");
     -fx-background-size: contain;
     -fx-pref-height: 35px;
     -fx-pref-width:  28px;
@@ -106,11 +106,11 @@
 }
 
 .sliderMain .thumb: hover {
-    -fx-background-image: url("../images/slider_thumb_hovered.png");
+    -fx-background-image: url("../images/slider_thumb_hovered_moon.png");
 
 }
 
 .sliderMain .thumb: pressed {
-    -fx-background-image: url("../images/slider_thumb_pressed.png");
+    -fx-background-image: url("../images/slider_thumb_pressed_moon.png");
 
 }
