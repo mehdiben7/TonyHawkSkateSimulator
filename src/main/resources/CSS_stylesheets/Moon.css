@@ -5,6 +5,8 @@
     -fx-background-image: url("../images/moon.png");
     -fx-background-size: 2300;
     -fx-background-size: cover;
+    -fx-text-background-color: #1b1833;
+
 }
 
 .title{
@@ -19,7 +21,6 @@
 
     -fx-border-color: #6b684f;
     -fx-border-width: 12px;
-
 }
 
 .left {
@@ -113,4 +114,8 @@
 .sliderMain .thumb: pressed {
     -fx-background-image: url("../images/slider_thumb_pressed_moon.png");
 
+}
+
+.skater {
+    -fx-image: url("../images/astronaut.png");
 }

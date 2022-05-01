@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .mainBackground{
-    -fx-background-image: url("../images/sky4.png");
+    -fx-background-image: url("../images/sky3.png");
     -fx-background-size: 2300;
     -fx-background-size: cover;
 }
@@ -113,4 +113,8 @@
 .sliderMain .thumb: pressed {
     -fx-background-image: url("../images/slider_thumb_pressed.png");
 
+}
+
+.skater {
+    -fx-image: url("../images/skater.png");
 }

@@ -12,7 +12,7 @@
 
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
 
-<BorderPane fx:id="backgroundPane" prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Moon.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
+<BorderPane fx:id="backgroundPane" prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -49,11 +49,7 @@
                   </Label>
                   <Pane fx:id="midpane" prefWidth="648.0">
                      <children>
-                        <ImageView fx:id="skater" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="120.0" nodeOrientation="INHERIT" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/skater.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="skater" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="120.0" nodeOrientation="INHERIT" preserveRatio="true" styleClass="skater" />
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                         <QuadCurve fx:id="parabolaPlaneCurve" controlX="-172.0" controlY="226.0" endX="476.0" endY="220.0" fill="#1f93ff00" layoutX="172.0" layoutY="470.0" startX="-172.0" startY="-326.0" stroke="#4a0000" strokeType="INSIDE" strokeWidth="14.0" visible="false" />
                      </children>
@@ -226,13 +222,13 @@
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
                         <Label text="Angle of the incline " />
-                        <Slider fx:id="planeAngleSlider" majorTickUnit="10.0" max="45.0" min="15.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" stylesheets="@../CSS_stylesheets/Main.css" value="45.0" />
+                        <Slider fx:id="planeAngleSlider" majorTickUnit="10.0" max="45.0" min="15.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" value="45.0" />
                         <Label fx:id="planeAngleLabel" text="45 deg" />
                         <Label disable="true" text="Parabola width" />
-                        <Slider disable="true" majorTickUnit="0.2" max="0.8" min="0.1" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" stylesheets="@../CSS_stylesheets/Main.css" value="0.4" />
+                        <Slider disable="true" majorTickUnit="0.2" max="0.8" min="0.1" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" value="0.4" />
                         <Label disable="true" text="a = 0.4" />
                         <Label text="Friction" />
-                        <Slider fx:id="planeDynamicCoefficientSlider" majorTickUnit="0.5" max="1.0" minorTickCount="4" prefHeight="38.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" stylesheets="@../CSS_stylesheets/Main.css" />
+                        <Slider fx:id="planeDynamicCoefficientSlider" majorTickUnit="0.5" max="1.0" minorTickCount="4" prefHeight="38.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="sliderMain" />
                         <Label fx:id="planeDynamicCoefficientLabel" text="μ_k = 0" />
                         <CheckBox fx:id="showForceVectorsCheckBox" mnemonicParsing="false" text="Show force vector" />
                      </children>

@@ -496,6 +496,7 @@ public class TonyHawkSimulatorController {
     public void changePlanet (ActionEvent event){
         if (planetComboBox.getValue() == "Moon"){
             backgroundPane.getStylesheets().add(getClass().getResource("..\\CSS_stylesheets\\Moon.css").toExternalForm());
+            System.out.println("Patae");
         }
 
         if (planetComboBox.getValue() == "Mars"){

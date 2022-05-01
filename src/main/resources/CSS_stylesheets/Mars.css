@@ -112,3 +112,7 @@
     -fx-background-image: url("../images/slider_thumb_pressed_mars.png");
 
 }
+
+.skater {
+    -fx-image: url("../images/astronaut.png");
+}
