@@ -31,13 +31,13 @@
 
 <!--&quot;https://cdn.mos.cms.futurecdn.net/3upZx2gxxLpW7MBbnKYQLH-1200-80.jpg&quot;-->
 
-<BorderPane fx:id="backgroundPane" prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@controller/Main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
+<BorderPane fx:id="backgroundPane" prefHeight="802.0" prefWidth="1401.0" styleClass="mainBackground" stylesheets="@../CSS_stylesheets/Main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.thetonyhawks.tonyhawksimulator.controller.TonyHawkSimulatorController">
    <center>
       <HBox fx:id="centerPanel" alignment="CENTER" prefHeight="725.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <Label prefHeight="56.0" prefWidth="806.0" styleClass="title" stylesheets="@controller/Main.css">
+                  <Label prefHeight="56.0" prefWidth="806.0" styleClass="title" stylesheets="@../CSS_stylesheets/Main.css">
                      <font>
                         <Font name="Bodoni MT" size="26.0" />
                      </font>
@@ -111,9 +111,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="startButton" stylesheets="@controller/Main.css" />
-                  <Button fx:id="reset" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="resetButton" stylesheets="@controller/Main.css" />
-                  <Button fx:id="pause" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#pauseEventHandler" prefHeight="25.0" prefWidth="103.0" styleClass="pauseButton" stylesheets="@controller/Main.css" />
+                  <Button fx:id="start" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#startEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="startButton" stylesheets="@../CSS_stylesheets/Main.css" />
+                  <Button fx:id="reset" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#resetEventHandler" prefHeight="25.0" prefWidth="63.0" styleClass="resetButton" stylesheets="@../CSS_stylesheets/Main.css" />
+                  <Button fx:id="pause" minHeight="25.0" minWidth="63.0" mnemonicParsing="false" onAction="#pauseEventHandler" prefHeight="25.0" prefWidth="103.0" styleClass="pauseButton" stylesheets="@../CSS_stylesheets/Main.css" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="500.0" spacing="10.0">
@@ -259,7 +259,7 @@
             </VBox>
             <VBox alignment="CENTER" spacing="20.0">
                <children>
-                  <ComboBox fx:id="planetComboBox" onAction="#changePlanet" prefHeight="21.0" prefWidth="189.0" promptText="Planet" />
+                  <ComboBox fx:id="planetComboBox" prefHeight="21.0" prefWidth="189.0" promptText="Planet" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

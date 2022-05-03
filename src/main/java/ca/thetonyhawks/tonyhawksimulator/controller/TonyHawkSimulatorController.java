@@ -9,7 +9,6 @@ import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -371,18 +370,6 @@ public class TonyHawkSimulatorController {
         this.upperEnergyBoundProperty = new SimpleDoubleProperty(2_500.0);
     }
 
-    public void changePlanet(ActionEvent event){
-        System.out.println("Changed planet");
-        if (planetComboBox.getValue() == "Moon"){
-            backgroundPane.getStylesheets().clear();
-            backgroundPane.getStylesheets().add(getClass().getResource("..\\CSS_stylesheets\\Moon.css").toExternalForm());
-
-        } else if(planetComboBox.getValue() == "Mars"){
-
-        }
-    }
-
-
     public void initialize() {
 
 
@@ -458,10 +445,6 @@ public class TonyHawkSimulatorController {
             System.out.println(formattedNewAcceleration);
             skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
         });
-
-
-
-
     }
 
 }
