@@ -11,7 +11,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sqlite.jdbc" level="project" />
-    <orderEntry type="library" name="sqlite-jdbc-3.36.0.3" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -44,5 +43,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.beust:jcommander:1.78" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.webjars:jquery:3.5.1" level="project" />
+    <orderEntry type="library" name="io.github.willena.sqlite.jdbc" level="project" />
   </component>
 </module>

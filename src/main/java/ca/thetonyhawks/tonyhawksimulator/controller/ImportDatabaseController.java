@@ -57,7 +57,6 @@ public class ImportDatabaseController
         controller.animationModel.getPlanet().getGravitationalAccelerationProperty().set(Double.parseDouble(planet.getAcceleration()));
         System.out.println("new grav const. : " + Double.parseDouble(planet.getAcceleration()));
         controller.planetComboBox.setValue("DataBase");
-        System.out.println(planet.getName());
     }
 
 
