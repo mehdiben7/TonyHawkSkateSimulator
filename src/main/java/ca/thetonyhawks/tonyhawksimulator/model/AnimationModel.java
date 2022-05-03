@@ -22,12 +22,16 @@ import static ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane.g
  */
 public class AnimationModel {
 
-    private final TonyHawkSimulatorController controller;
-
-
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
+    private final TonyHawkSimulatorController controller;
+    private final Planet planet;
+    private final Skater skater;
+
+    private SkaterPlane plane;
+
     private BooleanProperty pausedProperty;
+
 
 
     /**
@@ -50,6 +54,12 @@ public class AnimationModel {
     public double getModelFallDuration() {
         return getFallDuration(AngledSkaterPlane.PLANE_LENGTH, skater.accelerationProperty().get());
     }
+
+    private final DoubleProperty animationSpeedProperty;
+    private final BooleanProperty isInSlowMotionProperty;
+    private final BooleanProperty hasBeenStartBeforeProperty;
+
+    private final ObservableList<String> planeTypesProperty;
 
     /**
      *  Gets the controller linked to this model
@@ -81,16 +91,6 @@ public class AnimationModel {
                                             this.plane.planeCoefficientProperty().get(),
                                             this.skater.skaterMassProperty().get());
     }
-
-    private final Planet planet;
-    private SkaterPlane plane;
-    private final Skater skater;
-
-    private final DoubleProperty animationSpeedProperty;
-    private final BooleanProperty isInSlowMotionProperty;
-    private final BooleanProperty hasBeenStartBeforeProperty;
-
-    private final ObservableList<String> planeTypesProperty;
 
     public BooleanProperty hasBeenStartedBeforeProperty() {
         return this.hasBeenStartBeforeProperty;
