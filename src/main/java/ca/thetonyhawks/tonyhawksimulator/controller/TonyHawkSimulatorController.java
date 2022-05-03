@@ -9,6 +9,7 @@ import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -63,7 +64,6 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private HBox bottomPane;
-
 
 
     /**
@@ -370,6 +370,7 @@ public class TonyHawkSimulatorController {
         this.upperEnergyBoundProperty = new SimpleDoubleProperty(2_500.0);
     }
 
+
     public void initialize() {
 
 
@@ -391,7 +392,6 @@ public class TonyHawkSimulatorController {
 
         });
         planetComboBox.disableProperty().bind(animationModel.isPausedProperty().not());
-
 
 
         skaterMassField.textProperty().addListener((observableValue, s, t1) -> {
@@ -445,6 +445,25 @@ public class TonyHawkSimulatorController {
             System.out.println(formattedNewAcceleration);
             skaterAccelerationLabel.setText("a = " + formattedNewAcceleration + " m/s^2");
         });
+    }
+
+    public void changePlanet(ActionEvent event) {
+        System.out.println("Changed planet");
+        if (planetComboBox.getValue() == "Moon") {
+
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Moon.css").toExternalForm());
+
+        } else if (planetComboBox.getValue() == "Earth") {
+
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Main.css").toExternalForm());
+
+        } else if (planetComboBox.getValue() == "Mars") {
+
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Mars.css").toExternalForm());
+        }
     }
 
 }
