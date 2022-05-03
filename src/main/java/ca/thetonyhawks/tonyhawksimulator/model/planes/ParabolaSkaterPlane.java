@@ -7,9 +7,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 /**
  *  A class representing a parabola plane for the skater to ride on <br>
  *  Parent & Sister class:
+ * @apiNote not implemented due to lack of time
  * @see SkaterPlane
  * @see AngledSkaterPlane
  */
+@Deprecated
 public class ParabolaSkaterPlane extends SkaterPlane {
 
     /**
