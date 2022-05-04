@@ -70,7 +70,7 @@
                      <children>
                         <ImageView fx:id="skater" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="120.0" nodeOrientation="INHERIT" preserveRatio="true" styleClass="skater" />
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
-                        <QuadCurve fx:id="parabolaPlaneCurve" controlX="-172.0" controlY="226.0" endX="476.0" endY="220.0" fill="#1f93ff00" layoutX="172.0" layoutY="470.0" startX="-172.0" startY="-326.0" stroke="#4a0000" strokeType="INSIDE" strokeWidth="14.0" visible="false" />
+
                      </children>
                   </Pane>
                </children>

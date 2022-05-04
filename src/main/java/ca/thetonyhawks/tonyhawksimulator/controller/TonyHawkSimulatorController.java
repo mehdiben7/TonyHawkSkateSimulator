@@ -9,7 +9,6 @@ import ca.thetonyhawks.tonyhawksimulator.model.planes.SkaterPlane;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,11 +23,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The Controller class linked to the main user interface window of the simulator <br>
@@ -43,7 +46,6 @@ public class TonyHawkSimulatorController {
 
     public static final AngledSkaterPlane DEFAULT_ANGLED_SKATER_PLANE = new AngledSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
             AngledSkaterPlane.DEFAULT_PLANE_ANGLE);
-
 
     public final AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]),
             DEFAULT_ANGLED_SKATER_PLANE,
@@ -97,11 +99,6 @@ public class TonyHawkSimulatorController {
     private Line angledPlaneLine;
 
     @FXML
-    private QuadCurve parabolaPlaneCurve;
-
-    private CubicCurveTo planeParabola;
-
-    @FXML
     private HBox centerPanel;
 
     @FXML
@@ -118,8 +115,6 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private BarChart<String, Double> energyBarChart;
-
-    private Path path1;
 
     private PathTransition pt;
     private final Path path = new Path();
@@ -222,24 +217,6 @@ public class TonyHawkSimulatorController {
         pt.playFromStart();
     }
 
-    /**
-     * Sets up the animation for the parabola
-     *
-     * @author Changfan & David
-     * @apiNote Method is not functional yet
-     */
-    @Deprecated
-    void animate2() { // TODO Use this method
-
-        pt.setDuration(Duration.millis(5000));
-        pt.setNode(skater);
-        pt.setPath(path1);
-        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pt.setCycleCount((int) 4f);
-        pt.setAutoReverse(true);
-
-        pt.play();
-    }
 
     /**
      * Triggers the animation start, putting the skater on top of the plane
@@ -300,7 +277,6 @@ public class TonyHawkSimulatorController {
         animationModel.isPausedProperty().set(true);
         animationTimer.pause();
         pt.pause();
-//        animationModel.hasBeenStartedBeforeProperty().set(true);
     }
 
     /**
@@ -357,13 +333,15 @@ public class TonyHawkSimulatorController {
 
     }
 
+    /**
+     *  Triggered when a new value for the skater mass is entered
+     */
     @FXML
     public void onSkaterMassEntered() {
         animationModel.getSkater().skaterMassProperty().set(Double.parseDouble(skaterMassField.getText()));
         updateAngledPlaneValues();
 
     }
-
 
     public TonyHawkSimulatorController() {
         this.showForceVectorsProperty = new SimpleBooleanProperty(false);
@@ -447,19 +425,22 @@ public class TonyHawkSimulatorController {
         });
     }
 
-    public void changePlanet(ActionEvent event) {
+    /**
+     *  Triggered when the user changes the planet
+     */
+    public void changePlanet() {
         System.out.println("Changed planet");
-        if (planetComboBox.getValue() == "Moon") {
+        if (Objects.equals(planetComboBox.getValue(), "Moon")) {
 
             backgroundPane.getStylesheets().clear();
             backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Moon.css").toExternalForm());
 
-        } else if (planetComboBox.getValue() == "Earth") {
+        } else if (Objects.equals(planetComboBox.getValue(), "Earth")) {
 
             backgroundPane.getStylesheets().clear();
             backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Main.css").toExternalForm());
 
-        } else if (planetComboBox.getValue() == "Mars") {
+        } else if (Objects.equals(planetComboBox.getValue(), "Mars")) {
 
             backgroundPane.getStylesheets().clear();
             backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Mars.css").toExternalForm());

@@ -10,8 +10,6 @@ import javafx.collections.ObservableList;
  */
 public class Planet {
 
-//    public static final String[] PLANETS_NAMES = {"Earth", "Moon", "Mars", "Sun","Database"};
-//    public static final double[] PLANETS_GRAVITATIONAL_CONSTANTS = {9.806_65, 1.622, 3.711, 274};
     public static final String[] PLANETS_NAMES = {"Earth", "Moon", "Mars"};
     public static final double[] PLANETS_GRAVITATIONAL_CONSTANTS = {9.806_65, 1.622, 3.711};
 
