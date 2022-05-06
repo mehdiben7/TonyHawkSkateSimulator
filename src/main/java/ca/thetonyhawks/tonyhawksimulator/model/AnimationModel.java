@@ -7,10 +7,13 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 
 import static ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane.getAngledPlaneAcceleration;
 
@@ -24,7 +27,7 @@ public class AnimationModel {
 
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
-    private final BooleanProperty pausedProperty;
+    private BooleanProperty pausedProperty;
 
 
     /**
@@ -74,18 +77,20 @@ public class AnimationModel {
      */
     public double getModelAcceleration() {
         return getAngledPlaneAcceleration(this.planet.getGravitationalAccelerationProperty().get(),
-                                            this.plane.kineticFrictionCoefficientProperty().get(),
-                                            this.plane.planeCoefficientProperty().get(),
-                                            this.skater.skaterMassProperty().get());
+                this.plane.kineticFrictionCoefficientProperty().get(),
+                this.plane.planeCoefficientProperty().get(),
+                this.skater.skaterMassProperty().get());
     }
 
     private final Planet planet;
-    private final SkaterPlane plane;
+    private SkaterPlane plane;
     private final Skater skater;
 
     private final DoubleProperty animationSpeedProperty;
     private final BooleanProperty isInSlowMotionProperty;
     private final BooleanProperty hasBeenStartBeforeProperty;
+
+    private final ObservableList<String> planeTypesProperty;
 
     public BooleanProperty hasBeenStartedBeforeProperty() {
         return this.hasBeenStartBeforeProperty;
@@ -97,6 +102,10 @@ public class AnimationModel {
 
     public DoubleProperty animationDurationProperty() {
         return this.animationSpeedProperty;
+    }
+
+    public ObservableList<String> planeTypesProperty() {
+        return this.planeTypesProperty;
     }
 
     /**
@@ -125,6 +134,15 @@ public class AnimationModel {
         return this.skater;
     }
 
+    /**
+     *  Sets a new plane for the animation
+     * @param plane The new plane
+     */
+    public void setPlane(SkaterPlane plane) {
+        this.plane = plane;
+    }
+
+
 
     /**
      *  Instantiates a new animation model
@@ -140,6 +158,8 @@ public class AnimationModel {
         DecimalFormatSymbols dfs = TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT.setDecimalFormatSymbols(dfs);
+
+        planeTypesProperty = FXCollections.observableList(Arrays.asList(SkaterPlane.PLANE_TYPES));
 
 
         this.planet = planet;

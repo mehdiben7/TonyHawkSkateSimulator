@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public abstract class SkaterPlane {
 
+    public static final String[] PLANE_TYPES = {"Angled plane", "Parabola"};
+
     /**
      *  Default kinetic friction coefficient, which is 0 with no friction
      */

@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The Controller class linked to the main user interface window of the simulator <br>
@@ -521,14 +522,26 @@ public class TonyHawkSimulatorController {
         });
     }
 
-    public void changePlanet (ActionEvent event){
-        if (planetComboBox.getValue() == "Moon"){
-            backgroundPane.getStylesheets().add(getClass().getResource("..\\CSS_stylesheets\\Moon.css").toExternalForm());
-            System.out.println("Patae");
-        }
+    /**
+     *  Triggered when the user changes the planet
+     */
+    public void changePlanet() {
+        System.out.println("Changed planet");
+        if (Objects.equals(planetComboBox.getValue(), "Moon")) {
 
-        if (planetComboBox.getValue() == "Mars"){
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Moon.css").toExternalForm());
 
+        } else if (Objects.equals(planetComboBox.getValue(), "Earth")) {
+
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Main.css").toExternalForm());
+
+        } else if (Objects.equals(planetComboBox.getValue(), "Mars")) {
+
+            backgroundPane.getStylesheets().clear();
+            backgroundPane.getStylesheets().add(getClass().getResource("/CSS_stylesheets/Mars.css").toExternalForm());
         }
     }
+
 }
