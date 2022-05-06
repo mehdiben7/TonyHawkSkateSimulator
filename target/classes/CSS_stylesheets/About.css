@@ -1,0 +1,43 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+.vbox{
+    -fx-font-family: 'Press Start 2P', cursive;
+    -fx-font-size: 14;
+
+    -fx-background-image: url("../images/credits.png");
+    -fx-background-size: cover;
+
+    -fx-border-color: #000000;
+    -fx-border-width: 12px;
+}
+
+.scrollpane{
+    -fx-background-color: rgba(69, 69, 69, 0);
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: #5a34ad;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d3db7d;
+    -fx-background-radius: 5em;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+}
+
+
+
