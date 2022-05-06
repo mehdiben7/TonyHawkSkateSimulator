@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleDoubleProperty;
  * @see SkaterPlane
  * @see AngledSkaterPlane
  */
-@Deprecated
+//@Deprecated
 public class ParabolaSkaterPlane extends SkaterPlane {
 
     /**
