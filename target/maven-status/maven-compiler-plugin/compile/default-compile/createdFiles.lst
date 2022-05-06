@@ -1,1 +1,5 @@
+ca\thetonyhawks\tonyhawksimulator\TonyHawkSimulator.class
 module-info.class
+ca\thetonyhawks\tonyhawksimulator\tests\SkaterTest.class
+ca\thetonyhawks\tonyhawksimulator\controller\ImportDatabaseController.class
+ca\thetonyhawks\tonyhawksimulator\controller\ImportDatabaseController$Planet.class
