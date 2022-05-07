@@ -41,14 +41,14 @@ import java.util.Objects;
 public class TonyHawkSimulatorController {
 
     public static final ObjectProperty<Interpolator> BEZIER_INTERPOLATOR_PROPERTY = new SimpleObjectProperty<>(Interpolator.SPLINE(0.76, 0.05, 0.95, 0.69));
+    public static final ObjectProperty<Interpolator> BEZIER_INTERPOLATOR_PROPERTY2 = new SimpleObjectProperty<>(Interpolator.SPLINE(0, 0, 1, 1));
 
     public static final String MATCH_DECIMAL_CHARACTERS_REGEX = "\\d*";
     public static final String REPLACE_NON_DECIMAL_CHARACTERS_REGEX = "[^\\d.]";
 
     public static final AngledSkaterPlane DEFAULT_ANGLED_SKATER_PLANE = new AngledSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
             AngledSkaterPlane.DEFAULT_PLANE_ANGLE);
-    public static final ParabolaSkaterPlane DEFAULT_PARABOLA_SKATER_PLANE = new ParabolaSkaterPlane(SkaterPlane.DEFAULT_FRICTION_COEFFICIENT,
-            2);
+
 
     public final AnimationModel animationModel = new AnimationModel(new Planet(Planet.PLANETS_GRAVITATIONAL_CONSTANTS[0]),
             DEFAULT_ANGLED_SKATER_PLANE,
@@ -60,6 +60,9 @@ public class TonyHawkSimulatorController {
 
     @FXML
     private ImageView skater;
+
+    @FXML
+    private ImageView skater2;
 
     @FXML
     private BorderPane backgroundPane;
@@ -104,6 +107,9 @@ public class TonyHawkSimulatorController {
 
 
     private CubicCurveTo planeParabola;
+    private CubicCurve cc;
+    private CubicCurve cc2;
+    private MoveTo moveToStart;
 
     @FXML
     private HBox centerPanel;
@@ -118,17 +124,18 @@ public class TonyHawkSimulatorController {
     public ComboBox<String> planetComboBox, planeTypesComboBox;
 
     @FXML
-    private Pane midpane;
+    public Pane midpane;
 
     @FXML
     private BarChart<String, Double> energyBarChart;
 
-    private Path path2;
+
 
     private PathTransition pt;
     private PathTransition pt2;
 
     private final Path path = new Path();
+    private Path path2;
 
     private final DoubleProperty upperEnergyBoundProperty;
 
@@ -193,7 +200,7 @@ public class TonyHawkSimulatorController {
         double animationNormalSpeed = animationModel.animationDurationProperty().get();
         double animationSlowMotionSpeed = animationModel.animationDurationProperty().get() * 2;
         pt = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path, skater);
-        pt2 = new PathTransition(Duration.seconds(normalSpeedRadioButton.isSelected() ? animationNormalSpeed : animationSlowMotionSpeed), path2, skater);
+
 
     }
 
@@ -242,45 +249,93 @@ public class TonyHawkSimulatorController {
 
     void setUpParabolaPlaneAnimation() { // TODO Use this method
 
-        //pt2.setDuration(Duration.millis(5000));
-
-        pt2.setNode(skater);
+        initializeParabolaSkaterPlane();
+        pt2 = new PathTransition();
+        pt2.setDuration(Duration.millis(5000));
+        pt2.setNode(skater2);
         pt2.setPath(path2);
+        pt2.setCycleCount(3);
         pt2.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pt2.setCycleCount(Animation.INDEFINITE);
+        pt2.interpolatorProperty().bind(BEZIER_INTERPOLATOR_PROPERTY2);
         pt2.setAutoReverse(true);
         pt2.play();
+
     }
 
     void initializeParabolaSkaterPlane(){
 
-        path2 = new Path();
         //width of the arc path
-        int x = 400;
-        int startX = 100;
-        int startY = 300;
-        int control1X = startX + 200;
-        int control1Y = startY + 200;
-        int control2X = control1X + 200;
-        int control2Y = control1Y;
-        //height
+        double startX = 100;
+        double startY = 500;
+        double control1X = startX + 200;
+        double control1Y = startY + 200;
+        double control2X = control1X + 200;
+        double control2Y = control1Y;
+        double endX = control2X + 200;
+        double endY = startY;
+
+        //CubicCurve (Shape)
+        cc = new CubicCurve (startX, startY, control1X, control1Y, control2X, control2Y, endX, endY);
+        cc.setFill(Color.TRANSPARENT);
+        cc.setStroke(Color.BLUE);
+        cc.setStrokeWidth(10);
+
+        int c = 125;
+        cc2 = new CubicCurve (startX-100, startY+25, control1X-c+10, control1Y+c, control2X+c-10, control2Y+c, endX+100, endY+25);
+        cc2.setFill(Color.TRANSPARENT);
+        cc2.setStroke(Color.BLUE);
+        cc2.setStrokeWidth(10);
+
+        //Cubic Curve (Path Element)
         planeParabola = new CubicCurveTo();
-        MoveTo start = new MoveTo(startX, startY);
 
-        planeParabola.setControlX1(control1X);
-        planeParabola.setControlY1(control1Y);
-        planeParabola.setControlX2(control2X);
-        planeParabola.setControlY2(control2Y);
-        planeParabola.setX(control2X + 200);
-        planeParabola.setY(control2Y - 200);
+        int y = 280;
+        int x = 100;
+        MoveTo moveToStart = new MoveTo();
+        moveToStart.xProperty().bind(cc.startXProperty().add(-x));
+        moveToStart.yProperty().bind(cc.startYProperty().subtract(y));
 
+        planeParabola.controlX1Property().bind(cc.controlX1Property().add(-x));
+        planeParabola.controlY1Property().bind(cc.controlY1Property().subtract(y));
+        planeParabola.controlX2Property().bind(cc.controlX2Property().add(-x));
+        planeParabola.controlY2Property().bind(cc.controlY2Property().subtract(y));
+        planeParabola.xProperty().bind(cc.endXProperty().add(-x));
+        planeParabola.yProperty().bind(cc.endYProperty().subtract(y));
+
+        path2 = new Path();
         path2.setStroke(Color.BLACK);
-        path2.setStrokeWidth(10);
+        path2.setStrokeWidth(5);
         path2.setStrokeType(StrokeType.INSIDE);
 
-        path2.getElements().add(start);
-        path2.getElements().add(planeParabola);
+        path2.getElements().addAll(moveToStart, planeParabola);
 
+    }
+    /**
+     * Either plays pt or pt2 according to the combobox chosen
+     */
+    private void  startPlay(){
+        if (planeTypesComboBox.getValue().equalsIgnoreCase("Angled plane")){pt.play();}
+        else if (planeTypesComboBox.getValue().equalsIgnoreCase("Parabola")){pt2.play();}
+        else System.out.println("error1");
+    }
+    private void  stopPlay(){
+
+            if (planeTypesComboBox.getValue().equalsIgnoreCase("Angled plane")) {pt.stop();}
+            else if (planeTypesComboBox.getValue().equalsIgnoreCase("Parabola")) {pt2.stop();}
+            else System.out.println("error2");
+    }
+
+    private void setUpAnimation(){
+        if (planeTypesComboBox.getValue().equalsIgnoreCase("Angled plane")){setUpAngledPlaneAnimation();}
+        else if (planeTypesComboBox.getValue().equalsIgnoreCase("Parabola")){setUpParabolaPlaneAnimation();}
+        else System.out.println("error3");
+    }
+
+    private void playFromStart(){
+
+        if (planeTypesComboBox.getValue().equalsIgnoreCase("Angled plane")) {pt.playFromStart();}
+        else if (planeTypesComboBox.getValue().equalsIgnoreCase("Parabola")) {pt2.playFromStart();}
+        System.out.println("error4");
 
     }
 
@@ -293,8 +348,10 @@ public class TonyHawkSimulatorController {
         if (animationModel.hasBeenStartedBeforeProperty().get()) {
             if (animationModel.isPausedProperty().get()) {
                 System.out.println("Paused -> Restarted");
-                pt.play();
-                pt2.play();
+                startPlay();
+                //setUpParabolaPlaneAnimation();
+                //pt.play();
+                //pt2.play();
                 animationTimer.start();
             } else {
                 System.out.println("Animation resumes!");
@@ -302,10 +359,14 @@ public class TonyHawkSimulatorController {
                 updateAngledPlaneValues();
                 updateFallDuration();
                 pt.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
-                pt2.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
+                //pt2.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
+                //pt2.setPath(path2);
+                setUpParabolaPlaneAnimation();
+
                 animationTimer.start();
-                pt.play();
-                pt2.play();
+                startPlay();
+                //pt.play();
+                //pt2.play();
 
             }
         } else {
@@ -313,8 +374,9 @@ public class TonyHawkSimulatorController {
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
-            setUpAngledPlaneAnimation();
-            setUpParabolaPlaneAnimation();
+            setUpAnimation();
+            //setUpAngledPlaneAnimation();
+            //setUpParabolaPlaneAnimation();
             animationTimer.start();
             animationModel.hasBeenStartedBeforeProperty().set(true);
         }
@@ -329,13 +391,16 @@ public class TonyHawkSimulatorController {
         animationTimer.stop();
         if (pt != null) { // Prevents the animation from being reset if it has been started before
             animationModel.isPausedProperty().set(false);
+            //stopPlay();
             pt.stop();
-            pt2.stop();
+            //pt2.stop();
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
             animationTimer.start();
-            pt.playFromStart();
+            playFromStart();
+            //pt.playFromStart();
+//            pt2.playFromStart();
         }
     }
 
@@ -347,17 +412,19 @@ public class TonyHawkSimulatorController {
         System.out.println("Animation paused!");
         animationModel.isPausedProperty().set(true);
         animationTimer.pause();
-        pt.pause();
-        pt2.pause();
-//        animationModel.hasBeenStartedBeforeProperty().set(true);
+        stopPlay();
+        //pt.pause();
+        //pt2.pause();
+        animationModel.hasBeenStartedBeforeProperty().set(true);
     }
 
     /**
      * Can be called by other classes to pause the animation of the skater and keep physical coherence
      */
     public void pauseAnimation() {
-        pt.pause();
-        pt2.pause();
+        stopPlay();
+        //pt.pause();
+        //pt2.pause();
     }
 
     /**
@@ -424,9 +491,9 @@ public class TonyHawkSimulatorController {
 
 
         setUpEnergyChart();
+        midpane.getChildren().remove(skater2);
 
         // Temporary - Disabling non-functional parts of the UI for the beta
-
 
         showForceVectorsCheckBox.setDisable(true);
 
@@ -447,7 +514,7 @@ public class TonyHawkSimulatorController {
         planeTypesComboBox.valueProperty().addListener((observableValue, s, t1) -> {
             if (t1.equalsIgnoreCase("Angled plane")) {
                 System.out.println("An angled plane");
-                midpane.getChildren().removeAll(path2, skater);
+                midpane.getChildren().removeAll(cc2, skater2);
                 midpane.getChildren().addAll(angledPlaneLine, skater);
                 animationModel.setPlane(DEFAULT_ANGLED_SKATER_PLANE);
 
@@ -458,9 +525,9 @@ public class TonyHawkSimulatorController {
 
                 //**********************************************
                 System.out.println("A parabola");
-                animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
+                //animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
                 midpane.getChildren().removeAll(angledPlaneLine, skater);
-                midpane.getChildren().addAll(path2, skater);
+                midpane.getChildren().addAll(cc2, skater2);
 
 
 
