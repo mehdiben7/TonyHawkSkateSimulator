@@ -118,7 +118,7 @@ public class TonyHawkSimulatorController {
     private TextField skaterMassField;
 
     @FXML
-    private Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
+    public Label skaterPositionLabel, skaterSpeedLabel, skaterAccelerationLabel;
 
     @FXML
     public ComboBox<String> planetComboBox, planeTypesComboBox;
@@ -397,8 +397,8 @@ public class TonyHawkSimulatorController {
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
-            animationTimer.start();
-            playFromStart();
+            //animationTimer.start();
+            //playFromStart();
             //pt.playFromStart();
 //            pt2.playFromStart();
         }
@@ -410,12 +410,14 @@ public class TonyHawkSimulatorController {
     @FXML
     private void pauseEventHandler() {
         System.out.println("Animation paused!");
-        animationModel.isPausedProperty().set(true);
-        animationTimer.pause();
-        stopPlay();
-        //pt.pause();
-        //pt2.pause();
-        animationModel.hasBeenStartedBeforeProperty().set(true);
+
+            animationModel.isPausedProperty().set(true);
+            animationTimer.pause();
+            stopPlay();
+            //pt.pause();
+            //pt2.pause();
+            animationModel.hasBeenStartedBeforeProperty().set(true);
+
     }
 
     /**
@@ -507,7 +509,6 @@ public class TonyHawkSimulatorController {
             animationModel.getPlanet().getGravitationalAccelerationProperty().set(gravitationalConstant);
 
         });
-        planetComboBox.disableProperty().bind(animationModel.isPausedProperty().not());
 
         planeTypesComboBox.setItems(animationModel.planeTypesProperty());
         planeTypesComboBox.getSelectionModel().selectFirst();
