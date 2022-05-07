@@ -69,6 +69,7 @@
                   <Pane fx:id="midpane" prefWidth="648.0">
                      <children>
                         <ImageView fx:id="skater" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="120.0" nodeOrientation="INHERIT" preserveRatio="true" styleClass="skater" />
+                        <ImageView fx:id="skater2" accessibleRole="NODE" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="300.0" nodeOrientation="INHERIT" preserveRatio="true" styleClass="skater" />
                         <Line fx:id="angledPlaneLine" endX="648.0" endY="683.0" startX="57.28572463989258" startY="110.5714340209961" stroke="#733b27" strokeLineCap="ROUND" strokeWidth="13.0" />
                      </children>
                   </Pane>
