@@ -1,5 +1,6 @@
 package ca.thetonyhawks.tonyhawksimulator.controller;
 
+import ca.thetonyhawks.tonyhawksimulator.model.AnimationModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,9 +54,11 @@ public class ImportDatabaseController
     {
         Planet planet=table.getSelectionModel().getSelectedItem();
         TonyHawkSimulatorController controller=new TonyHawkSimulatorController();
+
         controller.animationModel.getPlanet().getGravitationalAccelerationProperty().set(Double.parseDouble(planet.getAcceleration()));
         System.out.println("new grav const. : " + Double.parseDouble(planet.getAcceleration()));
-        controller.planetComboBox.setValue("DataBase");
+        //controller.skaterAccelerationLabel.setText("a = " + Double.parseDouble(planet.getAcceleration()) + " m/s^2");
+        //controller.planetComboBox.setValue("DataBase");
     }
 
 

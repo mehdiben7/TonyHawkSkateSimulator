@@ -22,7 +22,7 @@ import static ca.thetonyhawks.tonyhawksimulator.model.planes.AngledSkaterPlane.g
  */
 public class AnimationModel {
 
-    private final TonyHawkSimulatorController controller;
+    public final TonyHawkSimulatorController controller;
 
 
     public static final DecimalFormat TWO_DECIMALS_PHYSICS_DECIMAL_FORMAT = new DecimalFormat("0.00");
@@ -171,7 +171,7 @@ public class AnimationModel {
         this.animationSpeedProperty = new SimpleDoubleProperty();
         this.isInSlowMotionProperty = new SimpleBooleanProperty(isInSlowMotion);
         this.hasBeenStartBeforeProperty = new SimpleBooleanProperty(false);
-        this.pausedProperty = new SimpleBooleanProperty(true);
+        this.pausedProperty = new SimpleBooleanProperty(false);
         this.controller = controller;
     }
 
