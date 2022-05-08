@@ -126,6 +126,7 @@ public class TonyHawkSimulatorController {
     @FXML
     public Pane midpane;
 
+
     @FXML
     private BarChart<String, Double> energyBarChart;
 
@@ -251,10 +252,10 @@ public class TonyHawkSimulatorController {
 
         initializeParabolaSkaterPlane();
         pt2 = new PathTransition();
-        pt2.setDuration(Duration.millis(5000));
+        pt2.setDuration(Duration.seconds(1));
         pt2.setNode(skater2);
         pt2.setPath(path2);
-        pt2.setCycleCount(3);
+        pt2.setCycleCount(2);
         pt2.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pt2.interpolatorProperty().bind(BEZIER_INTERPOLATOR_PROPERTY2);
         pt2.setAutoReverse(true);
@@ -291,7 +292,7 @@ public class TonyHawkSimulatorController {
 
         int y = 280;
         int x = 100;
-        MoveTo moveToStart = new MoveTo();
+        moveToStart = new MoveTo();
         moveToStart.xProperty().bind(cc.startXProperty().add(-x));
         moveToStart.yProperty().bind(cc.startYProperty().subtract(y));
 
@@ -349,9 +350,6 @@ public class TonyHawkSimulatorController {
             if (animationModel.isPausedProperty().get()) {
                 System.out.println("Paused -> Restarted");
                 startPlay();
-                //setUpParabolaPlaneAnimation();
-                //pt.play();
-                //pt2.play();
                 animationTimer.start();
             } else {
                 System.out.println("Animation resumes!");
@@ -359,15 +357,8 @@ public class TonyHawkSimulatorController {
                 updateAngledPlaneValues();
                 updateFallDuration();
                 pt.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
-                //pt2.setInterpolator(BEZIER_INTERPOLATOR_PROPERTY.get());
-                //pt2.setPath(path2);
-                setUpParabolaPlaneAnimation();
-
                 animationTimer.start();
                 startPlay();
-                //pt.play();
-                //pt2.play();
-
             }
         } else {
             System.out.println("Animation started !");
@@ -375,12 +366,9 @@ public class TonyHawkSimulatorController {
             updateAngledPlaneValues();
             updateFallDuration();
             setUpAnimation();
-            //setUpAngledPlaneAnimation();
-            //setUpParabolaPlaneAnimation();
             animationTimer.start();
             animationModel.hasBeenStartedBeforeProperty().set(true);
         }
-
     }
 
     /**
@@ -391,16 +379,10 @@ public class TonyHawkSimulatorController {
         animationTimer.stop();
         if (pt != null) { // Prevents the animation from being reset if it has been started before
             animationModel.isPausedProperty().set(false);
-            //stopPlay();
-            pt.stop();
-            //pt2.stop();
+            stopPlay();
             updateSkaterMassValue();
             updateAngledPlaneValues();
             updateFallDuration();
-            //animationTimer.start();
-            //playFromStart();
-            //pt.playFromStart();
-//            pt2.playFromStart();
         }
     }
 
@@ -410,14 +392,10 @@ public class TonyHawkSimulatorController {
     @FXML
     private void pauseEventHandler() {
         System.out.println("Animation paused!");
-
             animationModel.isPausedProperty().set(true);
             animationTimer.pause();
             stopPlay();
-            //pt.pause();
-            //pt2.pause();
             animationModel.hasBeenStartedBeforeProperty().set(true);
-
     }
 
     /**
@@ -425,8 +403,6 @@ public class TonyHawkSimulatorController {
      */
     public void pauseAnimation() {
         stopPlay();
-        //pt.pause();
-        //pt2.pause();
     }
 
     /**
@@ -490,15 +466,11 @@ public class TonyHawkSimulatorController {
     }
 
     public void initialize() {
-
-
         setUpEnergyChart();
         midpane.getChildren().remove(skater2);
 
         // Temporary - Disabling non-functional parts of the UI for the beta
-
         showForceVectorsCheckBox.setDisable(true);
-
 
         midpane.rotateProperty().bind(planeAngleSlider.valueProperty().subtract(45));
         planetComboBox.setItems(animationModel.getPlanet().getPlanetNameObservableList());
@@ -515,24 +487,20 @@ public class TonyHawkSimulatorController {
         planeTypesComboBox.valueProperty().addListener((observableValue, s, t1) -> {
             if (t1.equalsIgnoreCase("Angled plane")) {
                 System.out.println("An angled plane");
-                midpane.getChildren().removeAll(cc2, skater2);
                 midpane.getChildren().addAll(angledPlaneLine, skater);
+                midpane.getChildren().removeAll(skater2, cc2);
                 animationModel.setPlane(DEFAULT_ANGLED_SKATER_PLANE);
-
+                energyBarChart.setVisible(true);
 
             } else if (t1.equalsIgnoreCase("Parabola")) {
-                //*********************************** initializes path without fxml
+
                 initializeParabolaSkaterPlane();
-
-                //**********************************************
                 System.out.println("A parabola");
-                //animationModel.setPlane(DEFAULT_PARABOLA_SKATER_PLANE);
+                setUpParabolaPlaneAnimation();
+                pt2.pause();
                 midpane.getChildren().removeAll(angledPlaneLine, skater);
-                midpane.getChildren().addAll(cc2, skater2);
-
-
-
-
+                midpane.getChildren().addAll(skater2, cc2);
+                energyBarChart.setVisible(false);
             }
 
         });

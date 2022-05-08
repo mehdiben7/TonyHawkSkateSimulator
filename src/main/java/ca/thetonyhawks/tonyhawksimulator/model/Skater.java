@@ -108,9 +108,11 @@ public class Skater {
                                                             plane.planeHeightProperty().get(), kineticEnergyProperty.get()))));
         });
 
+
         // MARK - Temporary
 
 //        this.potentialGravitationalEnergyProperty.addListener((observable, oldValue, newValue) -> System.out.println((double) newValue + " is the potential energy in Joules"));
 
     }
+
 }
