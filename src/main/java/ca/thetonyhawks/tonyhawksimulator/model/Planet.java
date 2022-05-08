@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
  */
 public class Planet {
 
-    public static final String[] PLANETS_NAMES = {"Earth", "Moon", "Mars"};
+    public static String[] PLANETS_NAMES = {"Earth", "Moon", "Mars"};
     public static final double[] PLANETS_GRAVITATIONAL_CONSTANTS = {9.806_65, 1.622, 3.711};
 
     private final ObservableList<String> planetNameObservableList;
@@ -22,7 +22,7 @@ public class Planet {
     /**
      *  The gravitational acceleration constant <em>g</em> of the planet
      */
-    private final DoubleProperty gravitationalAccelerationProperty;
+    private DoubleProperty gravitationalAccelerationProperty;
 
     public DoubleProperty getGravitationalAccelerationProperty() {
         return this.gravitationalAccelerationProperty;
@@ -32,7 +32,5 @@ public class Planet {
     public Planet(double gravitationalAcceleration) {
         this.gravitationalAccelerationProperty = new SimpleDoubleProperty(gravitationalAcceleration);
         this.planetNameObservableList = FXCollections.observableArrayList(PLANETS_NAMES);
-
-
     }
 }
